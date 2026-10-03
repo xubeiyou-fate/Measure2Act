@@ -213,6 +213,14 @@ Experiment package paths are descriptive and grouped under `experiments/`.
 Frozen protocol metadata remains inside each package, and the packages are
 indexed by role in [docs/CODE_MAP.md](docs/CODE_MAP.md).
 
+The external model archive keeps checksum-compatible role identifiers
+(`ascent`, `decision_support`, and `predicted_risk`). Their public meanings are
+`source_forecaster`, `replacement_forecaster`, and `target_risk_head`,
+respectively. These identifiers describe roles in the Measure2Act pipeline;
+they must not be read as a claim that the released weights are official ASCENT
+weights. The full provenance and naming audit is in
+[docs/PUBLICATION_AUDIT.md](docs/PUBLICATION_AUDIT.md).
+
 ## Release status
 
 This tree is a `v1.0.0` release candidate. Before a public push or tag:
