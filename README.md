@@ -11,12 +11,15 @@ Canonical repository: <https://github.com/xubeiyou-fate/Measure2Act>
 [Data access](#data-access) | [Repository map](docs/CODE_MAP.md) |
 [Project structure](docs/PROJECT_STRUCTURE.md) |
 [AST submission context](docs/AST_SUBMISSION.md) |
+[Publication audit](docs/PUBLICATION_AUDIT.md) |
 [Citation](#citation)
 
 > **Upload status:** the source-only tree is ready to upload to a public GitHub
-> repository. Large data and model assets remain in their separate official or
-> DOI records; the final version tag still requires the resolving repository,
-> DOI, and release metadata.
+> repository. The repository has been created at
+> `https://github.com/xubeiyou-fate/Measure2Act`, but the `main` ref still
+> requires a GitHub token with the `workflow` scope. Large data and model
+> assets remain in their separate official or DOI records; the final version
+> tag still requires the resolving repository, DOI, and release metadata.
 
 ## Overview
 
