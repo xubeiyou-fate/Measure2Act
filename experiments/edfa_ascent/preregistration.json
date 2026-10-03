@@ -1,0 +1,67 @@
+{
+  "format_version": 1,
+  "cycle": "C96_EDFA_ASCENT",
+  "frozen_at": "2026-07-29",
+  "objective": "Test whether observed 3D aircraft encounter relations improve ASCENT through scene-level factorized prediction without residual fusion or learned feature gates.",
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "fit_split": "train",
+    "development_split": "dev",
+    "locked_test_split": "locked_test",
+    "locked_test_must_start_unevaluated": true
+  },
+  "trajectory_contract": {
+    "observation_length": 16,
+    "observation_step_seconds": 1,
+    "prediction_length_seconds": 120,
+    "prediction_step_seconds": 5,
+    "modes": 5
+  },
+  "encounter_audit_threshold_km": {
+    "horizontal": 1.0,
+    "vertical": 0.3
+  },
+  "relation_label": {
+    "classes": ["none", "row_influences_column", "column_influences_row"],
+    "cross_time_horizontal_km": 1.0,
+    "cross_time_vertical_km": 0.3,
+    "minimum_arrival_separation_steps": 1
+  },
+  "variants": {
+    "a0": "matched ASCENT with per-agent WTA",
+    "a1": "end-to-end observed actor-stage social attention with per-agent WTA",
+    "a2": "end-to-end scene modes with joint WTA and no parent trajectory conditioning",
+    "a3": "EDFA-ASCENT with predicted encounter DAG and cross-aircraft factorized decoding",
+    "a4": "A3 evaluated with date/scene-size-compatible cyclic neighbor permutation",
+    "a5": "A3 evaluated with future-derived oracle encounter graph as a diagnostic upper bound"
+  },
+  "seeds": [7, 42, 123],
+  "development_gates": {
+    "overall_minfde_relative_gain": 0.02,
+    "multi_agent_minfde_relative_gain": 0.05,
+    "multi_agent_minade_relative_gain": 0.03,
+    "interactive_minfde_relative_gain": 0.08,
+    "joint_scene_minfde_relative_gain": 0.08,
+    "overall_p95_minfde_relative_gain_minimum": 0.0,
+    "overall_energy_relative_gain": 0.02,
+    "placebo_gain_retention_maximum": 0.2,
+    "required_seed_count": 3,
+    "require_a3_to_beat_a1": true,
+    "require_date_cluster_bootstrap_ci_above_zero": true
+  },
+  "locked_test_policy": {
+    "default_access": "forbidden",
+    "required_gate_artifact": "artifacts/experiments/edfa_ascent/development_gate.json",
+    "required_gate_value": true,
+    "maximum_evaluations": 1
+  },
+  "forbidden_mechanisms": [
+    "trajectory residual branch",
+    "score residual branch",
+    "learned feature fusion gate",
+    "temporal autoregressive future decoder",
+    "post-generation selector"
+  ]
+}

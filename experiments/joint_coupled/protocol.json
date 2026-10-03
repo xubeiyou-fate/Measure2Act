@@ -1,0 +1,98 @@
+{
+  "format_version": 1,
+  "cycle": "C129_JOINT_COUPLED_DUAL",
+  "frozen_at": "2026-08-06T12:09:20+08:00",
+  "status": "implementation_frozen_before_C129_model_results",
+  "question": "Does restoring native end-to-end score coupling to C127 B6 exact dual-oracle geometry improve both deployed top1 ADE and top1 FDE while retaining the oracle ADE/FDE gain?",
+  "hypotheses": {
+    "primary": "J1_joint_coupled_dual improves top1 ADE and top1 FDE over matched C127 B0 and does not regress minADE or minFDE versus B0.",
+    "mechanism": "The native score head and the two geometry heads co-adapt through the same mode features while the geometry loss still assigns independent ADE and FDE winners.",
+    "rival": "The detached C128 scorer failed because B6 candidate geometry is intrinsically hard to rank, so restoring shared-feature gradients will not beat B0.",
+    "null": "Joint coupling either fails to improve both top1 metrics or sacrifices either oracle geometry metric."
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "date_folds": "artifacts/experiments/metric_exact/date_folds.json",
+    "date_folds_sha256": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "expected_train_scenes": 872417,
+    "expected_train_actors": 1221720,
+    "expected_train_scene_dates": 74,
+    "access_policy": "C129 train-date screening may open only processed_data/train. The consumed locked test and the open development split are unavailable to this implementation."
+  },
+  "model": {
+    "variant": "J1_joint_coupled_dual",
+    "base": "ASCENT positive_speed_pitch with native shared mode head",
+    "modes": 5,
+    "history_steps": 16,
+    "future_steps": 24,
+    "future_horizon_seconds": 120,
+    "geometry_objective": "exact_independent_minade_plus_minfde",
+    "score_objective": "hard_scaled_ade_plus_fde_winner_cross_entropy",
+    "score_gradient_reaches_shared_mode_features": true,
+    "candidate_expansion": false
+  },
+  "metric_scales": {
+    "ade": 0.2760537266731262,
+    "fde": 0.4783363938331604,
+    "source": "frozen C127 scales",
+    "retuning_prohibited": true
+  },
+  "training": {
+    "from_scratch": true,
+    "epochs": 20,
+    "batch_size": 256,
+    "evaluation_batch_size": 512,
+    "num_workers_per_run": 12,
+    "prefetch_factor": 4,
+    "persistent_workers": true,
+    "learning_rate": 0.001,
+    "optimizer": "Adam",
+    "scheduler_milestones": [10, 15],
+    "scheduler_gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true
+  },
+  "screening": {
+    "seed": 42,
+    "folds": [0, 1, 2],
+    "execution_order": "Run fold 0 first. Folds 1 and 2 are replication runs only after the frozen fold-0 gate passes.",
+    "matched_controls": "Reuse completed C127 B0 and B6 fold checkpoints and metrics; do not retrain controls.",
+    "fold0_gate": {
+      "top1_ade_better_than_C127_B0": true,
+      "top1_fde_better_than_C127_B0": true,
+      "minade_not_worse_than_C127_B0": true,
+      "minfde_not_worse_than_C127_B0": true
+    },
+    "replication_gate": {
+      "both_top1_metrics_better_than_C127_B0_in_at_least_folds": 2,
+      "aggregate_top1_ade_better_than_C127_B0": true,
+      "aggregate_top1_fde_better_than_C127_B0": true,
+      "aggregate_minade_not_worse_than_C127_B0": true,
+      "aggregate_minfde_not_worse_than_C127_B0": true
+    },
+    "control_protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08",
+    "failure_rule": "Stop C129 immediately when fold 0 fails any gate; do not compensate with seeds, temperatures, weights, epochs, or post-selection."
+  },
+  "primary_metrics": ["top1_ade", "top1_fde"],
+  "geometry_guard_metrics": ["minade", "minfde"],
+  "secondary_metrics": ["energy_score", "minfde_p95", "tail_minfde", "effective_modes"],
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_expansion_selection_reranking_or_nms",
+    "posthoc_detached_scorer",
+    "development_selected_temperature_weight_width_epoch_or_seed",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C129 is train-only blocked algorithm screening. No development or sealed-test claim is authorized."
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "protocol_id": "mabpt_tartan_probability_ablation_v1",
+  "registered_at": "2026-08-13",
+  "purpose": "Isolate the contribution of source-probability mass in exact Gibbs permutation transport on the frozen Tartan target-domain checkpoints.",
+  "data": {
+    "parent_protocol": "mabpt/tartan_retrain_protocol_v1.json",
+    "airports": ["KAGC", "KBTP"],
+    "regimes": ["target_only", "full_finetune"],
+    "seeds": [42, 7, 123, 2024, 2026],
+    "selection_split": "development",
+    "reporting_split": "test",
+    "cluster_unit": "calendar_date"
+  },
+  "arms": {
+    "ascent_native": "Target-airport ASCENT support and native probabilities.",
+    "target_native": "Shared target support and its native decision-logit probabilities.",
+    "target_energy": "Shared target support and the target model's Energy-optimal probabilities without a transported prior.",
+    "uniform_energy_kl": "Shared target support with a uniform prior followed by the frozen Energy-KL projection.",
+    "sinkhorn_energy_kl": "Shared target support with a fixed-iteration Sinkhorn prior followed by the frozen Energy-KL projection.",
+    "gibbs_unweighted_prior": "Shared target support with exact Gibbs permutation transport whose assignment cost uses uniform source weights.",
+    "gibbs_mass_aware_prior": "Shared target support with exact Gibbs permutation transport whose assignment cost uses predicted source mass.",
+    "gibbs_unweighted_energy_kl": "Unweighted exact Gibbs prior followed by the frozen Energy-KL projection.",
+    "gibbs_mass_aware_energy_kl": "Mass-aware exact Gibbs prior followed by the frozen Energy-KL projection; the pre-amendment MABPT probability operator.",
+    "source_target_native_union10": "Uncompressed ten-atom union of ASCENT-native and target-native measures with equal model mass; a different-support cardinality control, not a component attribution arm."
+  },
+  "shared_support_primary_comparison": {
+    "control": "gibbs_unweighted_energy_kl",
+    "candidate": "gibbs_mass_aware_energy_kl",
+    "only_changed_factor": "Whether predicted source probability mass weights the permutation assignment cost.",
+    "primary_metric": "energy_score",
+    "secondary_metrics": ["nll", "brier", "ece"],
+    "lower_is_better": true,
+    "practical_equivalence_margin_energy_score": 0.001,
+    "pooled_estimand": "Equal-weight mean over the four airport-by-regime cells; seeds are paired globally and calendar dates are resampled within seed and cell with actor weighting.",
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20260813
+  },
+  "development_decision_rule": {
+    "retain_mass_aware_name": "The pooled 95% bootstrap CI for unweighted-minus-mass-aware Energy is above zero and the point gain is at least 0.001.",
+    "otherwise": "Freeze gibbs_unweighted_energy_kl as the parsimonious operator and recommend Exact Gibbs Permutation Transport rather than Mass-Aware as the leading name.",
+    "test_role": "Report every frozen arm after the development receipt is created; never revise the selected operator from test results."
+  },
+  "integrity": {
+    "future_target_in_probability_forward": false,
+    "shared_target_support_and_risk_head": true,
+    "checkpoint_selection_changed": false,
+    "union10_excluded_from_shared_support_attribution": true,
+    "existing_locked_test_cohort_previously_used_for_main_model_evaluation": true
+  },
+  "claim_boundaries": [
+    "The component analysis is prospective relative to its development-only selection receipt, but the retrospective test cohort was used previously for the main ASCENT-versus-MABPT analysis and is not a fresh blind holdout.",
+    "A shared-support probability operator cannot change minADE or minFDE; those metrics are reported once as geometry checks, not as evidence for mass-aware transport.",
+    "The union-10 control has a different support and cardinality and is reported separately from probability attribution.",
+    "Failure to satisfy the registered development rule means that an independent mass-aware contribution is not established."
+  ]
+}

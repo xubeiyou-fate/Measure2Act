@@ -1,0 +1,197 @@
+{
+  "format_version": 1,
+  "cycle": "C127_metric_exact_score_isolated_ascent",
+  "frozen_at": "2026-08-04T17:33:00+08:00",
+  "amendments": [
+    {
+      "at": "2026-08-04T17:48:00+08:00",
+      "phase": "P0_before_formal_training",
+      "reason": "Preflight distinguished 81 manifest-assigned train dates from 74 dates that actually contribute retained 136-frame TrajectoryDataset scenes.",
+      "change": "Date folds operate on the 74 effective train scene dates; the 81-date manifest count remains a separate audited property.",
+      "result_accessed": false
+    }
+  ],
+  "question": "Does exact optimization of the independently evaluated minADE5 and minFDE5 or a single metric-combined oracle improve shared positive-speed ASCENT beyond the strongest score-isolated control?",
+  "hypotheses": {
+    "primary": "B6_dual_oracle lowers both minADE5 and minFDE5 versus B2_decoupled_original and the official ASCENT baseline.",
+    "rival": "B5_single_combined performs as well as or better than B6, implying exact Euclidean metric alignment rather than separate ADE/FDE winners explains the gain.",
+    "null": "The C99 B2 seed-42 result does not replicate and neither exact objective improves both metrics."
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "70c0a4fc1eb0361a9e3732caac8f7106e1543649dc784ada6189c096a7027b46",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "development_scene_dates": "artifacts/c97_ikd_ascent/dev_scene_dates.json",
+    "development_scene_dates_sha256": "d77a7c5b49aab3b7c289c24ca79360d523e3ab26921fd1f6e4deeb6ad043f27b",
+    "expected": {
+      "train_scenes": 872417,
+      "train_actors": 1221720,
+      "development_scenes": 171063,
+      "development_actors": 256305,
+      "train_manifest_dates": 81,
+      "train_scene_dates": 74,
+      "development_dates": 11,
+      "locked_test_dates": 11,
+      "date_overlap": 0,
+      "file_overlap": 0
+    }
+  },
+  "metric_scales": {
+    "source": "frozen C99 A0 seed-42 development result, used only as a fixed dimensionless scale",
+    "minade": 0.2760537266731262,
+    "minfde": 0.4783363938331604,
+    "retuning_prohibited": true
+  },
+  "variants": {
+    "B0_signed_coupled": {
+      "coordinate": "signed_speed_pitch",
+      "score_gradient": "coupled",
+      "geometry_objective": "original_smooth_l1"
+    },
+    "B1_positive_coupled": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "coupled",
+      "geometry_objective": "original_smooth_l1"
+    },
+    "B2_decoupled_original": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "original_smooth_l1"
+    },
+    "B3_exact_minade": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "exact_minade"
+    },
+    "B4_exact_minfde": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "exact_minfde"
+    },
+    "B5_single_combined": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "exact_single_combined_oracle"
+    },
+    "B6_dual_oracle": {
+      "coordinate": "positive_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "exact_independent_minade_plus_minfde"
+    },
+    "B7_signed_dual": {
+      "coordinate": "signed_speed_pitch",
+      "score_gradient": "isolated",
+      "geometry_objective": "exact_independent_minade_plus_minfde"
+    }
+  },
+  "training": {
+    "from_scratch": true,
+    "epochs": 20,
+    "batch_size": 256,
+    "evaluation_batch_size": 512,
+    "learning_rate": 0.001,
+    "optimizer": "Adam",
+    "scheduler_milestones": [10, 15],
+    "scheduler_gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "modes": 5,
+    "history_steps": 16,
+    "future_steps": 24,
+    "future_horizon_seconds": 120,
+    "checkpoint": "fixed final epoch 20",
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "scorer_policy": "Geometry screening uses zero logits for isolated arms. A detached scorer may be fitted only after a geometry candidate passes all development gates; it cannot alter, rank, remove, or route trajectories."
+  },
+  "folds": {
+    "count": 5,
+    "assignment_seed": 127,
+    "unit": "calendar_date",
+    "balancing": "greedy balance by train scene count after seeded tie shuffling",
+    "artifact": "artifacts/experiments/metric_exact/date_folds.json"
+  },
+  "phases": {
+    "P0": {
+      "purpose": "data, objective, gradient-isolation, evaluator-parity and deterministic smoke checks",
+      "locked_test": false
+    },
+    "P1": {
+      "folds": [0],
+      "seeds": [42],
+      "variants": [
+        "B0_signed_coupled",
+        "B1_positive_coupled",
+        "B2_decoupled_original",
+        "B3_exact_minade",
+        "B4_exact_minfde",
+        "B5_single_combined",
+        "B6_dual_oracle",
+        "B7_signed_dual"
+      ],
+      "selection": "B5 and B6 are the only algorithm candidates; B0-B4 and B7 are controls or diagnostics.",
+      "candidate_tie_break": "Among candidates passing every P1 gate, minimize max(candidate_minade/B2_minade, candidate_minfde/B2_minfde); exact equality favors the preregistered primary B6."
+    },
+    "P2": {
+      "folds": [1, 2, 3, 4],
+      "seeds": [42],
+      "variants": ["B0_signed_coupled", "B2_decoupled_original", "P1_selected_exact_candidate"]
+    },
+    "P3": {
+      "training_split": "all_train_dates",
+      "evaluation_split": "development",
+      "seeds": [42, 7, 123, 2024, 2026],
+      "variants": ["B0_signed_coupled", "B2_decoupled_original", "P2_selected_exact_candidate"]
+    }
+  },
+  "gates": {
+    "P1_exact_candidate": {
+      "both_metrics_better_than_B2": true,
+      "both_metrics_better_than_B0": true
+    },
+    "P2_date_replication": {
+      "both_metrics_better_than_B2_in_at_least_four_of_five_folds": true,
+      "overall_paired_date_bootstrap_ci_lower_bound_positive_for_both": true
+    },
+    "P3_seed_replication": {
+      "both_metrics_better_than_B2_in_at_least_four_of_five_seeds": true,
+      "both_metrics_better_than_official_epoch12": {
+        "minade": 0.275548,
+        "minfde": 0.477318
+      },
+      "hierarchical_date_by_seed_bootstrap_ci_lower_bound_positive_for_both": true
+    }
+  },
+  "run_order": {
+    "seed": 127,
+    "artifact": "artifacts/experiments/metric_exact/run_order.json",
+    "policy": "randomize variants within each fold-seed block; execute no more than one run per GPU"
+  },
+  "locked_test_policy": {
+    "maximum_evaluation_events": 1,
+    "required_gate_artifact": "artifacts/experiments/metric_exact/development_gate.json",
+    "receipt": "artifacts/experiments/metric_exact/locked_test_receipt.json",
+    "evaluate_all_frozen P3 checkpoints_in_one_event": true,
+    "never_select_variant_seed_epoch_or_weight_on_locked_test": true
+  },
+  "primary_metrics": ["minade", "minfde"],
+  "secondary_metrics": ["minfde_p95", "energy_score", "tail_minfde", "top1_ade", "top1_fde", "nll", "brier", "ece", "effective_modes"],
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_generation_then_selection",
+    "reranking_nms_or_postprocessing",
+    "development_selected_loss_weight_temperature_width_or_epoch",
+    "secondary_metric_substitution_for_failed_minade_or_minfde"
+  ],
+  "claim_boundary": {
+    "P0_P2": "exploratory algorithm development only",
+    "P3": "development replication; not a sealed-test claim",
+    "locked_test": "one confirmatory event only after every gate passes",
+    "probability_quality": "no calibrated-distribution claim follows from oracle minADE/minFDE gains"
+  }
+}

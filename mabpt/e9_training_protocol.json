@@ -1,0 +1,86 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiment": "E9 trained support cardinality and operator scaling",
+  "frozen_at": "2026-08-10T18:45:00+08:00",
+  "status": "frozen_before_K3_or_K7_training_or_validation_metrics",
+  "hypothesis": "The mass-aware permutation posterior and convex projection retain an Energy advantage over cardinality-matched ASCENT when the source and target supports are trained natively at K=3 and K=7.",
+  "rival": "The K=5 result is a cardinality-specific effect, or approximation error at K=7 removes the gain.",
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "folds": [1, 2],
+    "blocking_unit": "calendar date",
+    "train_only": true,
+    "development_split_used": false,
+    "locked_test_used": false
+  },
+  "models": {
+    "cardinalities": [3, 5, 7],
+    "newly_trained_cardinalities": [3, 7],
+    "seed": 42,
+    "source": "native ASCENT signed coupled support and categorical mass",
+    "target": "native positive-speed/pitch support with SPO+ decision costs",
+    "risk_operator": "frozen target backbone plus full-mode expected-ADE risk operator",
+    "K5_reference": "frozen MABPT v1.0.0 checkpoints and results"
+  },
+  "training": {
+    "source_and_target": {
+      "epochs": 20,
+      "batch_size": 256,
+      "learning_rate": 0.001,
+      "scheduler_milestones": [10, 15],
+      "scheduler_gamma": 0.5
+    },
+    "risk_operator": {
+      "epochs": 20,
+      "batch_size": 1024,
+      "learning_rate": 0.001,
+      "scheduler_milestones": [10, 15],
+      "scheduler_gamma": 0.5,
+      "backbone_frozen": true
+    },
+    "gradient_clip_norm": 5.0,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true,
+    "checkpoint": "fixed final epoch",
+    "validation_target_used_for_selection": false
+  },
+  "operators": {
+    "K3": ["exact_6" , "topM_6", "Sinkhorn_64"],
+    "K5": ["exact_120", "topM_8", "topM_32", "Sinkhorn_64"],
+    "K7": ["exact_5040", "topM_32", "topM_128", "topM_512", "Sinkhorn_64"],
+    "topM_backend": "enumerate then truncate; approximation-quality result only, not a scalable Murty runtime claim",
+    "projection": "the same fixed MABPT convex Energy-KL projection for every correspondence operator"
+  },
+  "metrics": [
+    "top1_ADE",
+    "top1_FDE",
+    "minADE",
+    "minFDE",
+    "Energy",
+    "legacy_oracle_NLL",
+    "legacy_oracle_Brier",
+    "transported_probability_L1_vs_exact",
+    "retained_posterior_mass",
+    "latency",
+    "peak_GPU_memory"
+  ],
+  "forbidden": [
+    "splitting_or_duplicating_K5_candidates_to_construct_K7",
+    "post_generation_candidate_expansion",
+    "trajectory_or_control_residual",
+    "learned_gate",
+    "temperature_or_weight_search",
+    "validation_selected_epoch_or_seed",
+    "development_or_locked_test_access"
+  ],
+  "failure_criteria": [
+    "non-finite training or operator output",
+    "simplex violation",
+    "exact MABPT Energy fails to improve over cardinality-matched source ASCENT in either fold",
+    "K7 exact inference exceeds the declared practical latency budget",
+    "top-M approximation error is too large to support a scalability claim"
+  ],
+  "claim_boundary": "This is a retrospective train-date cardinality study. It tests native-cardinality behavior but does not convert the historically opened folds into fresh confirmation."
+}

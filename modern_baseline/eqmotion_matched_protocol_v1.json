@@ -1,0 +1,55 @@
+{
+  "format_version": 1,
+  "experiment": "EqMotion matched TrajAir-to-Tartan baseline",
+  "frozen_at": "2026-08-12T18:30:00+08:00",
+  "status": "frozen_before_matched_training_or metrics",
+  "official_source": {
+    "repository": "https://github.com/MediaBrain-SJTU/EqMotion.git",
+    "commit": "5aec2e0b61c511fa93a24138dd90da59a089084b",
+    "local_path": "third_party/eqmotion_official",
+    "source_modified": false,
+    "license": "MIT"
+  },
+  "data": {
+    "train": "dataset/trajair_111day_c12/processed_data/train",
+    "development": "dataset/trajair_111day_c12/processed_data/dev",
+    "external": {
+      "kagc": "dataset/tartan_kagc_submission_1024/processed_data/test",
+      "kbtp": "dataset/tartan_kbtp_submission_1024/processed_data/test"
+    },
+    "external_finetuning_or_calibration": false
+  },
+  "grid": {
+    "coordinates": 3,
+    "history_points": 16,
+    "history_interval_seconds": 1,
+    "future_points": 24,
+    "future_interval_seconds": 5,
+    "modes": 5
+  },
+  "model": {
+    "hidden_nf": 32,
+    "channels": 16,
+    "layers": 2,
+    "official_candidate_heads": 20,
+    "registered_heads": "first five fixed before training",
+    "probabilities": "uniform empirical finite measure",
+    "top1_policy": "not publication-comparable because the official diverse head has no learned categorical ranking"
+  },
+  "training": {
+    "seed": 42,
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.0001,
+    "loss": "actor-mean best-of-5 ADE",
+    "checkpoint": "fixed final epoch",
+    "validation_selection": false,
+    "gradient_clip_norm": 5.0,
+    "deterministic_algorithms": true,
+    "tf32": false,
+    "automatic_mixed_precision": false
+  },
+  "publication_metrics": ["minade", "minfde", "energy_score"],
+  "diagnostic_only_metrics": ["fixed_candidate0_ade", "fixed_candidate0_fde"],
+  "claim_boundary": "Official EqMotion source with a local 3-D aviation data adapter. Uniform K=5 probabilities allow an Energy comparison; no learned mode ranking exists, so Top-1 is diagnostic only."
+}

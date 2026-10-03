@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 matched-horizon reconstructed social views",
+  "frozen_at": "2026-08-10T16:17:00+08:00",
+  "status": "frozen_before_MABPT_metrics_on_social_views",
+  "supersedes": "mabpt/e1_social_protocol.json",
+  "reason_for_pre_result_revision": "Protocol v1 inherited the native MABPT 16-step history and 5-second output grid, while official TrajAirNet uses an 11-step history and 10-second output grid. No formal MABPT social-view metric existed when v2 fixed a common cohort, history, and target grid.",
+  "model_input": {
+    "fold": 1,
+    "source": "frozen C127 B0 ASCENT fold1 seed42 epoch20",
+    "target": "frozen C161 Energy predict-optimize fold1 seed42 epoch20",
+    "external_finetuning": false,
+    "external_calibration": false,
+    "checkpoint_selection_by_external_metrics": false
+  },
+  "evaluation": {
+    "observation_steps": 11,
+    "observation_stride_seconds": 1,
+    "forecast_horizon_seconds": 120,
+    "prediction_stride_seconds": 10,
+    "mabpt_native_prediction_stride_seconds": 5,
+    "mabpt_fixed_output_indices_zero_based": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
+    "common_target_times_seconds": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
+    "support_transport_grid": "MABPT native 5-second grid; target-free probability transport is computed before fixed metric-grid subsampling"
+  },
+  "datasets": {
+    "trajair_social_7days1": {"path": "dataset/7days1_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days2": {"path": "dataset/7days2_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days3": {"path": "dataset/7days3_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days4": {"path": "dataset/7days4_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"}
+  },
+  "external_view_manifest": {
+    "path": "dataset/trajair_reconstructed_manifest.json",
+    "sha256": "e9f98953e135f289b8374ee0ffbede0375109482dd55707c71e7e05d940173fe"
+  },
+  "comparators": ["last-observation constant velocity", "TrajAirNet", "source ASCENT native K5", "target-support native logits", "target-support Energy probabilities", "MABPT"],
+  "metrics": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "Energy", "legacy_oracle_mode_NLL", "legacy_oracle_mode_Brier", "ECE"],
+  "integrity": {
+    "same_scene_construction_as_official_baseline": true,
+    "same_history_and_target_grid": true,
+    "target_in_probability_forward": false,
+    "residual_or_gate": false,
+    "temperature_or_weight_search": false
+  },
+  "claim_boundary": "The reconstructed social views and their manifest were created and opened by earlier repository work. Results are matched-horizon retrospective cross-dataset reuse evidence, not fresh confirmation. MABPT was trained with 16 observations and is evaluated zero-shot with 11."
+}

@@ -1,0 +1,23 @@
+{
+  "format_version": 1,
+  "cycle": "C127_metric_exact_score_isolated_ascent",
+  "frozen_at": "2026-08-05T00:02:00+08:00",
+  "protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08",
+  "original_analysis_plan_sha256": "a57e7bd6d5c761ff4c0d4e65d70cec1f4dc975d202a281e7d0c069b80cda76a1",
+  "timing_disclosure": {
+    "P1_results_accessed": true,
+    "P2_fold1_B0_B2_results_accessed": true,
+    "P2_candidate_results_accessed": false,
+    "P3_results_accessed": false,
+    "locked_test_accessed": false
+  },
+  "reason": "The original locked plan evaluated B0 checkpoints but its success gates only compared the candidate with B2. That could confirm the method without proving the user-requested improvement over matched ASCENT B0.",
+  "effect_on_original_plan": "Conjunctive claim guard only. Every original B2 gate remains required; no arm, seed, epoch, metric, weight, or interval rule is removed or relaxed.",
+  "additional_locked_success_gates": {
+    "both_metrics_better_than_B0_in_at_least_four_of_five_seeds": true,
+    "candidate_mean_better_than_B0_for_both_metrics": true,
+    "hierarchical_date_by_seed_bootstrap_vs_B0_ci_lower_bound_positive_for_both": true
+  },
+  "failure_policy": "If either the original B2 gates or any added B0 gate fails, report the complete one-event result and do not label C127 confirmed.",
+  "locked_test_used": false
+}

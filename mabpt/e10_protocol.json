@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "experiment_id": "E10",
+  "model": "MABPT",
+  "frozen_at": "2026-08-10T13:42:00+08:00",
+  "status": "frozen_before_E10_results",
+  "evidence_class": "legacy_development_only",
+  "folds": [1, 2],
+  "comparators": ["ASCENT", "MABPT"],
+  "conditions": {
+    "clean": {},
+    "dropout_10": {"kind": "ADS_B_dropout", "rate": 0.10, "imputation": "causal_zero_order_hold"},
+    "dropout_30": {"kind": "ADS_B_dropout", "rate": 0.30, "imputation": "causal_zero_order_hold"},
+    "dropout_50": {"kind": "ADS_B_dropout", "rate": 0.50, "imputation": "causal_zero_order_hold"},
+    "noise_10m": {"kind": "position_noise", "horizontal_sigma_km": 0.01, "vertical_sigma_km": 0.0025},
+    "noise_30m": {"kind": "position_noise", "horizontal_sigma_km": 0.03, "vertical_sigma_km": 0.0075},
+    "noise_50m": {"kind": "position_noise", "horizontal_sigma_km": 0.05, "vertical_sigma_km": 0.0125},
+    "history_4": {"kind": "history_truncation", "retained_steps": 4, "padding": "earliest_retained_position"},
+    "history_8": {"kind": "history_truncation", "retained_steps": 8, "padding": "earliest_retained_position"},
+    "history_12": {"kind": "history_truncation", "retained_steps": 12, "padding": "earliest_retained_position"}
+  },
+  "strata": {
+    "distance": "fold-training-only current horizontal range quartiles",
+    "traffic_density": ["one_actor", "two_to_three_actors", "four_or_more_actors"]
+  },
+  "noise_seed": 1010,
+  "selection": false,
+  "forbidden": [
+    "condition_specific_tuning",
+    "post_hoc_temperature",
+    "gate_or_residual",
+    "target_in_probability_forward"
+  ],
+  "claim_boundary": "Robustness on reused development folds only; external robustness requires E1 external completion."
+}

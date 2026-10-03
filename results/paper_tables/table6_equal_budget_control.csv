@@ -1,0 +1,7 @@
+estimand,two_ASCENT_ES,Measure2Act_ES,ES_gain,ES_full_path_gain,minFDE_gain,aggregation
+KAGC target_only,0.506798,0.467944,0.038853,0.041137,-0.022886,equal mean of five locked seeds
+KAGC full_finetune,0.447816,0.447665,0.000151,-0.002239,-0.051251,equal mean of five locked seeds
+KBTP target_only,0.344566,0.345593,-0.001027,-0.001900,-0.025315,equal mean of five locked seeds
+KBTP full_finetune,0.343738,0.344547,-0.000809,-0.002046,-0.024171,equal mean of five locked seeds
+Balanced four-cell,0.410729,0.401437,0.009292,0.008738,-0.030906,equal mean of four airport-regime cells
+Actor-window weighted,0.347258,0.347700,-0.000442,-0.001473,-0.025030,actor-weighted over 20 cells

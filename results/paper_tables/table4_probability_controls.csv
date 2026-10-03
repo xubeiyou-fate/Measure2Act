@@ -1,0 +1,11 @@
+arm,energy_score,nll,brier,energy_gap_vs_Measure2Act,aggregation
+Native,0.454618,1.939704,0.856212,0.053181,equal mean of 20 airport-regime-seed cells
+Entropy matched,0.408613,1.549473,0.777161,0.007175,equal mean of 20 airport-regime-seed cells
+Risk-only,0.420833,1.616256,0.781701,0.019396,equal mean of 20 airport-regime-seed cells
+Uniform+refine,0.403855,1.558327,0.779938,0.002418,equal mean of 20 airport-regime-seed cells
+Hard+refine,0.405115,1.590943,0.781610,0.003678,equal mean of 20 airport-regime-seed cells
+Index copy,0.415189,1.751763,0.826118,0.013751,equal mean of 20 airport-regime-seed cells
+Cyclic,0.410724,1.735515,0.822669,0.009286,equal mean of 20 airport-regime-seed cells
+Reversed,0.411425,1.761251,0.826282,0.009988,equal mean of 20 airport-regime-seed cells
+Shifted q direct,0.415343,1.745289,0.825764,0.013905,equal mean of 20 airport-regime-seed cells
+Measure2Act,0.401437,1.530425,0.769975,0.000000,equal mean of 20 airport-regime-seed cells

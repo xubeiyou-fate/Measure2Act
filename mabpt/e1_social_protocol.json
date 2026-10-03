@@ -1,0 +1,33 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 zero-shot reconstructed social views",
+  "frozen_at": "2026-08-10T19:35:00+08:00",
+  "status": "frozen_before_MABPT_metrics_on_social_views",
+  "model_input": {
+    "fold": 1,
+    "source": "frozen C127 B0 ASCENT fold1 seed42 epoch20",
+    "target": "frozen C161 Energy predict-optimize fold1 seed42 epoch20",
+    "external_finetuning": false,
+    "external_calibration": false,
+    "checkpoint_selection_by_external_metrics": false
+  },
+  "datasets": {
+    "trajair_social_7days1": {"path": "dataset/7days1_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days2": {"path": "dataset/7days2_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days3": {"path": "dataset/7days3_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"},
+    "trajair_social_7days4": {"path": "dataset/7days4_trajair_reconstructed/processed_data/test", "delimiter": " ", "class": "reconstructed_social_reuse"}
+  },
+  "external_view_manifest": {
+    "path": "dataset/trajair_reconstructed_manifest.json",
+    "sha256": "e9f98953e135f289b8374ee0ffbede0375109482dd55707c71e7e05d940173fe"
+  },
+  "comparators": ["last-observation constant velocity", "source ASCENT native K5", "target-support native logits", "target-support Energy probabilities", "MABPT"],
+  "metrics": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "Energy", "legacy_oracle_mode_NLL", "legacy_oracle_mode_Brier", "ECE"],
+  "integrity": {
+    "target_in_probability_forward": false,
+    "residual_or_gate": false,
+    "temperature_or_weight_search": false
+  },
+  "claim_boundary": "The reconstructed social views and their manifest were created and opened by earlier repository work. Results are retrospective cross-dataset reuse evidence, not fresh confirmation."
+}

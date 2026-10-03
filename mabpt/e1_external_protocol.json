@@ -1,0 +1,44 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 zero-shot official and external evaluation",
+  "frozen_at": "2026-08-10T16:55:00+08:00",
+  "status": "frozen_before_MABPT_metrics_on_the_registered_views",
+  "model_input": {
+    "fold": 1,
+    "source": "frozen C127 B0 ASCENT fold1 seed42 epoch20",
+    "target": "frozen C161 Energy predict-optimize fold1 seed42 epoch20",
+    "training_dataset": "trajair_111day_c12 train-date fold1 training partition",
+    "external_finetuning": false,
+    "external_calibration": false,
+    "checkpoint_selection_by_external_metrics": false
+  },
+  "datasets": {
+    "trajair_7days1": {"path": "dataset/7days1/processed_data/test", "delimiter": " ", "class": "official_cross_dataset_reuse"},
+    "trajair_7days2": {"path": "dataset/7days2/processed_data/test", "delimiter": " ", "class": "official_cross_dataset_reuse"},
+    "trajair_7days3": {"path": "dataset/7days3/processed_data/test", "delimiter": " ", "class": "official_cross_dataset_reuse"},
+    "trajair_7days4": {"path": "dataset/7days4/processed_data/test", "delimiter": " ", "class": "official_cross_dataset_reuse"},
+    "kagc_external_128": {"path": "dataset/kagc_external_128/processed_data/test", "delimiter": ",", "class": "external_airport_reuse"},
+    "kbtp_external_128": {"path": "dataset/kbtp_external_128/processed_data/test", "delimiter": ",", "class": "external_airport_reuse"}
+  },
+  "external_view_manifest": {
+    "path": "dataset/tartan_external_views_manifest.json",
+    "sha256": "d36468175df2303b5ef0682be23a97b78555fe6918cacc20868af3cfb7472c54",
+    "selection": "128 files per airport, stratified over four source-file length quartiles with seed 20260715"
+  },
+  "comparators": [
+    "last-observation constant velocity",
+    "source ASCENT native K5",
+    "target-support native logits",
+    "target-support Energy probabilities",
+    "MABPT"
+  ],
+  "metrics": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "Energy", "legacy_oracle_mode_NLL", "legacy_oracle_mode_Brier", "ECE"],
+  "integrity": {
+    "target_in_probability_forward": false,
+    "residual_or_gate": false,
+    "temperature_or_weight_search": false,
+    "seven_day_test_filename_overlap_with_111day_training": 0
+  },
+  "claim_boundary": "All registered views had been opened by earlier repository work before this protocol. Results are zero-shot external/cross-dataset reuse evidence, not a fresh confirmatory test. Legacy oracle-mode NLL/Brier are support-dependent diagnostics; fixed-event calibration requires a model-independent event kernel."
+}

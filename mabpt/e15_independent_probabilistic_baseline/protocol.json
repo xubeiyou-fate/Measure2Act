@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "experiment_id": "E15",
+  "model": "IndependentMixtureGRU",
+  "claim": "independent single-actor probabilistic architecture with directly learned categorical mode probabilities",
+  "datasets": {
+    "root": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal",
+    "scene_index_root": "artifacts/partc_two_dataset_20260812/target_domain_scene_index_v3",
+    "airports": ["KAGC", "KBTP"],
+    "splits": ["train", "development", "test"],
+    "split_unit": "calendar date",
+    "window": {
+      "history_points": 16,
+      "history_interval_seconds": 1,
+      "future_points": 24,
+      "future_interval_seconds": 5,
+      "future_horizon_seconds": 120,
+      "window_stride_seconds": 5
+    }
+  },
+  "model_config": {
+    "modes": 5,
+    "hidden_dim": 128,
+    "layers": 2,
+    "dropout": 0.05,
+    "coordinate_frame": "subtract-last-observation",
+    "social_context": false
+  },
+  "training": {
+    "seeds": [42, 7, 123, 2024, 2026],
+    "epochs": 20,
+    "batch_size": 512,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 5.0,
+    "objective": "cross_entropy(nearest_ADE_mode) + 0.5*min_mode_MSE",
+    "checkpoint_selection": "fixed final epoch; development only fits output temperature"
+  },
+  "calibration": {
+    "temperature_grid": [0.5, 0.75, 1.0, 1.5, 2.0],
+    "selection_metric": "development nearest-ADE categorical NLL",
+    "test_selection": false
+  },
+  "evaluation": {
+    "primary_metrics": ["energy_score", "minfde", "minade"],
+    "probability_metrics": ["fixed_event_nll", "brier", "ece"],
+    "inference_unit": "calendar-date paired block; windows in one date are not treated as independent"
+  },
+  "integrity": {
+    "third_dataset_used": false,
+    "ascent_checkpoint_used": false,
+    "mabpt_support_or_probability_used": false,
+    "test_used_for_selection": false,
+    "official_trajectron_code_available": false,
+    "implementation_note": "Trajectron++-style independent probabilistic control; not an official Trajectron++ reproduction"
+  }
+}

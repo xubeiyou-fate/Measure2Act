@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "protocol_id": "journal_extension_tartan_identity_disjoint_v1",
+  "frozen_at": "2026-08-14",
+  "status": "frozen_before_identity_disjoint_materialization_or_metrics",
+  "question": "Do conclusions persist when later chronological splits exclude every aircraft identifier observed in earlier splits?",
+  "parent": {
+    "data_manifest": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal/manifest.json",
+    "data_manifest_sha256": "90c64dc4e872c59047f90a87ff0c82c3f61a543a7d845a778c1e8a0b56b7d67e",
+    "builder": "scripts/build_tartan_target_domain.py",
+    "builder_sha256": "3ddaaf0de2456adadfba862daa51f18c81d4c0c46f30e585302798d0cec72675",
+    "KAGC_archive": "dataset/downloads/tartan_kagc_raw_2022.zip",
+    "KAGC_archive_sha256": "3e94a0e1f1ee7db7e0180fa01690f9e88340312a3e6cb2744844f975221a109b",
+    "KBTP_archive": "dataset/downloads/tartan_kbtp_raw_2022.zip",
+    "KBTP_archive_sha256": "668d753a7f105f3026f07faef8ca5426a357256701b387fa970cd4ef6ca63354"
+  },
+  "split_rule": {
+    "date_assignment": "Reuse the parent chronological 60/20/20 airport-specific date lists without change.",
+    "train": "Retain every eligible track on train dates.",
+    "development": "Retain only identifiers never observed on train dates.",
+    "test": "Retain only identifiers never observed on train or development dates.",
+    "identity_visibility": "Raw identifiers are used only for filtering; materialized files use compact daily IDs and reports contain counts plus salted-free set hashes, not identifiers."
+  },
+  "window": {
+    "history_points": 16,
+    "future_points": 24,
+    "future_interval_seconds": 5,
+    "window_stride_seconds": 5
+  },
+  "evaluation": {
+    "models": ["ASCENT", "final unweighted Gibbs plus Energy-KL MABPT"],
+    "seeds": [42, 7, 123, 2024, 2026],
+    "primary_metrics": ["energy_score", "minfde"],
+    "development_role": "sensitivity analysis only; no model or hyperparameter selection",
+    "test_role": "retrospective subgroup analysis after the original locked-test evaluation"
+  },
+  "failure_criteria": [
+    "Any retained identifier intersection across train, development, and test",
+    "Any change to parent date membership",
+    "Any non-finite or non-contiguous materialized track",
+    "Fewer than one eligible scene in a later split"
+  ],
+  "paths": {
+    "formal_data": "artifacts/journal_extension_20260814/tartan_identity_disjoint_data_v1",
+    "formal_index": "artifacts/journal_extension_20260814/tartan_identity_disjoint_index_v1"
+  },
+  "claim_boundary": "This removes persistent-identifier reuse while preserving chronological dates, but it remains a retrospective local-data sensitivity analysis and may change traffic composition substantially."
+}

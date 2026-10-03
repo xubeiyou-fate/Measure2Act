@@ -1,0 +1,142 @@
+{
+  "format_version": 1,
+  "cycle": "C134_ENERGY_PREDICT_OPTIMIZE",
+  "frozen_at": "2026-08-07T00:20:00+08:00",
+  "status": "P0_protocol_frozen_before_C134_results",
+  "question": "Can target-free predict-and-optimize inference turn continuous expected trajectory risk into an Energy-consistent probability measure while retaining an independently optimal Bayes top1 decision?",
+  "hypotheses": {
+    "primary": "A simplex optimizer driven only by C130 predicted ADE risk and candidate geometry reduces fold-0 Energy to within 1% of C127 B0 without changing C130 top1 decisions.",
+    "mechanism": "For a finite trajectory measure, expected Energy equals predicted expected target distance minus one half of probability-weighted pairwise candidate distance; solving that objective is more faithful than converting risks to softmax logits.",
+    "rival": "C130 risk estimates are too poorly calibrated for optimization, so target-free simplex decisions will not recover the label-only Energy feasibility seen in C131.",
+    "null": "P0-A fails its Energy, replay, finiteness, simplex, or information-boundary gate."
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "date_folds": "artifacts/experiments/metric_exact/date_folds.json",
+    "date_folds_sha256": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "expected_train_scenes": 872417,
+    "expected_train_actors": 1221720,
+    "expected_train_scene_dates": 74,
+    "access_policy": "C134 may open only processed_data/train and frozen train-date folds. Development and consumed locked test are unavailable."
+  },
+  "controls": {
+    "C127_B0": {
+      "fold0_summary": "runs/experiments/metric_exact/P1_B0_signed_coupled_fold0_seed42_formal/training_summary.json",
+      "fold0_summary_sha256": "2413bf115f5708a15cc5148e0bf164124246532233e572d56dd90df7bda97ac8",
+      "protocol": "experiments/metric_exact/protocol.json",
+      "protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08"
+    },
+    "C129_J1": {
+      "fold0_summary": "runs/experiments/joint_coupled/J1_joint_coupled_dual_fold0_seed42_formal/training_summary.json",
+      "fold0_summary_sha256": "7291dc0349d32fbc8e7745fb4b741e0b4170d0ea15b300d9f05345e5ec7cd487",
+      "protocol": "experiments/joint_coupled/protocol.json",
+      "protocol_sha256": "c9535cf775ffd82dd5b707ad5adc7c6860c3b0e8e1ca8c4d94420b16c5e3d83e"
+    },
+    "C130_R1": {
+      "fold0_checkpoint": "runs/experiments/dual_expected_risk/R1_dual_expected_risk_fold0_seed42_formal/last.pt",
+      "fold0_checkpoint_sha256": "00b5f802dd6b50a31d0b400728f4396d7a6d6fe3af3083d7a1cb38f755c98a3d",
+      "fold0_summary": "runs/experiments/dual_expected_risk/R1_dual_expected_risk_fold0_seed42_formal/training_summary.json",
+      "fold0_summary_sha256": "92908f5c90e8bbdbe80b9784bf39b5f243932e5a233a51665ee7bb76da72a9c1",
+      "protocol": "experiments/dual_expected_risk/protocol.json",
+      "protocol_sha256": "d8838dd2ee4310f37eea46775041168721f9b6133412f4a3fbcefe0374b8a0dc"
+    },
+    "C131_R2": {
+      "fold0_summary": "runs/c131_risk_conditioned/R2_risk_conditioned_distribution_fold0_seed42_formal/training_summary.json",
+      "fold0_summary_sha256": "e92b03e21d77ff2b08eed6d3a660f5f2dac0a544fd289ea3bb8f94bd897b3c83",
+      "protocol": "c131_risk_conditioned/protocol.json",
+      "protocol_sha256": "a9159c7fe8ce26c2556c9786de7aeafa5afdabbefe2ee4b4fedcb843da953107"
+    },
+    "C133_D1": {
+      "fold0_summary": "runs/experiments/decision_regret/D1_native_decision_regret_fold0_seed42_formal/training_summary.json",
+      "fold0_summary_sha256": "8444f95955e4d1b87676d4069ed6f937ab14bd81de930c627d47e81277c54233",
+      "protocol": "experiments/decision_regret/protocol.json",
+      "protocol_sha256": "1356ad385c0fa3f2793d834a31861c817998c73dbbf57aee59a7cb96d3336d5a"
+    }
+  },
+  "metric_scales": {
+    "ade": 0.2760537266731262,
+    "fde": 0.4783363938331604,
+    "source": "frozen C127 scales",
+    "retuning_prohibited": true
+  },
+  "p0_a": {
+    "name": "target_free_fixed_geometry_probability_audit",
+    "fold": 0,
+    "seed": 42,
+    "candidate_source": "frozen C130 R1 checkpoint (C129 physical K=5 geometry)",
+    "predicted_target_distance": "C130 centered predicted normalized ADE multiplied by frozen ADE scale",
+    "pairwise_distance": "mean 3D Euclidean distance over all 24 future steps between C130 candidates",
+    "probability_solver": "32 fixed Frank-Wolfe iterations from uniform on the K=5 simplex",
+    "decision_index": "argmin of predicted normalized ADE plus predicted normalized FDE, independent of probability argmax",
+    "solver_may_receive_target": false,
+    "training_performed": false,
+    "gate": {
+      "native_metric_replay_absolute_tolerance": 0.000001,
+      "energy_not_worse_than_C127_B0_factor": 1.01,
+      "all_metrics_finite": true,
+      "simplex_tolerance": 0.00001,
+      "per_batch_objective_not_worse_than_uniform_tolerance": 0.00001
+    },
+    "failure_rule": "If any gate fails, close C134 without P0-B or training. Do not repair with temperatures, gates, residuals, weights, epochs, seeds, or target access."
+  },
+  "p0_b": {
+    "authorization": "Run only if every P0-A gate passes.",
+    "name": "continuous_physical_action_headroom_and_solver_audit",
+    "folds": [0, 1, 2],
+    "diagnostic_target_use": "Target is permitted only to measure oracle continuous-action headroom, never as an inference solver input.",
+    "gate": {
+      "oracle_minade_relative_gain_vs_C129_at_least": 0.01,
+      "oracle_minfde_relative_gain_vs_C129_at_least": 0.01,
+      "minfde_p95_not_worse_than_C129_factor": 1.01,
+      "physical_violation_count": 0,
+      "duplicate_candidate_rate_below": 0.01,
+      "reverse_history_equivariance_check": true,
+      "finite_kkt_residual": true
+    },
+    "failure_rule": "If P0-B fails, close C134 before model training without changing thresholds or solver budget."
+  },
+  "p1": {
+    "authorization": "Implement and train only after P0-A and P0-B pass.",
+    "variant": "E1_energy_predict_optimize",
+    "seed": 42,
+    "folds": [0, 1, 2],
+    "epochs": 20,
+    "execution_order": "Fold 0 first; folds 1 and 2 concurrently only after fold 0 passes every gate.",
+    "fold0_gate": {
+      "top1_ade_relative_gain_vs_C131_at_least": 0.01,
+      "top1_fde_relative_gain_vs_C131_at_least": 0.01,
+      "energy_not_worse_than_C131_factor": 1.0,
+      "minade_not_worse_than_C129_factor": 1.01,
+      "minfde_not_worse_than_C129_factor": 1.01,
+      "minfde_p95_not_worse_than_C129_factor": 1.01,
+      "tail_minfde_not_worse_than_C129_factor": 1.01,
+      "nll_not_worse_than_C127_B0_factor": 1.0,
+      "brier_not_worse_than_C127_B0_factor": 1.0,
+      "physical_violation_count": 0
+    },
+    "replication_gate": {
+      "folds_passing_all_fold_gates_at_least": 2,
+      "weighted_aggregate_passes_all_fold0_metrics": true
+    },
+    "ablation": "One matched direct-decoder ablation is authorized only after the primary model passes replication.",
+    "adaptive_selection_prohibited": true
+  },
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_expansion_selection_reranking_or_nms",
+    "posthoc_detached_scorer",
+    "temperature_scaling",
+    "development_selected_weight_width_epoch_batch_or_seed",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C134 is train-only blocked algorithm screening. P0-A is a fold-0 availability gate because formal C130 exists only for fold 0. No development, sealed-test, or confirmatory generalization claim is authorized."
+}

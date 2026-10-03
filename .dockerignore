@@ -1,0 +1,14 @@
+.git
+.github
+.venv*
+__pycache__
+.pytest_cache
+build
+dist
+dataset
+data
+checkpoints
+weights
+runs
+artifacts
+deposits

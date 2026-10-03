@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Please cite the Measure2Act article and the archived software release."
+title: "Measure2Act: Modular probability transfer for multimodal aircraft trajectory prediction"
+type: software
+version: 1.0.0
+license: Apache-2.0
+repository-code: "https://github.com/xubeiyou-fate/Measure2Act"
+authors:
+  - family-names: Xu
+    given-names: Hang
+    orcid: "https://orcid.org/0009-0006-6185-6218"
+  - family-names: Xu
+    given-names: Daoming
+    orcid: "https://orcid.org/0009-0009-0745-2409"
+  - family-names: Zhao
+    given-names: Tianyi
+    orcid: "https://orcid.org/0000-0001-5744-249X"
+keywords:
+  - aircraft trajectory prediction
+  - multimodal forecasting
+  - probability transfer
+  - correspondence uncertainty
+  - Energy score

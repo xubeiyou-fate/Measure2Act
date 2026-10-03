@@ -1,0 +1,43 @@
+name: CPU tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install locked CPU environment
+        run: python -m pip install -r requirements-lock.txt
+      - name: Install project without dependency re-resolution
+        run: python -m pip install --no-deps .
+      - name: Test installed package outside the checkout
+        working-directory: ${{ runner.temp }}
+        run: |
+          python -m Measure2Act_probability_transfer.run --smoke
+          measure2act-operator --smoke
+      - name: Run public tests
+        run: |
+          python scripts/audit_code_release.py
+          python scripts/audit_release_readiness.py
+          python -m pytest -q
+      - name: Enforce release metadata on version tags
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: python scripts/audit_release_readiness.py --strict
+      - name: Build distributions
+        run: python -m build

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "protocol_id": "journal_extension_awta_tartan_v1",
+  "frozen_at": "2026-08-14",
+  "status": "frozen_before_any_awta_tartan_smoke_or_formal_metrics",
+  "hypothesis": "Replacing hard winner-takes-all regression assignment with a fixed detached annealed assignment will improve small-K support geometry without changing the ASCENT architecture, data, or inference cardinality.",
+  "mechanism": "All five modes receive distance-weighted SmoothL1 updates early in training; the fixed temperature schedule approaches hard assignment by epoch 20. The categorical head retains hard nearest-ADE cross-entropy.",
+  "inherits": {
+    "tartan_protocol": "mabpt/tartan_retrain_protocol_v1.json",
+    "tartan_protocol_sha256": "b07287cc503d502bff7ade15d50e6e6cbfabfa0dd5999d658edb524bed1f16b4",
+    "data_manifest": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal/manifest.json",
+    "data_manifest_sha256": "90c64dc4e872c59047f90a87ff0c82c3f61a543a7d845a778c1e8a0b56b7d67e",
+    "scene_index_summary": "artifacts/partc_two_dataset_20260812/target_domain_scene_index_v3/summary.json",
+    "scene_index_summary_sha256": "511d0885add753ee3503384858e7c20e46a4c739fdf3e770164676b00a63a2b6",
+    "prior_local_awta_objective": "c59_apc/model.py",
+    "prior_local_awta_objective_sha256": "f4e572107335bfcd6823be55822c2de497997c32c72d23d5418d12c20b57ac2e"
+  },
+  "data": {
+    "airports": ["KAGC", "KBTP"],
+    "training_split": "train",
+    "selection_split": "development",
+    "forbidden_split_before_freeze": "test",
+    "split_unit": "calendar date",
+    "window": "16 one-second observations to 24 five-second future points"
+  },
+  "model": {
+    "architecture": "matched B0_signed_coupled ASCENT",
+    "modes": 5,
+    "changed_factor": "regression assignment only",
+    "initial_temperature_km": 8.0,
+    "final_temperature_km": 0.05,
+    "schedule": "geometric over the fixed 20 epochs",
+    "assignment_gradient": "detached",
+    "classification": "hard nearest-ADE cross-entropy"
+  },
+  "training": {
+    "regime": "target_only",
+    "seeds": [42, 7, 123, 2024, 2026],
+    "epochs": 20,
+    "batch_size": 256,
+    "evaluation_batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "milestones": [10, 15],
+    "gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "checkpoint_selection": "fixed final epoch; development metrics are diagnostic",
+    "deterministic_algorithms": true,
+    "formal_order": "KAGC seeds then KBTP seeds, sequentially on one GPU"
+  },
+  "evaluation": {
+    "primary_metrics": ["energy_score", "minfde"],
+    "secondary_metrics": ["minade", "top1_ade", "top1_fde", "tail_minfde"],
+    "baselines": ["matched ASCENT", "EqMotion", "final unweighted Gibbs plus Energy-KL model"],
+    "uncertainty": "seed outer and calendar-date inner paired bootstrap",
+    "locked_test_gate": "Freeze all ten train/development checkpoints and the evaluator before any aWTA test inference."
+  },
+  "stopping_and_failure": {
+    "stopping_rule": "Always use epoch 20; no development checkpoint selection.",
+    "smoke_gate": "One deterministic capped KAGC run must finish with finite losses, finite gradients, and a reloadable checkpoint.",
+    "failure_criteria": [
+      "Any target-test access before the evaluation receipt is frozen",
+      "Non-finite loss or gradients",
+      "Missing registered seed",
+      "Architecture, data split, optimizer, schedule, or cardinality deviation"
+    ]
+  },
+  "paths": {
+    "formal_run_template": "runs/journal_extension_20260814/awta_tartan/{airport}/seed{seed}_formal",
+    "formal_result_template": "artifacts/journal_extension_20260814/awta_tartan/development/{airport}_seed{seed}_formal.json",
+    "smoke_run_root": "runs/journal_extension_20260814/awta_tartan_smoke",
+    "smoke_result_root": "artifacts/journal_extension_20260814/awta_tartan/smoke"
+  },
+  "claim_boundary": "This is a matched training-objective baseline, not a new architecture. Test results will be retrospective and internally locked, not third-party blind evidence."
+}

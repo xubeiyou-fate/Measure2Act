@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "protocol_id": "journal_extension_tartan_probability_controls_v1",
+  "frozen_at": "2026-08-14",
+  "status": "frozen_before_probability_control_metrics",
+  "question": "Are the selected probability operator's conclusions sensitive to hard versus soft correspondence, Gibbs cost temperature, Energy-KL coefficients, or scalar probability temperature calibration?",
+  "inherits": {
+    "probability_ablation_protocol": "mabpt/tartan_probability_ablation_protocol_v1.json",
+    "probability_ablation_protocol_sha256": "8d1f770a5982297c24f5a05e5c1fcad8a88991b8ec9750aeb1b8ff63859e456a",
+    "tartan_protocol": "mabpt/tartan_retrain_protocol_v1.json",
+    "tartan_protocol_sha256": "b07287cc503d502bff7ade15d50e6e6cbfabfa0dd5999d658edb524bed1f16b4",
+    "parent_freeze_receipt": "artifacts/partc_two_dataset_20260812/tartan_retrain_frozen_receipt_v1.json",
+    "parent_freeze_receipt_sha256": "d51c56ea228679ec70c8e8d900493476e110011fee9607165c8736d71595707d"
+  },
+  "data": {
+    "airports": ["KAGC", "KBTP"],
+    "regime": "target_only",
+    "seeds": [42, 7, 123, 2024, 2026],
+    "selection_split": "development",
+    "reporting_split": "test",
+    "cluster_unit": "calendar_date"
+  },
+  "controls": {
+    "hard_matching": "Exact minimum-cost unweighted bijection, equivalent to deterministic Hungarian assignment for K=5.",
+    "gibbs_cost_temperatures": [0.5, 1.0, 2.0],
+    "energy_kl_one_factor_weights": {
+      "risk_weight": [0.5, 1.0, 2.0],
+      "diversity_weight": [0.5, 1.0, 2.0],
+      "kl_weight": [0.5, 1.0, 2.0]
+    },
+    "probability_temperatures": [0.5, 0.75, 1.0, 1.5, 2.0],
+    "fixed_factors": "Every arm reuses the same target support, predicted risk, checkpoints, dates, K=5, and fixed target decision."
+  },
+  "selection": {
+    "calibrated_distributions": ["target_native", "gibbs_unweighted_energy_kl"],
+    "criterion": "For each distribution separately, choose the scalar temperature with the lowest equal-cell mean development NLL over ten airport-by-seed cells; exact ties choose the value nearest 1.0.",
+    "no_operator_reselection": true,
+    "hard_and_hyperparameter_arms": "Descriptive sensitivity controls; they cannot replace the previously selected operator."
+  },
+  "evaluation": {
+    "primary_metrics": ["energy_score", "nll", "brier", "ece"],
+    "secondary_metrics": ["effective_modes", "top1_ade", "top1_fde"],
+    "geometry_metrics_expected_invariant": ["minade", "minfde", "top1_ade", "top1_fde"],
+    "test_gate": "All ten development outputs, the two selected calibration temperatures, evaluator, protocol, and checkpoint grid must be frozen before test inference."
+  },
+  "failure_criteria": [
+    "Any future target used in probability construction",
+    "Any geometry or checkpoint difference between probability arms",
+    "Any test inference before the control receipt",
+    "Any missing seed or non-finite probability"
+  ],
+  "paths": {
+    "development_root": "artifacts/journal_extension_20260814/probability_controls/development",
+    "test_root": "artifacts/journal_extension_20260814/probability_controls/test",
+    "receipt": "artifacts/journal_extension_20260814/probability_controls_receipt_v1.json"
+  },
+  "claim_boundary": "This is a retrospective local-data sensitivity and calibration analysis. It tests robustness of probability assignment only and cannot support a new trajectory-geometry, prospective-validation, or external-generalization claim."
+}

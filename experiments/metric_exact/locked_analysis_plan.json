@@ -1,0 +1,24 @@
+{
+  "format_version": 1,
+  "cycle": "C127_metric_exact_score_isolated_ascent",
+  "frozen_at": "2026-08-04T18:06:00+08:00",
+  "frozen_before_any_C127_formal_validation_metric": true,
+  "protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08",
+  "event_count": 1,
+  "checkpoints": "all 15 frozen P3 checkpoints: B0, B2 and the P2-selected exact candidate for five seeds",
+  "primary_comparison": "P2-selected exact candidate minus B2_decoupled_original",
+  "success_gates": {
+    "both_metrics_better_than_B2_in_at_least_four_of_five_seeds": true,
+    "candidate_mean_better_than_B2_for_both_metrics": true,
+    "hierarchical_date_by_seed_bootstrap_ci_lower_bound_positive_for_both": true
+  },
+  "bootstrap": {
+    "independent_units": ["seed", "calendar_date"],
+    "replicates": 10000,
+    "seed": 127,
+    "actor_weighting_only_within_sampled_date_clusters": true
+  },
+  "selection_on_locked_test": false,
+  "failure_policy": "Report the full one-event result and close C127; do not select a different arm, seed, epoch, or weight.",
+  "locked_test_used": false
+}

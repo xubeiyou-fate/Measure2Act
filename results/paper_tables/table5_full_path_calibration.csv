@@ -1,0 +1,4 @@
+arm,ES_full_path,endpoint_grid_brier,endpoint_radial_brier,endpoint_grid_ece,endpoint_radial_ece,aggregation
+Native,0.551239,0.648879,0.341525,0.219179,0.103338,equal mean of 20 airport-regime-seed cells
+Shifted full pipeline,0.488862,0.582914,0.318146,0.054900,0.055990,equal mean of 20 airport-regime-seed cells
+Measure2Act,0.486799,0.579846,0.315830,0.056233,0.051965,equal mean of 20 airport-regime-seed cells

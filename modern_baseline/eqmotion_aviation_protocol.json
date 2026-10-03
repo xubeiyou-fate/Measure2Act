@@ -1,0 +1,68 @@
+{
+  "format_version": 1,
+  "experiment": "Part C two-dataset EqMotion aviation adapter smoke",
+  "frozen_at": "2026-08-12T03:00:00+08:00",
+  "status": "frozen_before_smoke_metrics",
+  "purpose": "deterministic runnable-adapter gate only; not a formal baseline result",
+  "official_source": {
+    "repository": "https://github.com/MediaBrain-SJTU/EqMotion.git",
+    "commit": "5aec2e0b61c511fa93a24138dd90da59a089084b",
+    "local_path": "third_party/eqmotion_official",
+    "source_modified": false,
+    "license": "MIT"
+  },
+  "grid": {
+    "coordinates": 3,
+    "history_points": 16,
+    "future_points": 24,
+    "point_interval_seconds": 5,
+    "history_offsets_seconds": [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75],
+    "future_offsets_seconds": [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120],
+    "modes": 5
+  },
+  "data": {
+    "training_smoke": "dataset/trajair_111day_c12/processed_data/train",
+    "evaluation_smoke": {
+      "trajair_development": "dataset/trajair_111day_c12/processed_data/dev",
+      "tartan_kagc_external_128": "dataset/kagc_external_128/processed_data/test",
+      "tartan_kbtp_external_128": "dataset/kbtp_external_128/processed_data/test"
+    },
+    "smoke_file_selection": "descending file size then ascending filename",
+    "selection_uses_target_metrics": false,
+    "translation": "per-scene valid-aircraft centroid at the last history point",
+    "coordinate_units": "native processed-data units"
+  },
+  "model": {
+    "family": "official EqMotion pedestrian diverse predictor",
+    "hidden_nf": 32,
+    "channels": 16,
+    "layers": 2,
+    "official_candidate_heads": 20,
+    "exposed_candidate_heads": "first 5 fixed before metrics",
+    "probabilities": "uniform over K=5",
+    "decision": "candidate 0 fixed before metrics"
+  },
+  "smoke_training": {
+    "seed": 42,
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "maximum_batches": 2,
+    "loss": "actor-mean best-of-5 ADE",
+    "deterministic_algorithms": true,
+    "tf32": false
+  },
+  "metrics": ["sample1_ADE", "sample1_FDE", "minADE_at_5", "minFDE_at_5", "Energy"],
+  "success_criteria": [
+    "all three data views load a finite batch",
+    "EqMotion forward shape is [B,N,5,24,3]",
+    "backward produces finite nonzero gradients",
+    "all reported smoke metrics are finite"
+  ],
+  "limitations": [
+    "smoke scenes are a tiny deterministic engineering subset and are not publication evidence",
+    "the official implementation instantiates 20 heads; the adapter exposes the first five and leaves the other heads unused",
+    "uniform probabilities and fixed candidate zero do not provide a learned top-1 ranking",
+    "the 5-second history grid differs from the current MABPT 16-point one-second-history implementation and must be reconciled before a matched formal table",
+    "Tartan views were previously opened and cannot be described as fresh confirmation"
+  ]
+}

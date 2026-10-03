@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "release_name": "Measure2Act Model Weights",
+  "release_version": "1.0.0",
+  "status": "technical_ready_pending_persistent_identifier",
+  "doi": "[MODEL_DOI_PENDING]",
+  "record_url": "[MODEL_RECORD_URL_PENDING]",
+  "payload_in_this_repository": false,
+  "verified_checkpoint_count": 70,
+  "verified_manifest_entries": 220,
+  "technical_verification": "PASS",
+  "upstream_implementation": {
+    "name": "ASCENT",
+    "repository": "https://github.com/a-pru/ascent",
+    "commit": "814e0a18a8a7500dfb0498ab2ee873d022874e8",
+    "scope": "60 core checkpoint rows"
+  },
+  "planned_checkpoint_groups": [
+    {
+      "name": "paper_core_formal_roles",
+      "expected_files": 60,
+      "scope": "2 airports x 2 regimes x 5 seeds x 3 model roles"
+    },
+    {
+      "name": "eqmotion_support_control",
+      "expected_files": 10,
+      "scope": "2 airports x 5 seeds"
+    }
+  ],
+  "authoritative_deposit_files": [
+    "paper_model_index.csv",
+    "MANIFEST.sha256",
+    "MODEL_CARD.md",
+    "VERIFICATION_REPORT.json"
+  ],
+  "notes": "The local deposit contains the complete 60-row ASCENT-family matrix and 10-row EqMotion support matrix. Resolve and verify the model DOI, landing-page URL, final manifest, and publication metadata before release."
+}

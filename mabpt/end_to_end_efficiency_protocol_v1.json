@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "protocol_id": "mabpt_ascent_end_to_end_efficiency_v1",
+  "frozen_at": "2026-08-13",
+  "scope": {
+    "comparison": [
+      "ASCENT source network",
+      "complete MABPT system: source network + target support/decision/risk network + exact Gibbs transport + Energy-KL projection"
+    ],
+    "cardinalities": [3, 5, 7],
+    "seed": 42,
+    "k5_checkpoint_cohort": "KAGC target_only p100 formal",
+    "k3_k7_checkpoint_cohort": "native-cardinality E9 fold 1 formal",
+    "test_data_used": false
+  },
+  "trajectory_window": {
+    "history_points": 16,
+    "history_interval_seconds": 1,
+    "future_points": 24,
+    "future_interval_seconds": 5,
+    "future_horizon_seconds": 120
+  },
+  "inference": {
+    "precision": "checkpoint-native float32 networks; float64 registered transport and projection",
+    "mode": "torch.inference_mode",
+    "timing": "warm up, synchronize, then record independent batches; median and p95",
+    "throughput": "batch actors divided by median batch latency",
+    "cuda_memory": "peak allocated bytes, including resident model parameters; incremental peak relative to resident allocation is also reported",
+    "synthetic_input": "deterministic finite trajectories with the frozen observation shape; no train/development/test examples are loaded"
+  },
+  "parameter_accounting": {
+    "ascent": "all parameters in the source ASCENT network",
+    "mabpt": "all parameters in both independently parameterized source and target networks",
+    "target_decomposition": [
+      "support/decision backbone",
+      "predicted-risk operator"
+    ],
+    "transport_projection_trainable_parameters": 0
+  },
+  "checkpoint_accounting": {
+    "runtime_deployment": "source plus predicted-risk checkpoint; the latter contains the complete target backbone and risk operator",
+    "training_pipeline": "source, decision-support, and predicted-risk checkpoints"
+  },
+  "training_time": {
+    "source": "formal checkpoint or training-summary epoch elapsed_seconds",
+    "mabpt_complete_training_pipeline": "source + decision-support + predicted-risk stages",
+    "warning": "stage runtimes include data loading, development evaluation, checkpointing, and first-epoch initialization where recorded; they are historical wall-clock summaries, not a newly rerun training benchmark"
+  },
+  "exact_transport": {
+    "implementation": "enumerates every bijection for K <= 7",
+    "permutations": {
+      "3": 6,
+      "5": 120,
+      "7": 5040
+    },
+    "time_complexity": "O(B * K! * K^2) for the materialized exact marginal implementation",
+    "memory_complexity": "O(B * K! * K + K! * K^2), excluding neural-network activations"
+  },
+  "limitations": [
+    "K=5 is the formal KAGC target-only model; K=3 and K=7 are formal native-cardinality E9 models, so cardinality growth is a systems scaling comparison rather than a matched KAGC accuracy comparison.",
+    "Synthetic-input latency excludes dataset parsing, host-to-device transfer, metric computation, safety proxies, and output serialization.",
+    "Exact enumeration is intentionally measured at K <= 7 and is not evidence of scalable behavior at larger cardinalities.",
+    "CUDA latency and memory depend on GPU clocks, driver state, concurrent processes, batch size, and software versions."
+  ]
+}

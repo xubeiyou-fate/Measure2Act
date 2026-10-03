@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "amendment_id": "eqmotion_tartan_target_matched_scene_stride_v2",
+  "frozen_at": "2026-08-13",
+  "trigger": "The first formal KAGC process audit observed 55,296 training scenes instead of the frozen 11,524 because the adapter omitted TrajectoryDataset skip=5.",
+  "status": "frozen_after_a_partial_epoch-12_process_but_before_any_formal_development_result_or_locked-test_access",
+  "scope": "EqMotion target-only runner only; no ASCENT/MABPT checkpoint, data split, temporal point grid, optimizer, seed, or metric changed.",
+  "repair": {
+    "trajectory_dataset_skip": 5,
+    "expected_scene_counts_source": "artifacts/partc_two_dataset_20260812/target_domain_scene_index_v3/summary.json",
+    "expected_scene_index_summary_sha256": "511d0885add753ee3503384858e7c20e46a4c739fdf3e770164676b00a63a2b6",
+    "formal_scene_count_gate": true,
+    "KAGC": {"train": 11524, "development": 5184},
+    "KBTP": {"train": 259479, "development": 71166}
+  },
+  "superseded_partial_run": {
+    "path": "runs/partc_two_dataset_20260812/eqmotion_tartan_KAGC_target_only_seed42_superseded_skip1_partial_epoch12",
+    "checkpoint_sha256": "56ae3c56ed8646aeeeffe04b2d8240d3ae6a03e0204814b6cb73bc820217fb60",
+    "epoch": 12,
+    "publication_eligible": false,
+    "development_evaluated": false,
+    "locked_test_accessed": false,
+    "deletion_policy": "Retained as an audit trail and never resumed."
+  },
+  "frozen_inputs": {
+    "base_protocol": "modern_baseline/eqmotion_tartan_target_protocol_v1.json",
+    "base_protocol_sha256": "b2c449b513259c0a60e44414ca23d557e11e21c0def890a69572989d3ae40c6a",
+    "corrected_runner": "modern_baseline/run_eqmotion_tartan_target.py",
+    "corrected_runner_hash_binding": "Recorded in the independent eqmotion_tartan_target_skip5_receipt_v2 after implementation and tests are finalized."
+  },
+  "integrity": {
+    "repair_outcome_independent": true,
+    "formal_development_metrics_seen_before_repair": false,
+    "locked_test_accessed": false,
+    "restart_from_scratch_required": true
+  },
+  "claim_boundary": "The repaired EqMotion comparison is matched at the scene-stride and temporal-grid level; only K=5 minADE, minFDE, Energy, and efficiency remain publication-comparable."
+}

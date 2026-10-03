@@ -1,0 +1,43 @@
+{
+  "format_version": 2,
+  "experiment_id": "E11",
+  "model": "MABPT",
+  "frozen_at": "2026-08-10T14:18:00+08:00",
+  "status": "frozen_after_v1_smoke_zero_support_failure_before_formal_results",
+  "supersedes": "e11_protocol_v1.json",
+  "v1_failure": "Hard assignment of five support atoms to nine events creates structural zero probabilities and numerically dominated event NLL.",
+  "evidence_class": "legacy_development_only",
+  "folds": [1, 2],
+  "comparators": ["ASCENT", "MABPT"],
+  "event_space": {
+    "horizontal": ["right", "straight", "left"],
+    "vertical": ["descend", "level", "climb"],
+    "classes": 9,
+    "truth": "hard endpoint event from fold-training-only thresholds",
+    "threshold_fit": "median absolute feature on fold training actors only",
+    "predictive_mapping": "model-independent ordinal-logistic measurement kernel",
+    "turn_kernel_scale": "turn_threshold divided by 4",
+    "altitude_kernel_scale": "altitude_threshold divided by 4",
+    "normalization": "analytical three-bin ordinal probabilities; no epsilon smoothing"
+  },
+  "continuous_nll": {
+    "distribution": "five-component trajectory Gaussian mixture",
+    "covariance": "shared diagonal by horizon and coordinate",
+    "covariance_fit": "fold-training-only constant-velocity residual second moment",
+    "minimum_variance_km2": 1e-6
+  },
+  "diagnostic": "hard-support true-event zero probability rate is reported separately",
+  "calibration_bins": 15,
+  "reliability_bins": 10,
+  "duplicate_threshold_mean_distance_km": 0.05,
+  "selection": false,
+  "forbidden": [
+    "epsilon_or_additive_probability_smoothing",
+    "post_hoc_temperature",
+    "event_threshold_fit_on_validation",
+    "kernel_scale_fit_on_validation",
+    "covariance_fit_on_validation",
+    "gate_or_residual",
+    "target_in_probability_forward"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "format_version": 1,
+  "experiment": "Tartan cross-airport risk-head-only adaptation",
+  "frozen_at": "2026-08-12T18:20:00+08:00",
+  "status": "frozen_before_adapted_metrics",
+  "evidence_class": "retrospective_cross_airport_domain_adaptation",
+  "seed": 42,
+  "directions": {
+    "kagc_to_kbtp": {
+      "train": "dataset/tartan_kagc_submission_1024/processed_data/test",
+      "test": "dataset/tartan_kbtp_submission_1024/processed_data/test"
+    },
+    "kbtp_to_kagc": {
+      "train": "dataset/tartan_kbtp_submission_1024/processed_data/test",
+      "test": "dataset/tartan_kagc_submission_1024/processed_data/test"
+    }
+  },
+  "initial_checkpoint": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed42_formal/epoch_020.pt",
+  "initial_checkpoint_sha256": "c0902aa3b7c28b4314ab6ab3c0780b0e417110c8762593557dcd008c15bfcfaa",
+  "training": {
+    "trainable_module": "energy_cost_operator_only",
+    "frozen_module": "complete decision-support backbone and trajectory geometry",
+    "epochs": 3,
+    "batch_size": 1024,
+    "learning_rate": 0.0001,
+    "gradient_clip_norm": 5.0,
+    "checkpoint": "fixed final epoch",
+    "validation_or_test_selection": false,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true
+  },
+  "evaluation": {
+    "batch_size": 512,
+    "metrics": ["top1_ade", "top1_fde", "minade", "minfde", "energy_score", "ece", "tail_minfde"]
+  },
+  "integrity": {
+    "airport_under_test_used_for_training_or_selection": false,
+    "aircraft_identifier_is_not_a_model_input": true,
+    "cross_airport_shared_identifiers_are_reported_but_not_removed": true,
+    "trajectory_or_control_residual": false,
+    "learned_gate": false
+  },
+  "claim_boundary": "This diagnostic tests whether probability-risk-head adaptation transfers across airports. It does not retrain geometry, is not zero-shot, and does not constitute a fresh hidden test."
+}

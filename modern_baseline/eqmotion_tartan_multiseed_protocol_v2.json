@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "protocol_id": "eqmotion_partc_tartan_target_only_multiseed_v2",
+  "frozen_at": "2026-08-13",
+  "status": "frozen_after_seed42_formal_and_locked_results_and_cpu_only_nonformal_implementation_smoke_but_before_any_new_seed_formal_training_or_formal_development_metrics",
+  "research_question": "Does target-only EqMotion performance on each frozen Tartan airport remain stable over five prespecified random seeds?",
+  "inherits": {
+    "base_protocol": "modern_baseline/eqmotion_tartan_target_protocol_v1.json",
+    "base_protocol_sha256": "b2c449b513259c0a60e44414ca23d557e11e21c0def890a69572989d3ae40c6a",
+    "skip5_amendment": "modern_baseline/eqmotion_tartan_target_amendment_skip5_v2.json",
+    "skip5_amendment_sha256": "adf78dd4cd544588bcea915ac84dfc9020eb0bc646d51ea5cc87a179e955f133",
+    "skip5_receipt": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_target_skip5_receipt_v2.json",
+    "skip5_receipt_sha256": "56cff27800b2562020f99920d3fa1198f0dd224c249a246ace5510122f458339",
+    "policy": "All data, model, optimizer, loss, epoch, batch-size, determinism, checkpoint, and evaluation settings are inherited unchanged. Only the registered seed set and new output namespace are extended."
+  },
+  "official_source": {
+    "repository": "https://github.com/MediaBrain-SJTU/EqMotion.git",
+    "commit": "5aec2e0b61c511fa93a24138dd90da59a089084b",
+    "local_path": "third_party/eqmotion_official",
+    "model_file": "third_party/eqmotion_official/eth_ucy/model_t.py",
+    "model_file_sha256": "8e73e874a2cc722559eca1251deea8276d8867050ed8e97d3ebbf23ca670c00a",
+    "source_modified": false,
+    "license": "MIT"
+  },
+  "adapter": {
+    "path": "modern_baseline/eqmotion_aviation.py",
+    "sha256": "20271eb773f9cf470407efdca431b7aa0880b7c0056df2d6d3d7dedefa32a8f1"
+  },
+  "data": {
+    "root": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal",
+    "manifest": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal/manifest.json",
+    "manifest_sha256": "90c64dc4e872c59047f90a87ff0c82c3f61a543a7d845a778c1e8a0b56b7d67e",
+    "frozen_receipt": "artifacts/partc_two_dataset_20260812/tartan_retrain_frozen_receipt_v1.json",
+    "frozen_receipt_sha256": "d51c56ea228679ec70c8e8d900493476e110011fee9607165c8736d71595707d",
+    "scene_index_summary": "artifacts/partc_two_dataset_20260812/target_domain_scene_index_v3/summary.json",
+    "scene_index_summary_sha256": "511d0885add753ee3503384858e7c20e46a4c739fdf3e770164676b00a63a2b6",
+    "airports": [
+      "KAGC",
+      "KBTP"
+    ],
+    "allowed_splits": [
+      "train",
+      "development"
+    ],
+    "forbidden_splits": [
+      "test"
+    ],
+    "split_unit": "calendar date",
+    "split_rule": "chronological earliest/middle/latest 60/20/20 within airport",
+    "delimiter": " "
+  },
+  "grid": {
+    "coordinates": 3,
+    "coordinate_frame": "local east,north,up km; per-airport fixed reference",
+    "history_points": 16,
+    "history_interval_seconds": 1,
+    "future_points": 24,
+    "future_interval_seconds": 5,
+    "future_horizon_seconds": 120,
+    "modes": 5
+  },
+  "model": {
+    "hidden_nf": 32,
+    "channels": 16,
+    "layers": 2,
+    "official_candidate_heads": 20,
+    "registered_heads": "first five heads fixed before formal training",
+    "probabilities": "uniform 0.2 over the five registered candidates",
+    "top1_decision": "fixed candidate 0 solely to satisfy the shared evaluator interface"
+  },
+  "training": {
+    "regime": "target_only",
+    "registered_seeds": [
+      42,
+      7,
+      123,
+      2024,
+      2026
+    ],
+    "reused_completed_seed": 42,
+    "new_training_seeds": [
+      7,
+      123,
+      2024,
+      2026
+    ],
+    "epochs": 20,
+    "batch_size": 512,
+    "evaluation_batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "milestones": [
+      10,
+      15
+    ],
+    "gamma": 0.5,
+    "loss": "actor-mean best-of-5 ADE",
+    "gradient_clip_norm": 5.0,
+    "checkpoint_policy": "fixed final epoch 20; development metrics are diagnostic and never select a checkpoint",
+    "development_evaluation": "once after loading the fixed final checkpoint",
+    "deterministic_algorithms": true,
+    "tf32": false,
+    "automatic_mixed_precision": false
+  },
+  "seed42_inheritance": {
+    "KAGC": {
+      "result": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KAGC_target_only_seed42_formal.json",
+      "result_sha256": "8c7c8368d8dc6f92f4693cfc47ebeeef7139735c5f20e27b2ef06d42fe3eb957",
+      "checkpoint": "runs/partc_two_dataset_20260812/eqmotion_tartan_KAGC_target_only_seed42_formal/last.pt",
+      "checkpoint_sha256": "ae323ae11db44cb98be6f93da771e113660b2b6f46b5948b2a86756922c8fdb1",
+      "locked_result": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KAGC_target_only_seed42_locked_test_v1.json",
+      "locked_result_sha256": "829cb2131d7ca855bd45b12bec0c60dae7582a9940c30ee4d84892c8c942ba2c"
+    },
+    "KBTP": {
+      "result": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KBTP_target_only_seed42_formal.json",
+      "result_sha256": "7f6f7d10ac8151b5659be7ddee0f248f54ddef639e3d00dc02161882cd753a65",
+      "checkpoint": "runs/partc_two_dataset_20260812/eqmotion_tartan_KBTP_target_only_seed42_formal/last.pt",
+      "checkpoint_sha256": "bad7765fa65665e2e20cc16123a7a811399a194c83e6aec9bd063ca9005765a6",
+      "locked_result": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KBTP_target_only_seed42_locked_test_v1.json",
+      "locked_result_sha256": "cff0599ba445a0f47d5970da2b453637dd990422eea95c3e8cd6938db3c7cdab"
+    }
+  },
+  "evaluation": {
+    "publication_metrics": [
+      "minade",
+      "minfde",
+      "energy_score"
+    ],
+    "efficiency_metrics": [
+      "parameter_count",
+      "trainable_parameter_count",
+      "training_elapsed_seconds",
+      "development_elapsed_seconds",
+      "development_scenes_per_second",
+      "development_actors_per_second",
+      "checkpoint_bytes",
+      "peak_gpu_memory_bytes"
+    ],
+    "metric_units": "km",
+    "probability_policy": "Uniform probabilities define an empirical finite measure, so Energy is comparable under the matched K=5 protocol.",
+    "top1_limitation": "EqMotion's registered diverse heads have no learned categorical ranking. Fixed candidate 0 is arbitrary; Top-1, NLL, Brier, ECE, and rank metrics are not publication-comparable and are omitted from results.",
+    "locked_test_gate": "After all eight new train/development runs finish, freeze a new evaluation receipt that binds all ten formal results/checkpoints and this evaluator before any new locked-test access."
+  },
+  "paths": {
+    "formal_run_template": "runs/partc_two_dataset_20260812/eqmotion_tartan_multiseed_v2/{airport}/seed{seed}_formal",
+    "formal_result_template": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_multiseed_v2/{airport}_target_only_seed{seed}_formal.json",
+    "locked_result_template": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_multiseed_v2/locked/{airport}_target_only_seed{seed}_locked_test_v2.json",
+    "evaluation_receipt": "artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_multiseed_v2_evaluation_receipt.json"
+  },
+  "test_lock": {
+    "training_runner_access": false,
+    "policy": "The training runner has no test split route. It verifies only the content hashes and identity metadata of already-completed seed42 artifacts. The locked evaluator requires both an independently frozen multi-seed receipt and explicit command-line authorization."
+  },
+  "execution": {
+    "formal_order": "Run the eight new seeds sequentially on the single GPU; never rerun seed42 and never train two formal EqMotion jobs concurrently.",
+    "new_seed_count": 8,
+    "smoke_boundary": "CPU-only smoke outputs are nonformal implementation evidence, use capped train/development scenes and batches, never resolve test, and are excluded from all five-seed results.",
+    "formal_command_template": ".\\.venv-partc-win\\Scripts\\python.exe -m modern_baseline.run_eqmotion_tartan_multiseed_v2 --airport {airport} --seed {seed} --device cuda:0 --run-dir runs/partc_two_dataset_20260812/eqmotion_tartan_multiseed_v2/{airport}/seed{seed}_formal --output artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_multiseed_v2/{airport}_target_only_seed{seed}_formal.json",
+    "receipt_command": ".\\.venv-partc-win\\Scripts\\python.exe -m scripts.freeze_eqmotion_tartan_multiseed_v2",
+    "locked_command_template": ".\\.venv-partc-win\\Scripts\\python.exe -m modern_baseline.evaluate_eqmotion_tartan_multiseed_v2_locked --airport {airport} --seed {seed} --device cuda:0 --authorize-locked-test --output artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_multiseed_v2/locked/{airport}_target_only_seed{seed}_locked_test_v2.json",
+    "evaluation_order": "Freeze the multi-seed evaluation receipt after all eight formal jobs, then run each of the eight new locked evaluations once."
+  },
+  "claim_boundary": "This five-seed EqMotion extension was frozen after seed42 locked-test results existed, so it is a post-seed42 robustness expansion rather than a fully prospective five-seed registration. It is a target-only modern-baseline stability check on the frozen retrospective Tartan date split. Only K=5 minADE, minFDE, Energy, efficiency, and their seed uncertainty are comparable; no probability calibration or Top-1 claim is supported."
+}

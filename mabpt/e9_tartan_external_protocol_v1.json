@@ -1,0 +1,50 @@
+{
+  "format_version": 1,
+  "experiment": "E9 native-cardinality TartanAviation zero-shot external evaluation",
+  "frozen_at": "2026-08-12T15:30:00+08:00",
+  "evidence_class": "retrospective_external_seed42_native_cardinality",
+  "registered_native_modes": [3, 7],
+  "registered_folds": [1, 2],
+  "seed": 42,
+  "allowed_delimiters": [",", " "],
+  "training_protocol": "mabpt/e9_training_protocol.json",
+  "evaluation": {
+    "observation_steps": 16,
+    "observation_stride_seconds": 1,
+    "forecast_horizon_seconds": 120,
+    "prediction_stride_seconds": 5,
+    "prediction_steps": 24,
+    "probability_arms": [
+      "ascent_native",
+      "target_energy_native",
+      "mabpt_exact",
+      "mabpt_topM",
+      "mabpt_sinkhorn"
+    ],
+    "metrics_backend": "experiments.energy_predict_optimize.evaluation.compute_batch_metrics",
+    "metrics": [
+      "top1_ade",
+      "top1_fde",
+      "minade",
+      "minfde",
+      "top1_horizontal_ade",
+      "top1_horizontal_fde",
+      "top1_altitude_ade",
+      "top1_altitude_fde",
+      "energy_score",
+      "oracle_ade_rank1",
+      "oracle_fde_rank1",
+      "ece",
+      "tail_minfde"
+    ]
+  },
+  "prohibited": [
+    "truncating a K=5 support to K=3",
+    "copying or padding a K=5 support to K=7",
+    "external TartanAviation fine-tuning or calibration",
+    "external-result-selected checkpoints, files, thresholds, folds, or cardinalities",
+    "target access in the probability forward pass",
+    "claiming this retrospective local view is a prospective or hidden test"
+  ],
+  "claim_boundary": "Seed-42 retrospective zero-shot external transfer of independently trained native K=3 and K=7 E9 checkpoints. Folds are reported separately; this is cardinality sensitivity, not a multi-seed confirmation."
+}

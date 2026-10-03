@@ -1,0 +1,103 @@
+{
+  "format_version": 1,
+  "cycle": "C162_TRANSPORTED_PRIOR_MEASURE_OPTIMIZATION",
+  "access_date": "2026-08-10",
+  "scope": "Bounded mechanism-oriented search, not a systematic review or universal novelty claim.",
+  "databases": [
+    {
+      "name": "arXiv",
+      "endpoint": "https://export.arxiv.org/api/query",
+      "id_list": [
+        "2407.00650",
+        "2408.02841",
+        "2111.06314",
+        "1701.04072",
+        "2607.01171"
+      ],
+      "expected": 5,
+      "retrieved": 5,
+      "parser": "paper-lookup/scripts/arxiv_atom.py"
+    },
+    {
+      "name": "arXiv",
+      "endpoint": "https://export.arxiv.org/api/query",
+      "query": "all:\"trajectory prediction\" AND all:\"probability calibration\" AND all:\"optimal transport\"",
+      "max_results": 20,
+      "total_results": 0,
+      "interpretation": "No direct match was indexed for this exact narrow query; this does not establish absence from the literature."
+    },
+    {
+      "name": "Crossref",
+      "endpoint": "https://api.crossref.org/works",
+      "query_bibliographic": "Evaluation of Trajectory Distribution Predictions with Energy Score",
+      "rows": 5,
+      "result": "No exact record in the first five relevance-ranked results; the verified PMLR primary record is used instead."
+    }
+  ],
+  "sources": [
+    {
+      "id": "L1",
+      "title": "Evaluation of Trajectory Distribution Predictions with Energy Score",
+      "authors": ["Novin Shahroudi", "Mihkel Lepson", "Meelis Kull"],
+      "year": 2024,
+      "venue": "ICML / PMLR 235",
+      "url": "https://proceedings.mlr.press/v235/shahroudi24a.html",
+      "role": "Supports Energy Score as a proper trajectory-distribution metric and the inadequacy of min-of-N as a probability score."
+    },
+    {
+      "id": "L2",
+      "arxiv_id": "2407.00650",
+      "doi": "10.5194/ascmo-11-23-2025",
+      "title": "Proper Scoring Rules for Multivariate Probabilistic Forecasts based on Aggregation and Transformation",
+      "authors": ["Romain Pic", "Clément Dombry", "Philippe Naveau", "Maxime Taillardat"],
+      "year": 2025,
+      "role": "Supports complementary proper scores for distinct forecast features."
+    },
+    {
+      "id": "L3",
+      "arxiv_id": "2408.02841",
+      "title": "Evaluating Posterior Probabilities: Decision Theory, Proper Scoring Rules, and Calibration",
+      "authors": ["Luciana Ferrer", "Daniel Ramos"],
+      "year": 2024,
+      "role": "Supports using expected proper scores for posterior assessment and treating ECE as diagnostic."
+    },
+    {
+      "id": "L4",
+      "arxiv_id": "2111.06314",
+      "title": "Proper Scoring Rules, Gradients, Divergences, and Entropies for Paths and Time Series",
+      "authors": ["Patric Bonnier", "Harald Oberhauser"],
+      "year": 2021,
+      "role": "Supports respecting path-space structure in probabilistic forecasting."
+    },
+    {
+      "id": "L5",
+      "arxiv_id": "1701.04072",
+      "title": "Scenario Reduction Revisited: Fundamental Limits and Guarantees",
+      "authors": ["Napat Rujeerapaiboon", "Kilian Schindler", "Daniel Kuhn", "Wolfram Wiesemann"],
+      "year": 2017,
+      "role": "Supports transport-based comparison of finite discrete probability supports and its limits."
+    },
+    {
+      "id": "L6",
+      "arxiv_id": "2607.01171",
+      "title": "Decision-Aware Training for Sample-Based Generative Models",
+      "authors": ["Kornelius Raeth", "Nicole Ludwig"],
+      "year": 2026,
+      "status": "preprint",
+      "role": "Recent adjacent evidence that decision-sensitive and probabilistic forecast objectives can be combined; not treated as validation of TPMO."
+    }
+  ],
+  "local_overlap_boundary": {
+    "C99": "Voronoi score/geometry decoupling, closed before model training after its gradient-interference mechanism failed.",
+    "C95_C150": "Continuous density or transport support construction followed by finite support extraction; not cross-support posterior transport.",
+    "C128_C136": "Direct learned candidate posterior or regret heads; TPMO has zero trainable parameters and starts from a frozen B0 measure.",
+    "C134": "Target-free Energy simplex optimization on one support; TPMO adds exact cross-support probability transport and a fixed KL proximal anchor."
+  },
+  "novelty_statement": "Within the recorded bounded searches and local route audit, no direct method was found that transports a calibrated finite trajectory measure between independently learned K=5 supports by exact permutation marginalization and then applies a target-free Energy-KL proximal solve. This is a bounded candidate contribution, not a universal novelty claim.",
+  "coverage_limitations": [
+    "The exact arXiv conjunction is narrow and returned zero results.",
+    "Crossref relevance search did not return the PMLR paper in its first five records.",
+    "OpenAlex had no remaining daily query budget and unauthenticated Semantic Scholar was rate-limited during the preceding strategy audit.",
+    "Publisher full texts were not exhaustively searched."
+  ]
+}

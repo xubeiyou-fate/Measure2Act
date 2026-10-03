@@ -1,0 +1,54 @@
+{
+  "format_version": 1,
+  "recorded_at": "2026-08-10T18:05:00+08:00",
+  "sources": {
+    "trajairnet": {
+      "title": "Predicting Like A Pilot: Dataset and Method to Predict Socially-Aware Aircraft Trajectories in Non-Towered Terminal Airspace",
+      "doi": "10.1109/ICRA46639.2022.9811972",
+      "arxiv": "2109.15158",
+      "repository": "https://github.com/castacks/trajairnet",
+      "branch": "main",
+      "commit": "5a5bc751dabba09a668ca9acb6b05ae4112c5b3d",
+      "codeload_zip_sha256": "f90d0f271961879e47e9f9821dc15dcc48038c1aed7d0b59b61b53a928fed0dc",
+      "local_path": "external/trajairnet_official",
+      "local_code_tree_sha256": "692028e127193a9d1d91c82f35c3b8019eb61082541c1325881b252c568d7ec8",
+      "released_checkpoint": false
+    },
+    "actrajnet": {
+      "title": "Altitude aware trajectory prediction methods for non towered terminal airspace",
+      "doi": "10.1038/s41598-025-11888-w",
+      "pmcid": "PMC12287430",
+      "repository": "https://github.com/zhixiangbaipiao/ACTrajNet",
+      "branch": "main",
+      "commit": "1e4cb83515ca960e1a80a66f68d5177139b3e241",
+      "codeload_zip_sha256": "b3d6a9e91db198ac4361488ba7e6184dd01ab59f1523fb3427346931f9f5c660",
+      "local_path": "external/actrajnet_official",
+      "local_code_tree_sha256": "0f32b4514ad8e8233fd9ea34c4b0b6f497850a3e6c4395186eaaeb62163c7bba",
+      "released_checkpoint": {
+        "path": "external/actrajnet_official/saved_models/model_7days1_no_social_1_CAF_tcn.pt",
+        "sha256": "f0c0b989a24f5ecf23b9276fdc07a41939d3d3ac592db048d5ff65bbf5a9e1d6",
+        "epoch": 1,
+        "architecture": "CAF_tcn",
+        "parameter_count": 3367551
+      }
+    }
+  },
+  "datasets": {
+    "actrajnet_released_no_social_tree_sha256": "95d76f9b90e07bcf592a9cbaba3f7125c942ac24e7e89803dc0ec515babf0310",
+    "trajair_local_no_social_7days1_to_4_tree_sha256": "e1e001ddbc7097092db7f192a6fc5616fd3d4483362ac41f92ae630d58090054",
+    "trajair_reconstructed_social_manifest": "dataset/trajair_reconstructed_manifest.json",
+    "trajair_reconstructed_social_manifest_sha256": "e9f98953e135f289b8374ee0ffbede0375109482dd55707c71e7e05d940173fe",
+    "trajair_reconstructed_social_tree_sha256": "93358c722b92271b35170318c73ade6ca4f43ea75598b5f8ec15195fc1761fb8",
+    "actrajnet_counts_per_dataset": {
+      "train": [1022, 632, 571, 723],
+      "test": [425, 251, 210, 279]
+    }
+  },
+  "verification_notes": [
+    "GitHub API commit identifiers and codeload archive hashes were re-queried on the recorded date.",
+    "ACTrajNet released test files match the local no-social test views after line-ending normalization.",
+    "The local no-social train views separate a validation subset; official ACTrajNet training uses the released unsplit train folders.",
+    "TrajAirNet uses the manifest-backed reconstructed social views, not the per-aircraft no-social views used by ACTrajNet.",
+    "TrajAirNet provides no released model checkpoint, so a local fixed-protocol retraining is required."
+  ]
+}

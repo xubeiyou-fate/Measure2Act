@@ -1,0 +1,102 @@
+{
+  "format_version": 1,
+  "model": {
+    "name": "MABPT",
+    "full_name": "Mass-Aware Bayesian Permutation Transport",
+    "version": "1.0.0",
+    "paper_identity": "standalone_model_algorithm",
+    "legacy_mechanism": "C165",
+    "legacy_name_excluded_from_manuscript": true
+  },
+  "frozen_at": "2026-08-10T13:05:00+08:00",
+  "status": "frozen_before_new_E1_E13_results",
+  "known_before_freeze": {
+    "source": "artifacts/experiments/mabpt_ascent/final_summary_corrected.json",
+    "scope": "retrospective train-date folds 1 and 2; mechanism-development evidence only",
+    "actors": 488938,
+    "ascent_energy": 0.4435525897195355,
+    "mabpt_energy": 0.4202994555210634,
+    "ascent_nll": 1.5370823985210902,
+    "mabpt_nll": 1.537317864899698,
+    "ascent_brier": 0.7681374439586547,
+    "mabpt_brier": 0.7689715393230331
+  },
+  "algorithm": {
+    "source_measure": "q on source support S from a matched ASCENT predictor",
+    "target_support": "T and target-free risk r from a complementary ASCENT predictor",
+    "support_cost": "ADE/ADE_SCALE + FDE/FDE_SCALE between source and target atoms",
+    "permutation_posterior": "rho(sigma) proportional to exp(-sum_i q_i C_i,sigma(i)) over all K! bijections",
+    "transported_prior": "u_j = sum_sigma rho(sigma) sum_i q_i 1[sigma(i)=j]",
+    "projection": "argmin over simplex p: p^T r - 0.5 p^T D p + KL(p||u)",
+    "top1_decision": "target-support decision rule fixed before evaluation",
+    "default_modes": 5,
+    "assignment_scale": 1.0,
+    "risk_weight": 1.0,
+    "diversity_weight": 1.0,
+    "kl_weight": 1.0,
+    "trainable_parameters_in_transport_and_projection": 0,
+    "target_in_probability_forward": false
+  },
+  "hypotheses": {
+    "H1": "MABPT improves Energy Score over matched ASCENT on confirmatory data.",
+    "H2": "MABPT fixed-event NLL and Brier are noninferior to matched ASCENT within a 1 percent relative margin.",
+    "H3": "MABPT improves conflict-risk discrimination or calibration without degrading the other endpoint beyond a 1 percent relative margin."
+  },
+  "design": {
+    "seeds": [0, 1, 2, 3, 4],
+    "training_checkpoint": "fixed final epoch",
+    "selection_data": "train and development only",
+    "confirmatory_data": "sealed official and external splits; opened once after all configurations pass smoke tests",
+    "experimental_unit": "calendar date or flight, never overlapping actor windows",
+    "bootstrap": "paired hierarchical airport then date then flight/scene, 10000 replicates",
+    "confidence_level": 0.95,
+    "multiplicity": "Holm correction across H1-H3; ablations are secondary",
+    "effect_reporting": "absolute and relative paired effect, 95 percent CI, raw and adjusted p value",
+    "noninferiority_margin_relative": 0.01
+  },
+  "datasets": {
+    "official": ["TrajAir 7Days1", "TrajAir 7Days2", "TrajAir 7Days3", "TrajAir 7Days4", "TrajAir 111Days"],
+    "external": ["TartanAviation KAGC S1/S2", "TartanAviation KBTP S1/S2"],
+    "legacy_development_only": "trajair_111day_c12 folds 1 and 2"
+  },
+  "metrics": {
+    "trajectory": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "minFDE_p95", "tail_minFDE"],
+    "distribution": ["Energy", "fixed_event_NLL", "fixed_event_Brier", "ECE", "effective_modes", "continuous_mixture_NLL"],
+    "operations": ["conflict_Brier", "conflict_NLL", "conflict_AUPRC", "recall_at_fixed_FPR", "warning_lead_time"],
+    "efficiency": ["parameters", "training_updates", "FLOPs", "latency", "peak_GPU_memory"]
+  },
+  "experiments": {
+    "E1": {"name": "official_main", "comparators": ["CV", "TrajAirNet", "code_available_aviation_baseline", "ASCENT", "MABPT"]},
+    "E2": {"name": "single_support", "comparators": ["ASCENT_native", "target_support_native", "ASCENT_Energy"]},
+    "E3": {"name": "hard_matching", "comparators": ["identity", "ordinary_Hungarian", "mass_weighted_Hungarian", "MABPT"]},
+    "E4": {"name": "soft_matching", "comparators": ["row_softmax", "Sinkhorn", "unweighted_Gibbs", "MABPT_Gibbs"]},
+    "E5": {"name": "projection", "comparators": ["u_only", "risk_plus_KL", "diversity_plus_KL", "uniform_plus_Energy_KL", "no_KL", "MABPT_full"]},
+    "E6": {"name": "ordinary_ensemble", "comparators": ["two_ASCENT_10_mode_union", "target_blind_5_mode_compression", "Hungarian_aligned_average"]},
+    "E7": {"name": "equal_parameters", "comparators": ["widened_ASCENT_approximately_2.551M", "shared_encoder_dual_decoder", "MABPT"]},
+    "E8": {"name": "equal_compute", "comparators": ["two_forward_ASCENT_deep_ensemble", "same_training_updates_ASCENT", "MABPT"]},
+    "E9": {"name": "modes_and_scaling", "comparators": ["K3_exact", "K5_exact", "K7_exact", "top_M", "Sinkhorn"]},
+    "E10": {"name": "robustness", "comparators": ["ADS_B_dropout", "position_noise", "history_truncation", "long_range", "traffic_density"]},
+    "E11": {"name": "calibration", "comparators": ["Energy", "fixed_event_NLL", "fixed_event_Brier", "ECE", "reliability", "effective_modes"]},
+    "E12": {"name": "traffic_decision", "comparators": ["near_conflict_probability", "alert_Brier", "AUPRC", "recall_at_fixed_FPR", "warning_lead_time"]},
+    "E13": {"name": "failure_cases", "comparators": ["high_low_permutation_entropy", "support_mismatch", "rare_flight_phase"]}
+  },
+  "fixed_event_definition": {
+    "source": "training data only",
+    "horizontal": ["left", "straight", "right"],
+    "vertical": ["climb", "level", "descend"],
+    "events": 9,
+    "thresholds": "estimated once from training data and hashed before development evaluation"
+  },
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "post_hoc_temperature_scaling",
+    "assignment_temperature_search",
+    "KL_or_objective_weight_search",
+    "probability_head_finetuning_on_evaluation_data",
+    "validation_or_test_target_in_probability_forward",
+    "checkpoint_seed_or_arm_selection_on_confirmatory_data"
+  ],
+  "stopping_rule": "Report every fixed seed and every registered arm. Failed arms remain in the registry. No configuration changes after confirmatory data are opened.",
+  "claim_boundary": "Legacy C165 evidence is retrospective. MABPT may be described as a standalone algorithm, but external generalization, calibration, and traffic-decision claims require completed E1-E13 evidence."
+}

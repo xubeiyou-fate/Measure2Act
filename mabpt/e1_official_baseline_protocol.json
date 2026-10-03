@@ -1,0 +1,89 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 official runnable aviation baselines",
+  "frozen_at": "2026-08-10T18:05:00+08:00",
+  "status": "frozen_before_official_baseline_training_or_metrics",
+  "pre_formal_amendments": [
+    "evaluation_seed=165 was fixed after smoke-only training and before any formal baseline training or evaluation",
+    "ACTrajNet single-aircraft scenes are vectorized only within each official nine-scene gradient accumulation group; optimizer update count and summed per-scene loss are unchanged"
+    ,"TrajAirNet is trained and evaluated on manifest-backed reconstructed social scenes; per-aircraft no-social files are reserved for ACTrajNet"
+    ,"Official model calls are grouped by equal scene actor count with torch.vmap only inside each nine-scene optimizer group; each social scene retains its own GAT and latent sample"
+  ],
+  "source_receipt": "mabpt/e1_baseline_sources.json",
+  "datasets": ["7days1", "7days2", "7days3", "7days4"],
+  "baselines": {
+    "trajairnet": {
+      "implementation": "unmodified official model modules through a local deterministic training adapter",
+      "data": "dataset/{dataset}_trajair_reconstructed/processed_data/{train,test}",
+      "social_interactions": true,
+      "architecture": "official TrajAirNet TCN-GAT-CVAE",
+      "history_steps": 11,
+      "prediction_seconds": 120,
+      "prediction_stride_seconds": 10,
+      "prediction_points": 12,
+      "training_epochs": 50,
+      "additional_fixed_snapshot": 10,
+      "learning_rate": 0.0001
+    },
+    "actrajnet": {
+      "implementation": "unmodified official CAF-TCN model modules through a local deterministic training adapter",
+      "data": "external/actrajnet_official/dataset/{dataset}_no_social/{train,test}",
+      "social_interactions": false,
+      "architecture": "CAF_tcn",
+      "history_steps": 11,
+      "prediction_seconds": 120,
+      "prediction_stride_seconds": 10,
+      "prediction_points": 12,
+      "training_epochs": 50,
+      "learning_rate": 0.0001
+    }
+  },
+  "training": {
+    "seeds": [7, 42, 123],
+    "optimizer": "Adam",
+    "gradient_accumulation_scenes": 9,
+    "checkpoint": "fixed final epoch; TrajAirNet epoch-10 is a separately labelled README snapshot",
+    "validation_or_test_selection": false,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true,
+    "official_source_modification": false
+    ,"official_call_vectorization": "torch.vmap with independent randomness over equal-actor-count scenes inside each nine-scene optimizer group"
+  },
+  "evaluation": {
+    "evaluation_seed": 165,
+    "latent_samples": 5,
+    "latent_distribution": "N(0,I)",
+    "probabilities": "uniform empirical measure over the five fixed-seed samples",
+    "metrics": [
+      "sample1_ADE",
+      "sample1_FDE",
+      "expected_ADE",
+      "expected_FDE",
+      "actor_minADE",
+      "actor_minFDE",
+      "scene_oracle_ADE",
+      "scene_oracle_FDE",
+      "Energy"
+    ],
+    "forbidden": [
+      "test_selected_epoch",
+      "test_selected_seed",
+      "reporting_only_the_best_random_sample",
+      "temperature_or_probability_fitting"
+    ]
+  },
+  "comparison_boundary": {
+    "native_protocol_table": "TrajAirNet and ACTrajNet are retrained in-domain with 11 observed points and 12 forecast points; frozen MABPT is evaluated zero-shot with its native 16 observations and 24 forecast points.",
+    "aligned_target_table": "A separate common-window evaluator uses the same t+10,...,t+120 targets. It reports both native MABPT history and an observation-11 padding sensitivity arm.",
+    "data_budget": "The native official baselines and zero-shot MABPT do not have matched training data budgets; E7-E8 provide parameter and compute controls only against ASCENT.",
+    "evidence_class": "retrospective external/cross-dataset reuse, not a fresh sealed confirmation"
+  },
+  "known_source_discrepancies": [
+    "The TrajAirNet paper states Adam with learning rate 1e-4, while the current train.py default is 1e-3.",
+    "The TrajAirNet README describes 10 epochs, while the current train.py default is 50; both fixed snapshots are retained without test selection.",
+    "The ACTrajNet paper states 50 epochs and learning rate 1e-4, while the current train.py default is 1e-5.",
+    "Both official test scripts choose the lowest-ADE random sample. The MABPT evaluation instead reports the full uniform five-sample measure and labels oracle metrics explicitly."
+  ]
+}

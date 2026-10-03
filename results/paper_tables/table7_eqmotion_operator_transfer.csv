@@ -1,0 +1,8 @@
+operator,KAGC_ES,KBTP_ES,balanced_NLL,balanced_Brier,balanced_ES_reduction_percent,actor_weighted_ES_reduction_percent,aggregation
+Uniform,1.000055,0.805276,1.609438,0.800000,0.00,0.00,formal EqMotion transfer summary
+Hard unweighted,1.044098,0.737871,1.592915,0.793578,1.29,8.00,formal EqMotion transfer summary
+Hard mass-aware,0.911270,0.632532,1.309513,0.679901,14.49,21.09,formal EqMotion transfer summary
+Row-softmax,0.845212,0.558718,0.912315,0.477776,22.23,30.18,formal EqMotion transfer summary
+Sinkhorn,1.022759,0.727989,1.526961,0.766004,3.02,9.26,formal EqMotion transfer summary
+Gibbs prior,1.005470,0.744660,1.537493,0.771077,3.06,7.29,formal EqMotion transfer summary
+Mass-weighted Gibbs,0.930574,0.656866,1.381989,0.704280,12.07,18.10,formal EqMotion transfer summary

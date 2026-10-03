@@ -1,0 +1,28 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiment": "E11 zero-shot fixed-event calibration",
+  "frozen_at": "2026-08-10T17:10:00+08:00",
+  "status": "frozen_after_E1_geometry_metrics_but_before_any_external_fixed_event_metric",
+  "datasets": ["trajair_7days1", "trajair_7days2", "trajair_7days3", "trajair_7days4", "kagc_external_128", "kbtp_external_128"],
+  "event_definition": {
+    "path": "artifacts/mabpt/e11_definition_fold1_v2.json",
+    "sha256": "ff1828295cdb4c4f180b3d0b7292032aa1d5370266128455e6955586b3dda362",
+    "fit_data": "trajair_111day_c12 fold1 training actors only",
+    "events": 9,
+    "measurement_kernel": "fixed ordinal-logistic membership"
+  },
+  "base_protocol": {
+    "path": "mabpt/e11_protocol_v2.json",
+    "sha256": "7471102d881822414b69eb8fa57c80016e15f4c1cca2e9f1f6fdcfb523780d41"
+  },
+  "model_protocol": {
+    "path": "mabpt/e1_external_protocol.json",
+    "sha256": "fdfe55887e2db4542b66c6384a5eb899097a01af8606031ca1226d79f18b6b72"
+  },
+  "comparators": ["source ASCENT", "MABPT"],
+  "metrics": ["fixed_event_NLL", "fixed_event_Brier", "event_ECE", "continuous_mixture_NLL", "Energy", "effective_modes", "effective_events", "hard_support_zero_rate"],
+  "external_fitting": false,
+  "external_temperature_or_weight_search": false,
+  "claim_boundary": "These views were historically opened. The analysis tests transport of one training-only event definition and is external-reuse evidence, not fresh confirmation."
+}

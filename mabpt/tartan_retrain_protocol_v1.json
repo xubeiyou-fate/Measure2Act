@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "protocol_id": "mabpt_partc_tartan_retrain_v1",
+  "frozen_at": "2026-08-12",
+  "research_questions": {
+    "zero_shot": "Retained from the completed TrajAir-to-Tartan evaluation and not rerun.",
+    "target_only": "Can each method learn the target airport when trained only on its registered training dates?",
+    "full_finetune": "Does TrajAir pretraining improve learning on the same registered target dates?",
+    "cross_airport": "How do target-trained models transfer between KBTP and KAGC without target-airport tuning?"
+  },
+  "data": {
+    "root": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal",
+    "builder": "scripts/build_tartan_target_domain.py",
+    "scene_index_root": "artifacts/partc_two_dataset_20260812/target_domain_scene_index_v3",
+    "airports": ["KAGC", "KBTP"],
+    "splits": ["train", "development", "test"],
+    "split_unit": "calendar date",
+    "split_rule": "chronological 60/20/20 within airport",
+    "window": {
+      "history_points": 16,
+      "history_interval_seconds": 1,
+      "future_points": 24,
+      "future_interval_seconds": 5,
+      "future_horizon_seconds": 120,
+      "window_stride_seconds": 5
+    }
+  },
+  "registered_models": {
+    "ASCENT": {
+      "variant": "B0_signed_coupled",
+      "source_checkpoint": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed{seed}_formal/last.pt"
+    },
+    "MABPT-ASCENT": {
+      "decision_variant": "D1_native_decision_regret",
+      "risk_variant": "E1_energy_predict_optimize",
+      "source_decision_checkpoint": "runs/mabpt_partc_20260811/mabpt_ascent_decision_support_seed{seed}_formal/epoch_020.pt",
+      "source_risk_checkpoint": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed{seed}_formal/epoch_020.pt"
+    }
+  },
+  "training": {
+    "seeds": [42, 7, 123, 2024, 2026],
+    "epochs": 20,
+    "checkpoint_selection": "fixed final epoch; development metrics are diagnostic only",
+    "optimizer": "Adam",
+    "milestones": [10, 15],
+    "gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "learning_rates": {
+      "target_only": 0.001,
+      "full_finetune": 0.0001
+    },
+    "batch_sizes": {
+      "ascent": [256, 512],
+      "decision_support": [256, 512],
+      "predicted_risk": [1024, 2048]
+    },
+    "data_efficiency_fractions": [0.1, 0.25, 1.0],
+    "data_efficiency_expansion_rule": "Run 0.1 and 0.25 with seed 42 first; expand only if the preregistered development trend is interpretable."
+  },
+  "test_lock": {
+    "policy": "No model inference on either test split until all five-seed 100-percent checkpoints are complete.",
+    "hyperparameter_tuning_on_test": false,
+    "single_formal_evaluation_pass": true,
+    "primary_endpoints": ["energy_score", "minfde"],
+    "secondary_endpoints": ["minade", "top1_fde", "nll", "brier", "ece", "tail_minfde", "safety_proxy"],
+    "inference_unit": "calendar date paired block bootstrap; overlapping windows are not treated as independent"
+  },
+  "claim_boundaries": [
+    "Target-only, full-finetune, zero-shot, and cross-airport results answer different research questions and are reported separately.",
+    "The Tartan cohort is retrospective and has been inspected during engineering; it is locked, not blinded.",
+    "KBTP and KAGC differ in airport operations, traffic mix, runway geometry, and geography; effects are not attributed to geography alone.",
+    "Safety outputs are research proxies and are not regulatory safety assurance."
+  ]
+}

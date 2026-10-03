@@ -1,0 +1,44 @@
+{
+  "format_version": 2,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 matched-horizon official no-social views",
+  "frozen_at": "2026-08-10T16:29:00+08:00",
+  "status": "frozen_before_matched_horizon_MABPT_metrics_on_ACTrajNet_test_views",
+  "model_input": {
+    "fold": 1,
+    "source": "frozen C127 B0 ASCENT fold1 seed42 epoch20",
+    "target": "frozen C161 Energy predict-optimize fold1 seed42 epoch20",
+    "external_finetuning": false,
+    "external_calibration": false,
+    "checkpoint_selection_by_external_metrics": false
+  },
+  "evaluation": {
+    "observation_steps": 11,
+    "observation_stride_seconds": 1,
+    "forecast_horizon_seconds": 120,
+    "prediction_stride_seconds": 10,
+    "mabpt_native_prediction_stride_seconds": 5,
+    "mabpt_fixed_output_indices_zero_based": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23],
+    "common_target_times_seconds": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
+  },
+  "datasets": {
+    "act_no_social_7days1": {"path": "external/actrajnet_official/dataset/7days1_no_social/test", "delimiter": " ", "class": "official_actrajnet_no_social_reuse"},
+    "act_no_social_7days2": {"path": "external/actrajnet_official/dataset/7days2_no_social/test", "delimiter": " ", "class": "official_actrajnet_no_social_reuse"},
+    "act_no_social_7days3": {"path": "external/actrajnet_official/dataset/7days3_no_social/test", "delimiter": " ", "class": "official_actrajnet_no_social_reuse"},
+    "act_no_social_7days4": {"path": "external/actrajnet_official/dataset/7days4_no_social/test", "delimiter": " ", "class": "official_actrajnet_no_social_reuse"}
+  },
+  "external_view_manifest": {
+    "path": "mabpt/e1_baseline_sources.json",
+    "sha256": "a9e0ff0f94dc45aed2c047cea5c52e6a7f8736eb3984e975098cc4281ae543bc"
+  },
+  "comparators": ["last-observation constant velocity", "ACTrajNet author checkpoint", "source ASCENT native K5", "target-support native logits", "target-support Energy probabilities", "MABPT"],
+  "metrics": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "Energy", "legacy_oracle_mode_NLL", "legacy_oracle_mode_Brier", "ECE"],
+  "integrity": {
+    "same_test_directories_as_ACTrajNet": true,
+    "same_history_and_target_grid": true,
+    "target_in_probability_forward": false,
+    "residual_or_gate": false,
+    "temperature_or_weight_search": false
+  },
+  "claim_boundary": "The ACTrajNet test views and released checkpoint were already public and opened. Results are matched-horizon retrospective reuse evidence, not fresh confirmation. MABPT was trained with 16 observations and is evaluated zero-shot with 11."
+}

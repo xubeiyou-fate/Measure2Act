@@ -1,0 +1,13 @@
+airport,regime,metric,ASCENT,Measure2Act,absolute_gain,relative_reduction_percent,aggregation
+KAGC,target_only,ES_terminal,0.540145,0.467944,0.072201,13.37,equal mean of five locked seeds
+KAGC,target_only,ES_full_path,0.637724,0.561027,0.076697,12.03,equal mean of five locked seeds
+KAGC,target_only,minFDE,0.738281,0.634392,0.103888,14.07,equal mean of five locked seeds
+KAGC,full_finetune,ES_terminal,0.481281,0.447665,0.033616,6.98,equal mean of five locked seeds
+KAGC,full_finetune,ES_full_path,0.578370,0.541893,0.036477,6.31,equal mean of five locked seeds
+KAGC,full_finetune,minFDE,0.637486,0.571701,0.065785,10.32,equal mean of five locked seeds
+KBTP,target_only,ES_terminal,0.356573,0.345593,0.010980,3.08,equal mean of five locked seeds
+KBTP,target_only,ES_full_path,0.434168,0.422541,0.011628,2.68,equal mean of five locked seeds
+KBTP,target_only,minFDE,0.426675,0.386938,0.039737,9.31,equal mean of five locked seeds
+KBTP,full_finetune,ES_terminal,0.356969,0.344547,0.012421,3.48,equal mean of five locked seeds
+KBTP,full_finetune,ES_full_path,0.434671,0.421734,0.012937,2.98,equal mean of five locked seeds
+KBTP,full_finetune,minFDE,0.431857,0.385810,0.046047,10.66,equal mean of five locked seeds

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "protocol_id": "journal_extension_awta_trajair_v1",
+  "frozen_at": "2026-08-14",
+  "status": "frozen_before_any_awta_trajair_smoke_or_formal_metrics",
+  "hypothesis": "A fixed annealed winner-takes-all assignment improves small-K trajectory support geometry relative to the matched hard-WTA ASCENT control on TrajAir.",
+  "inherits": {
+    "c127_protocol": "experiments/metric_exact/protocol.json",
+    "c127_protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08",
+    "data_manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "data_manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "development_scene_dates": "artifacts/c97_ikd_ascent/dev_scene_dates.json",
+    "development_scene_dates_sha256": "d77a7c5b49aab3b7c289c24ca79360d523e3ab26921fd1f6e4deeb6ad043f27b"
+  },
+  "data": {
+    "training_split": "train",
+    "selection_split": "development",
+    "excluded_split": "locked_test",
+    "historical_locked_test_already_opened": true,
+    "split_unit": "calendar date",
+    "expected_train_scenes": 872417,
+    "expected_development_scenes": 171063
+  },
+  "model": {
+    "architecture": "matched B0_signed_coupled ASCENT",
+    "modes": 5,
+    "changed_factor": "regression assignment only",
+    "initial_temperature_km": 8.0,
+    "final_temperature_km": 0.05,
+    "schedule": "geometric over 20 epochs",
+    "assignment_gradient": "detached",
+    "classification": "hard nearest-ADE cross-entropy"
+  },
+  "training": {
+    "seeds": [42, 7, 123, 2024, 2026],
+    "epochs": 20,
+    "batch_size": 256,
+    "evaluation_batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "milestones": [10, 15],
+    "gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "checkpoint_selection": "fixed final epoch; development metrics are diagnostic",
+    "deterministic_algorithms": true
+  },
+  "evaluation": {
+    "primary_metrics": ["energy_score", "minfde"],
+    "secondary_metrics": ["minade", "top1_ade", "top1_fde", "tail_minfde"],
+    "uncertainty": "seed outer and calendar-date inner paired bootstrap",
+    "test_policy": "No TrajAir test inference is part of this extension because the local manifest records that the historical locked test was already evaluated."
+  },
+  "stopping_and_failure": {
+    "stopping_rule": "Always use epoch 20; no development checkpoint selection.",
+    "smoke_gate": "One deterministic capped run must finish with finite loss and gradients and a reloadable checkpoint.",
+    "failure_criteria": [
+      "Any TrajAir locked-test access by this extension",
+      "Non-finite loss or gradients",
+      "Missing registered seed",
+      "Any architecture, split, optimizer, schedule, or cardinality deviation"
+    ]
+  },
+  "paths": {
+    "formal_run_template": "runs/journal_extension_20260814/awta_trajair/seed{seed}_formal",
+    "formal_result_template": "artifacts/journal_extension_20260814/awta_trajair/development/seed{seed}_formal.json",
+    "smoke_run_root": "runs/journal_extension_20260814/awta_trajair_smoke",
+    "smoke_result_root": "artifacts/journal_extension_20260814/awta_trajair/smoke"
+  },
+  "claim_boundary": "This is a matched training-objective baseline evaluated on the existing development cohort; it is not a fresh external confirmation."
+}

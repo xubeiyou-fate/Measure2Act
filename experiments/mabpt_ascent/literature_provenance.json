@@ -1,0 +1,59 @@
+{
+  "retrieved_at": "2026-08-10",
+  "database": "arXiv Atom API",
+  "queries": [
+    {
+      "query": "ti:\"Gumbel-Sinkhorn\" OR ti:\"Computational Optimal Transport\" OR ti:\"Learning Latent Permutations\"",
+      "total_results": 13,
+      "retrieved": 13,
+      "records": [
+        {
+          "title": "Learning Latent Permutations with Gumbel-Sinkhorn Networks",
+          "authors": ["Gonzalo Mena", "David Belanger", "Scott Linderman", "Jasper Snoek"],
+          "year": 2018,
+          "arxiv": "1802.08665",
+          "url": "https://arxiv.org/abs/1802.08665",
+          "use": "Primary evidence that differentiable latent permutation inference is a valid structured mechanism; C165 uses exact enumeration because K=5 makes the assignment space finite and avoids an extra relaxation."
+        },
+        {
+          "title": "Computational Optimal Transport",
+          "authors": ["Gabriel Peyre", "Marco Cuturi"],
+          "year": 2019,
+          "arxiv": "1803.00567",
+          "url": "https://arxiv.org/abs/1803.00567",
+          "use": "Primary OT reference for couplings, discrete transport costs, and entropic/Gibbs transport; C165 keeps the finite coupling explicit and makes the source mass part of the cost."
+        }
+      ]
+    },
+    {
+      "query": "all:\"energy score\" AND (all:\"probabilistic forecasting\" OR all:\"trajectory prediction\")",
+      "total_results": 14,
+      "retrieved": 14,
+      "records": [
+        {
+          "title": "Multivariate Forecasting Evaluation: On Sensitive and Strictly Proper Scoring Rules",
+          "authors": ["Florian Ziel", "Kevin Berk"],
+          "year": 2019,
+          "arxiv": "1910.07325",
+          "url": "https://arxiv.org/abs/1910.07325",
+          "use": "Supports reporting complementary strictly proper scores rather than optimizing Energy alone."
+        },
+        {
+          "title": "Probabilistic Symmetry for Multi-Agent Dynamics",
+          "authors": ["Sophia Sun", "Robin Walters", "Jinxi Li", "Rose Yu"],
+          "year": 2022,
+          "arxiv": "2205.01927",
+          "url": "https://arxiv.org/abs/2205.01927",
+          "use": "Supports treating multimodal trajectory outputs as an exchangeable probability measure over structured agents; C165 retains the finite support and changes only its measure-aware matching."
+        }
+      ]
+    }
+  ],
+  "local_deduplication": {
+    "C162": "Uniform assignment-cost Gibbs transport plus TPMO; retained as a control and unchanged solver.",
+    "C163": "Risk-pattern empirical Dirichlet calibration; failed by discarding continuous actor-specific probabilities.",
+    "C164": "Global 5x5 row-stochastic proper-score kernel; nearly identity and only marginally improved C162.",
+    "C165_difference": "The assignment posterior itself is mass-aware: each actor's full B0 probability vector weights the exact permutation transport cost. No global calibration head is fitted."
+  },
+  "coverage_limitations": "The retrieval is targeted primary arXiv evidence, not a systematic review, patent review, or universal novelty claim."
+}

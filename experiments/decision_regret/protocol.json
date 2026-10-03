@@ -1,0 +1,137 @@
+{
+  "format_version": 1,
+  "cycle": "C133_NATIVE_DECISION_REGRET",
+  "frozen_at": "2026-08-06T14:18:00+08:00",
+  "status": "implementation_frozen_before_C133_model_results",
+  "question": "Can a Native-K decision-regret objective improve deployment top1 selection without changing C129 candidate geometry or adding residuals, gates, tokens, expansion, or post-hoc reranking?",
+  "hypotheses": {
+    "primary": "SPO+ decision regret over the five native candidates improves top1 ADE and FDE against B0 and C129 while preserving geometry and Energy guards.",
+    "mechanism": "C129 and C130 expose enough candidate geometry, but C129 trains a one-hot winner and C130 fits risk values; decision-regret training should spend capacity on the induced argmin decision boundary.",
+    "rival": "The apparent headroom is date-specific or candidate-order leakage, so a permutation-equivariant decision objective will not transfer across date folds.",
+    "null": "C133 is equivalent to C130 or fails the frozen fold-0 gate; in either case no replication is authorized."
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "date_folds": "artifacts/experiments/metric_exact/date_folds.json",
+    "date_folds_sha256": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "expected_train_scenes": 872417,
+    "expected_train_actors": 1221720,
+    "expected_train_scene_dates": 74,
+    "access_policy": "C133 may open only processed_data/train and frozen train-date folds. Development, external, and locked-test data are unavailable."
+  },
+  "model": {
+    "variant": "D1_native_decision_regret",
+    "base": "C129 positive_speed_pitch ASCENT candidate generator",
+    "modes": 5,
+    "history_steps": 16,
+    "future_steps": 24,
+    "future_horizon_seconds": 120,
+    "geometry_objective": "exact_independent_minade_plus_minfde",
+    "decision_objective": "SPO_plus_native_K_argmin_regret",
+    "true_cost": "normalized_ADE_plus_normalized_FDE_detached_from_geometry",
+    "deployment": "argmin_predicted_scalar_cost",
+    "cost_head": "shared_candidate_conditioned_scalar_cost",
+    "candidate_expansion": false,
+    "probability_objective": false
+  },
+  "metric_scales": {
+    "ade": 0.2760537266731262,
+    "fde": 0.4783363938331604,
+    "source": "frozen C127 scales",
+    "retuning_prohibited": true
+  },
+  "objective_weights": {
+    "exact_dual_geometry": 1.0,
+    "spo_plus_decision_regret": 1.0,
+    "search_prohibited": true
+  },
+  "training": {
+    "from_scratch": true,
+    "epochs": 20,
+    "batch_size": 256,
+    "evaluation_batch_size": 512,
+    "num_workers_per_run": 12,
+    "prefetch_factor": 4,
+    "persistent_workers": true,
+    "learning_rate": 0.001,
+    "optimizer": "Adam",
+    "scheduler_milestones": [10, 15],
+    "scheduler_gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true
+  },
+  "diagnostic": {
+    "phase": "P0_zero_training_read_only",
+    "models": ["C127_B0", "C129_J1"],
+    "folds": [0, 1, 2],
+    "horizons_seconds": [30, 60, 90, 120],
+    "checkpoint_sha256": {
+      "C129_J1": [
+        "106b7d22760ae3610b8e663d5c0ea2ab024247f8816c51fbf5b2c80f50323ebe",
+        "2251f62f24be28ffd17a51b77a82c6a9369b33b76d92cef795ad64b3d2948b09",
+        "80a1da6d1956efd6c90c9db7c88b701410d78904961b08693a46bc2aecfb10c9"
+      ],
+      "C127_B0": [
+        "e8795f0a5f128d0bb6edeb759ec003771baa28ba1be6c807cac551a5c3f8e41b",
+        "83f57f8dd5869a18341fea9fed40a21d6c624c90b1c74f224bd1bfebc1d00379",
+        "28e831974db5cbaecf3790ccc95f33734c8d701c8c4782a9a8e7c51a6cf0410b"
+      ]
+    },
+    "minimum_oracle_fde_headroom_relative": 0.01,
+    "minimum_headroom_folds": 2,
+    "max_c133_c130_decision_overlap_for_nonduplicate": 0.95,
+    "authorization_rule": "Proceed only when all checkpoint identities pass, diagnostics are finite, C129 geometry remains better than B0, oracle top1 FDE headroom is at least 1 percent in at least two folds, and the SPO+ objective probe is not equivalent to C130 risk MSE.",
+    "adaptive_model_or_parameter_selection": false
+  },
+  "screening": {
+    "seed": 42,
+    "folds": [0, 1, 2],
+    "execution_order": "Run P0 for all folds. Run fold 0 formal first. Run folds 1 and 2 concurrently only after every frozen fold-0 gate passes.",
+    "matched_controls": "Reuse completed C127 B0 and C129 J1 fold checkpoints and metrics; never retrain controls.",
+    "c127_control_protocol_sha256": "92a72d4e3bbf5bba8ffab3120a4018b60944b0ddd1c8ec16d26e71ffa4cafc08",
+    "c129_protocol_sha256": "c9535cf775ffd82dd5b707ad5adc7c6860c3b0e8e1ca8c4d94420b16c5e3d83e",
+    "c129_final_summary_sha256": "1cc78e30b26176cc5a593ab31ffb25ab6b4ff780ac5626feb4cb17de41d9eb73",
+    "fold0_gate": {
+      "top1_ade_better_than_B0": true,
+      "top1_fde_better_than_B0": true,
+      "top1_fde_relative_gain_at_least": 0.01,
+      "minade_not_worse_than_C129_plus": 0.01,
+      "minfde_not_worse_than_C129_plus": 0.01,
+      "energy_not_worse_than_B0_plus": 0.01,
+      "p95_and_tail_not_worse_than_B0_plus": 0.01,
+      "effective_modes_retention": 0.95
+    },
+    "replication_gate": {
+      "both_top1_metrics_better_than_B0_in_at_least_folds": 2,
+      "aggregate_top1_ade_better_than_B0": true,
+      "aggregate_top1_fde_better_than_B0": true,
+      "aggregate_minade_not_worse_than_C129_plus": 0.01,
+      "aggregate_minfde_not_worse_than_C129_plus": 0.01,
+      "aggregate_energy_not_worse_than_B0_plus": 0.01
+    },
+    "failure_rule": "Stop immediately if P0 or fold 0 fails; otherwise complete exactly folds 1 and 2. Do not compensate with weights, temperatures, widths, epochs, seeds, or post-selection."
+  },
+  "primary_metrics": ["top1_ade", "top1_fde"],
+  "geometry_guard_metrics": ["minade", "minfde"],
+  "secondary_metrics": ["energy_score", "oracle_ade_rank1", "oracle_fde_rank1", "minfde_p95", "tail_minfde", "effective_modes"],
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_expansion_selection_reranking_or_nms",
+    "posthoc_detached_scorer",
+    "probability_objective_or_temperature_calibration",
+    "development_selected_temperature_weight_width_epoch_or_seed",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C133 is train-only blocked algorithm screening. No development, sealed-test, or confirmatory generalization claim is authorized."
+}

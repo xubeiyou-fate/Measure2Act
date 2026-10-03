@@ -1,0 +1,91 @@
+{
+  "format_version": 1,
+  "experiment": "TartanAviation large-scale zero-shot submission evaluation",
+  "frozen_at": "2026-08-12T15:10:42+08:00",
+  "frozen_before_model_evaluation_on_these_views": true,
+  "evidence_class": "sealed_retrospective_external_airport_transfer",
+  "view_manifest": {
+    "path": "artifacts/mabpt_submission_20260812/tartan_submission_views_v1.json",
+    "sha256": "fa9e974ff687c0fdfb88c720771835a754f6b6e820b34568a252b97848399299"
+  },
+  "datasets": {
+    "tartan_kagc_submission_1024": {
+      "airport": "KAGC",
+      "path": "dataset/tartan_kagc_submission_1024/processed_data/test",
+      "delimiter": ",",
+      "files": 1024
+    },
+    "tartan_kbtp_submission_1024": {
+      "airport": "KBTP",
+      "path": "dataset/tartan_kbtp_submission_1024/processed_data/test",
+      "delimiter": ",",
+      "files": 1024
+    }
+  },
+  "evaluation": {
+    "observation_steps": 16,
+    "observation_stride_seconds": 1,
+    "forecast_horizon_seconds": 120,
+    "prediction_stride_seconds": 5,
+    "prediction_steps": 24,
+    "native_modes": 5,
+    "batch_size": 512,
+    "deterministic_algorithms": true,
+    "arms": ["constant_velocity", "original_ascent", "mabpt_ascent"],
+    "metrics": [
+      "top1_ade",
+      "top1_fde",
+      "minade",
+      "minfde",
+      "top1_horizontal_ade",
+      "top1_horizontal_fde",
+      "top1_altitude_ade",
+      "top1_altitude_fde",
+      "energy_score",
+      "oracle_ade_rank1",
+      "oracle_fde_rank1",
+      "ece",
+      "tail_minfde"
+    ]
+  },
+  "seeds": [42, 7, 123, 2024, 2026],
+  "checkpoints": {
+    "42": {
+      "source": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed42_formal/last.pt",
+      "source_sha256": "88573a479f21a3ecb0664b0d7cc300ae4ca1729dbe10c9faf45c802f4ea0759d",
+      "target": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed42_formal/epoch_020.pt",
+      "target_sha256": "c0902aa3b7c28b4314ab6ab3c0780b0e417110c8762593557dcd008c15bfcfaa"
+    },
+    "7": {
+      "source": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed7_formal/last.pt",
+      "source_sha256": "9952592fabdb26901f9da361008531fc500961de60d162f2c85167913699bb25",
+      "target": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed7_formal/epoch_020.pt",
+      "target_sha256": "a9cbc91cc8937ddd3e647b346fb076400a48a12262d4a0f7b9a39f680b33e001"
+    },
+    "123": {
+      "source": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed123_formal/last.pt",
+      "source_sha256": "7d78da7d95ca924a50a3c066bf7755f5d79083356990bb997b2f2e994e41045a",
+      "target": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed123_formal/epoch_020.pt",
+      "target_sha256": "2e95d5ba5e53013f585bda9b788800b95151569058c25845854bf6815a52e404"
+    },
+    "2024": {
+      "source": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed2024_formal/last.pt",
+      "source_sha256": "98dc4345998daa4abc8c100cb132d4111791251d8a0b5a376d1e03966a2f746f",
+      "target": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed2024_formal/epoch_020.pt",
+      "target_sha256": "9db9d42d770c5de52498877e908a51702b19f4531e5a6ec086e6f5a7921e26ca"
+    },
+    "2026": {
+      "source": "runs/experiments/metric_exact/P3_B0_signed_coupled_all_train_seed2026_formal/last.pt",
+      "source_sha256": "5d86b91bd7f859e526e5b7bfa1157b63ac50105dd635b2969a0e727fbccebcdc",
+      "target": "runs/mabpt_partc_20260811/mabpt_ascent_predicted_risk_seed2026_formal/epoch_020.pt",
+      "target_sha256": "fb2cf8e63ef57b1ce7942bd0d30975ffd0731b2320f7667661d7ac06d8f65455"
+    }
+  },
+  "prohibited": [
+    "external fine-tuning or calibration",
+    "external-result-selected checkpoints, thresholds, files, or seeds",
+    "target access in the probability forward pass",
+    "claiming this locally sealed retrospective view is a prospective or third-party hidden test"
+  ],
+  "claim_boundary": "Zero-shot transfer from TrajAir to two TartanAviation airport views. The processed archives lack file-to-date mapping, so uncertainty is summarized over matched seeds and airports, not acquisition dates."
+}

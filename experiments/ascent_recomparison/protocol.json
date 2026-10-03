@@ -1,0 +1,97 @@
+{
+  "format_version": 1,
+  "cycle": "C161_MATCHED_ASCENT_RECOMPARISON",
+  "frozen_at": "2026-08-09T23:10:00+08:00",
+  "question": "Does the unchanged C133 decision-regret geometry plus C134 Energy probability operator deliver practically meaningful prediction gains over original matched ASCENT on the two train-date folds where this route was never trained?",
+  "design_status": "retrospective route selection followed by prospective cross-fold replication",
+  "route_selection": {
+    "oracle_geometry_winner": "C127 B6_dual_oracle; already confirmed on five seeds and one sealed event",
+    "deployment_candidate": "C134 E1, whose C133 top1 decision improved fold-0 top1 ADE/FDE by 9.29%/9.08% and whose Energy operator restored Energy below B0",
+    "reason_for_reopening": "The old C134 stop was caused only by NLL and Brier gates. The user has reset the target to material predictive improvement over ASCENT, so calibration remains a reported diagnostic rather than a geometry veto.",
+    "unchanged_algorithm": true
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "date_folds": "artifacts/experiments/metric_exact/date_folds.json",
+    "date_folds_sha256": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "expected_train_scenes": 872417,
+    "expected_train_actors": 1221720,
+    "allowed_split": "train_only",
+    "development_used": false,
+    "locked_test_used": false
+  },
+  "replication": {
+    "folds": [1, 2],
+    "seed": 42,
+    "unit": "calendar_date",
+    "baseline_variant": "C127 B0_signed_coupled",
+    "baseline_checkpoints": {
+      "1": "runs/experiments/metric_exact/P2_B0_signed_coupled_fold1_seed42_formal/last.pt",
+      "2": "runs/experiments/metric_exact/P2_B0_signed_coupled_fold2_seed42_formal/last.pt"
+    },
+    "decision_variant": "unchanged C133 D1_native_decision_regret",
+    "probability_variant": "unchanged C134 E1_energy_predict_optimize",
+    "control_policy": "Reload and reevaluate the frozen B0 checkpoints on the exact same batches; do not waste compute retraining an already matched deterministic control."
+  },
+  "training": {
+    "decision": {
+      "epochs": 20,
+      "batch_size": 256,
+      "evaluation_batch_size": 512,
+      "learning_rate": 0.001,
+      "scheduler_milestones": [10, 15],
+      "scheduler_gamma": 0.5,
+      "gradient_clip_norm": 5.0
+    },
+    "energy": {
+      "epochs": 20,
+      "batch_size": 1024,
+      "evaluation_batch_size": 2048,
+      "learning_rate": 0.001,
+      "scheduler_milestones": [10, 15],
+      "scheduler_gamma": 0.5,
+      "gradient_clip_norm": 5.0
+    },
+    "optimizer": "Adam",
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true,
+    "checkpoint": "fixed final epoch"
+  },
+  "analysis": {
+    "primary_metrics": ["top1_ade", "top1_fde"],
+    "key_secondary_metrics": ["minade", "minfde", "energy_score"],
+    "diagnostic_metrics": ["nll", "brier", "ece", "minfde_p95", "tail_minfde"],
+    "minimum_practical_relative_gain": 0.03,
+    "bootstrap_unit": "calendar_date",
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 161,
+    "success_gates": {
+      "aggregate_top1_ade_relative_gain_at_least": 0.03,
+      "aggregate_top1_fde_relative_gain_at_least": 0.03,
+      "both_top1_metrics_improve_in_each_replication_fold": true,
+      "paired_date_bootstrap_ci_lower_positive_for_both_top1_metrics": true,
+      "aggregate_minade_not_worse": true,
+      "aggregate_minfde_not_worse": true,
+      "aggregate_energy_not_worse": true
+    },
+    "calibration_policy": "NLL, Brier, and ECE are always reported but cannot replace or veto the frozen predictive endpoints in this objective-reset audit."
+  },
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_expansion_reranking_or_nms",
+    "temperature_or_loss_weight_search",
+    "epoch_or_seed_selection",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C161 is a train-date cross-fold replication after retrospective route selection. Passing supports improvement over matched ASCENT on these held date blocks, not a new sealed-test or external-generalization claim."
+}

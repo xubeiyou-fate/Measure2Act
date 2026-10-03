@@ -1,0 +1,76 @@
+{
+  "format_version": 1,
+  "cycle": "C165_MASS_AWARE_BAYESIAN_PERMUTATION_TRANSPORT",
+  "frozen_at": "2026-08-10T03:18:00+08:00",
+  "status": "protocol_frozen_before_C165_metrics",
+  "base_protocol": "experiments/tpmo_ascent/protocol.json",
+  "base_protocol_sha256": "afac0d8e3b73d6db6c9aa30edaf5d7824fc0821bafa93b89eaf0418455be15db",
+  "question": "Can probability-mass-aware latent support matching improve the C162 proper-measure probability on frozen C161 trajectories enough to meet ASCENT/B0 NLL and Brier without a gate, residual, temperature, or probability-head tuning?",
+  "hypotheses": {
+    "primary": "Weighting each latent B0-to-C161 permutation by the actor's full B0 probability measure will preserve high-mass mode correspondence better than uniform mode averaging and will improve NLL/Brier over C162 TPMO in both folds.",
+    "mechanism": "The C162 assignment posterior scores each bijection by an unweighted mean support cost. C165 replaces that surrogate with the exact B0-mass-weighted expected transport cost, then applies the unchanged TPMO proper-measure proximal operator.",
+    "rivals": [
+      "The residual calibration gap is caused by C161 support labels rather than the assignment surrogate.",
+      "B0 mass is too diffuse for probability-aware matching to identify stable correspondences.",
+      "Mass-aware matching improves NLL/Brier only by degrading Energy sharpness."
+    ],
+    "null": "The frozen C165 candidate fails any gate and closes without changing the operator, controls, or metric definitions."
+  },
+  "algorithm": {
+    "name": "MABPT",
+    "full_name": "Mass-Aware Bayesian Permutation Transport with TPMO",
+    "base_measure": "frozen target-free C162 B0 probability vector",
+    "support": "frozen C161 five-trajectory support and C161 predicted risk",
+    "assignment_posterior": "softmax over all 120 bijections with negative B0-probability-weighted expected cross-support cost",
+    "assignment_cost": "sum_i q_B0[i] * cost[i, permutation(i)]",
+    "assignment_temperature": "implicit fixed unit Gibbs scale inherited from C162; no fitted or searched scale",
+    "probability_operator": "unchanged C162 TPMO Newton/Armijo proper-measure objective",
+    "trajectory_geometry": "unchanged frozen C161 trajectories and decision mode",
+    "target_in_validation_probability_forward": false
+  },
+  "evaluation": {
+    "kind": "retrospective_train_date_blocked_algorithm_screen",
+    "folds": [1, 2],
+    "seed": 165,
+    "batch_size": 2048,
+    "workers_per_fold": 12,
+    "prefetch_factor": 4,
+    "one_fold_per_visible_GPU": true,
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 165,
+    "main_candidate": "mabpt",
+    "controls": ["baseline_native", "c161_native", "tpmo"],
+    "arm_switching": false,
+    "checkpoint_selection": false
+  },
+  "gates": {
+    "mabpt_nll_relative_gain_vs_C161_at_least": 0.01,
+    "mabpt_brier_relative_gain_vs_C161_at_least": 0.01,
+    "mabpt_nll_improves_in_each_fold": true,
+    "mabpt_brier_improves_in_each_fold": true,
+    "mabpt_nll_not_worse_than_C162_TPMO": true,
+    "mabpt_brier_not_worse_than_C162_TPMO": true,
+    "mabpt_nll_not_worse_than_native_B0": true,
+    "mabpt_brier_not_worse_than_native_B0": true,
+    "mabpt_energy_not_worse_than_C161_factor": 1.01,
+    "date_bootstrap_ci_lower_positive_for_nll_and_brier": true,
+    "C161_geometry_exactly_unchanged": true,
+    "probability_simplex_and_finite": true,
+    "validation_target_absent_from_probability_forward": true
+  },
+  "stopping_rule": "Run one deterministic smoke and one formal evaluation per fold. Do not alter the mass-weighting rule, Gibbs scale, TPMO solver, controls, or gates after formal metrics.",
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "temperature_or_assignment_scale_search",
+    "score_weight_or_regularization_search",
+    "candidate_expansion_selection_reranking_or_nms",
+    "future_target_in_validation_forward",
+    "validation_date_kernel_fit",
+    "checkpoint_selection",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C165 is a retrospective train-date screen on reused C161 folds. Passing is a local mechanism result; new sealed dates or external data remain required for confirmation.",
+  "literature_limit": "Targeted primary-source retrieval supports the OT and latent-permutation mechanism; it is not a systematic review or universal novelty claim."
+}

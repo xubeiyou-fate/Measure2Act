@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "model_name": "MABPT",
+  "full_name": "Mass-Aware Bayesian Permutation Transport",
+  "frozen_at": "2026-08-10T12:51:13+08:00",
+  "scope": "Legacy C165 mechanism code, corrected results, input protocols, split manifests, and paired checkpoints",
+  "files": {
+    "experiments/mabpt_ascent/__init__.py": "dec01c27f5282c294116bcba134905dda1d095fd53b030b106806fe765184f47",
+    "experiments/mabpt_ascent/aggregate.py": "bc7b306d402b66789cf3f8b15f6ab7ce6de3cc8448edeb01fb50e24bb363a257",
+    "experiments/mabpt_ascent/evaluate.py": "3210636e63c7d49842d5b823919c09e1a919ee4593daa0d1a4aa0c95901549c3",
+    "experiments/mabpt_ascent/literature_provenance.json": "35bf9355dd7a0d859a6701e9686f0257b3dfed28b1c9647622ced9353c8bc21d",
+    "experiments/mabpt_ascent/operator.py": "ce2ea5f542d99895a9f366e1a04f2fb41c2508ce06db16a79c785e4af4c427fa",
+    "experiments/mabpt_ascent/protocol.json": "174f3ee419590e49a04a7cb4ddbf693da0e78121082ee62827e78081288fd730",
+    "experiments/mabpt_ascent/protocol.py": "8b1122b59493421343af02810965263da6a42a765407f7848cb5e6e282a3510f",
+    "experiments/mabpt_ascent/tests/test_c165_mabpt.py": "71fd8c63c41428380ab60dced5ba359265d530e9019000e12beca0fc95144b6d",
+    "artifacts/experiments/mabpt_ascent/fold1_formal_corrected.json": "e21180d02816a6118b6d3343075b402429e59ca827f3479bce00ebceb51f451f",
+    "artifacts/experiments/mabpt_ascent/fold2_formal_corrected.json": "fe693d67a6686f40ce34eb9a05b82f3c4fa50a5cf341843dbe8ec5a3d1bb77d6",
+    "artifacts/experiments/mabpt_ascent/final_summary_corrected.json": "03d6cd5f616d18642f85390c00694ea524b3f101a7baca1516113a5f5b3db3e0",
+    "experiments/tpmo_ascent/operator.py": "44e1258b87c6500fd029d8bc6bcfb6ff060da9030a0bda89f99d1157c0f49f1d",
+    "experiments/tpmo_ascent/protocol.json": "afac0d8e3b73d6db6c9aa30edaf5d7824fc0821bafa93b89eaf0418455be15db",
+    "dataset/trajair_111day_c12/split_manifest.json": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "artifacts/experiments/dive_ascent/train_scene_dates.json": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "artifacts/experiments/metric_exact/date_folds.json": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "runs/experiments/metric_exact/P2_B0_signed_coupled_fold1_seed42_formal/last.pt": "83f57f8dd5869a18341fea9fed40a21d6c624c90b1c74f224bd1bfebc1d00379",
+    "runs/experiments/metric_exact/P2_B0_signed_coupled_fold2_seed42_formal/last.pt": "28e831974db5cbaecf3790ccc95f33734c8d701c8c4782a9a8e7c51a6cf0410b",
+    "runs/experiments/ascent_recomparison/E1_energy_predict_optimize_fold1_seed42_formal/last.pt": "23497250556fd8decfc450b63d46158a001e7ddd6ebec6136e4782ddfab7c541",
+    "runs/experiments/ascent_recomparison/E1_energy_predict_optimize_fold2_seed42_formal/last.pt": "f71273241c04e97b1984bc267c53817863c9506d895ec2066672bb90599b5528"
+  }
+}

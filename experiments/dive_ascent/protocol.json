@@ -1,0 +1,126 @@
+{
+  "format_version": 1,
+  "cycle": "C99_DIVE_ASCENT",
+  "frozen_at": "2026-07-31T12:00:00+08:00",
+  "objective": "Test whether complete mode-parameter isolation, score-gradient shielding, and deterministic expert birth improve ASCENT's fixed K=5 conditional trajectory quantizer without residuals, routing gates, tokens, autoregression, or candidate selection.",
+  "claim_boundary": "C12 train and development are opened design boundaries. The locked_test partition remains sealed and is not authorized by this cycle until the complete five-seed development gate passes.",
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "expected": {
+      "train_scenes": 872417,
+      "train_actors": 1221720,
+      "dev_scenes": 171063,
+      "dev_actors": 256305,
+      "train_dates": 81,
+      "dev_dates": 11,
+      "locked_test_dates": 11
+    }
+  },
+  "run_root": "runs/dive_ascent",
+  "development_scene_dates_artifact": "artifacts/c98_stif_ascent/dev_scene_dates.json",
+  "variants": {
+    "a0_shared_signed": "Original shared K=5 ASCENT with signed physical decoder and coupled winner cross-entropy.",
+    "a1_shared_positive": "Shared K=5 ASCENT with positive-speed physical decoder and coupled winner cross-entropy.",
+    "a2_shared_decoupled": "Shared K=5 positive-speed geometry with a separate detached Voronoi-mass scorer.",
+    "a3_scaled_decoupled": "Capacity control: wider/deeper shared positive-speed geometry with the same detached scorer.",
+    "a4_independent_random": "Five complete independently initialized K=1 ASCENT geometry experts with the detached scorer.",
+    "a5_dive": "Five complete experts trained with deterministic highest-distortion expert birth and the detached scorer."
+  },
+  "gradient_audit": {
+    "checkpoint": "runs/c98_stif_ascent/a0_base_seed42_formal/last.pt",
+    "seed": 42,
+    "batches": 64,
+    "batch_size": 64,
+    "minimum_classification_to_regression_norm_ratio": 3.0,
+    "minimum_negative_cosine_fraction": 0.5,
+    "minimum_date_blocks_passing": 2,
+    "date_blocks": 3,
+    "required_before_decoupled_training": true,
+    "interpretation": "The audit is diagnostic. Failure does not authorize a post-hoc threshold change; A2 remains an ablation but not a claimed mechanism."
+  },
+  "screen": {
+    "seed": 42,
+    "variants": [
+      "a0_shared_signed",
+      "a1_shared_positive",
+      "a2_shared_decoupled",
+      "a3_scaled_decoupled",
+      "a4_independent_random",
+      "a5_dive"
+    ],
+    "primary_baseline": "a0_shared_signed",
+    "primary_candidate": "a5_dive"
+  },
+  "development": {
+    "seeds": [42, 7, 123, 2024, 2026],
+    "primary_variants": ["a0_shared_signed", "a5_dive"],
+    "positive_minfde_seed_count_minimum": 3
+  },
+  "training": {
+    "from_scratch": true,
+    "epochs": 20,
+    "batch_size": 128,
+    "evaluation_batch_size": 256,
+    "learning_rate": 0.001,
+    "score_learning_rate": 0.001,
+    "optimizer": "Adam",
+    "scheduler_milestones": [10, 15],
+    "scheduler_gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "modes": 5,
+    "assignment": "whole-trajectory hard WTA",
+    "geometry_objective": "SmoothL1 on the detached full-trajectory winner; no score gradient reaches geometry.",
+    "score_objective": "Cross entropy on detached Voronoi-cell membership; no geometry gradient reaches the scorer.",
+    "checkpoint": "fixed final epoch 20; no development metric selects an epoch",
+    "dac": {
+      "split_before_epochs": [3, 5, 7, 9],
+      "split_rule": "expert with largest accumulated winning full-trajectory distortion",
+      "perturbation_scale": 0.01,
+      "perturbation_seed": 99042
+    }
+  },
+  "gates": {
+    "primary_minfde_relative_gain_minimum": 0.03,
+    "primary_minade_relative_gain_minimum": 0.01,
+    "primary_p95_relative_gain_minimum": -0.01,
+    "primary_energy_relative_gain_minimum": -0.01,
+    "primary_tail_relative_gain_minimum": -0.01,
+    "effective_mode_retention_minimum": 0.95,
+    "minimum_winner_fraction_minimum": 0.03,
+    "a2_over_a1_minfde_gain_minimum": 0.01,
+    "a4_over_a3_minfde_gain_minimum": 0.01,
+    "a5_over_a4_minfde_gain_minimum": 0.005
+  },
+  "locked_test_policy": {
+    "required_gate_artifact": "artifacts/experiments/dive_ascent/development_gate.json",
+    "receipt": "artifacts/experiments/dive_ascent/locked_test_receipt.json",
+    "maximum_evaluation_events": 1,
+    "evaluate_all_preregistered_a0_a5_seed_checkpoints_in_one_event": true,
+    "never_select_model_epoch_or_variant_on_locked_test": true
+  },
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "discrete_token_or_codebook",
+    "future_teacher_forcing_or_autoregressive_feedback",
+    "candidate_generation_then_selection",
+    "reranking_nms_or_postprocessing",
+    "future_derived_intent_or_route_label",
+    "development_selected_epoch_seed_threshold_or_width"
+  ],
+  "local_evidence": [
+    "artifacts/c46_moph/c46_d0.json",
+    "artifacts/c59_apc/c59_joint_summary.json",
+    "artifacts/c97_ikd_ascent/seed42_gate.json",
+    "artifacts/c98_stif_ascent/final_summary.json"
+  ],
+  "literature_basis": [
+    "https://proceedings.neurips.cc/paper_files/paper/2023/hash/12d7ba753894ed348904df1bf0ce02ec-Abstract-Conference.html",
+    "https://proceedings.neurips.cc/paper_files/paper/2024/hash/1456560769bbc38e4f8c5055048ea712-Abstract-Conference.html",
+    "https://openaccess.thecvf.com/content/CVPR2021/html/Narayanan_Divide-and-Conquer_for_Lane-Aware_Diverse_Trajectory_Prediction_CVPR_2021_paper.html",
+    "https://proceedings.mlr.press/v267/cortes25b.html",
+    "https://proceedings.mlr.press/v235/shahroudi24a.html"
+  ]
+}

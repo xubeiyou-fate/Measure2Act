@@ -1,0 +1,46 @@
+name: Bug report
+description: Report a reproducible problem in the public Measure2Act software.
+title: "[Bug] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach restricted trajectories, private links, credentials, or model assets.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Give the release tag or full commit hash.
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Reproduction level
+      options:
+        - Source-only smoke or tests
+        - Table reconstruction with the data record
+        - Full evaluation or retraining
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include operating system, Python, PyTorch, device, and installation command.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Minimal reproduction
+      description: List the exact commands, expected result, actual result, and traceback.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Data boundary
+      options:
+        - label: I removed credentials, private links, restricted data, and unpublished assets.
+          required: true

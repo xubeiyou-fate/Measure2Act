@@ -1,0 +1,131 @@
+{
+  "format_version": 1,
+  "cycle": "C162_TRANSPORTED_PRIOR_MEASURE_OPTIMIZATION",
+  "frozen_at": "2026-08-10T01:07:43+08:00",
+  "status": "protocol_frozen_before_any_C162_metric",
+  "question": "Can a target-free probability-measure transport from matched ASCENT B0 support to frozen C161 support, followed by a fixed Energy-KL proximal solve, recover NLL and Brier without altering C161 geometry or using a residual, learned gate, or calibration search?",
+  "hypotheses": {
+    "primary": "TPMO improves both NLL and Brier over native C161 in each frozen fold, reaches aggregate B0 non-inferiority, and retains C161 Energy within one percent.",
+    "mechanism": "B0 supplies probability semantics, exact permutation marginalization aligns those semantics to the independently trained C161 support, and the Energy-KL proximal objective preserves C161 finite-measure quality.",
+    "rivals": [
+      "B0 winner events do not transfer to C161 winner events even after support alignment.",
+      "The cross-support geometry is too ambiguous for a target-free assignment posterior.",
+      "The unit Energy-KL objective retains too much B0 prior mass or too much C161 Energy mass to pass both proper-score gates.",
+      "Any apparent actor-level gain is concentrated in a few calendar dates."
+    ],
+    "null": "The fixed TPMO candidate fails at least one frozen gate and C162 closes without tuning, arm switching, training, development access, or locked-test access."
+  },
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "root": "dataset/trajair_111day_c12",
+    "manifest": "dataset/trajair_111day_c12/split_manifest.json",
+    "manifest_sha256": "bfb01ff4de5bc680afbc833a2a4a6eb87301e50b122824b22f4c4c2feff7562e",
+    "train_scene_dates": "artifacts/experiments/dive_ascent/train_scene_dates.json",
+    "train_scene_dates_sha256": "3b543c66f577265b4d371a61cc7febeee33235862ff007be6759b47b4d27ad7e",
+    "date_folds": "artifacts/experiments/metric_exact/date_folds.json",
+    "date_folds_sha256": "eb7807800ab321b2ca4128f596cedd5e515f14beaf0b031af9d2ad0ba75b8a8e",
+    "expected_train_scenes": 872417,
+    "expected_train_actors": 1221720,
+    "allowed_split": "train_only",
+    "blocking_unit": "calendar_date",
+    "development_used": false,
+    "locked_test_used": false
+  },
+  "frozen_inputs": {
+    "C161_protocol": {
+      "path": "experiments/ascent_recomparison/protocol.json",
+      "sha256": "d03fcc33b7e0ac701f6c6c31ad033e9cf7f603c36cd7dc324a012756e573b965"
+    },
+    "C161_final_comparison": {
+      "path": "artifacts/experiments/ascent_recomparison/final_comparison.json",
+      "sha256": "128608c307492901edb32fe273b6380f4edeb153131e41008e052bf33d81a70e"
+    },
+    "C161_integrity_review": {
+      "path": "artifacts/experiments/ascent_recomparison/integrity_review.json",
+      "sha256": "dc86586c359f76b8bd570e97f8d9871b4dc106954dbd55377fee7d11cf7a6566"
+    },
+    "folds": {
+      "1": {
+        "baseline_path": "runs/experiments/metric_exact/P2_B0_signed_coupled_fold1_seed42_formal/last.pt",
+        "baseline_sha256": "83f57f8dd5869a18341fea9fed40a21d6c624c90b1c74f224bd1bfebc1d00379",
+        "candidate_path": "runs/experiments/ascent_recomparison/E1_energy_predict_optimize_fold1_seed42_formal/last.pt",
+        "candidate_sha256": "23497250556fd8decfc450b63d46158a001e7ddd6ebec6136e4782ddfab7c541"
+      },
+      "2": {
+        "baseline_path": "runs/experiments/metric_exact/P2_B0_signed_coupled_fold2_seed42_formal/last.pt",
+        "baseline_sha256": "28e831974db5cbaecf3790ccc95f33734c8d701c8c4782a9a8e7c51a6cf0410b",
+        "candidate_path": "runs/experiments/ascent_recomparison/E1_energy_predict_optimize_fold2_seed42_formal/last.pt",
+        "candidate_sha256": "f71273241c04e97b1984bc267c53817863c9506d895ec2066672bb90599b5528"
+      }
+    }
+  },
+  "algorithm": {
+    "name": "TPMO",
+    "source_measure": "FP64 softmax of frozen matched C127 B0 logits",
+    "target_support": "frozen C161 K=5 physical trajectories",
+    "support_cost": "cross-support ADE/ADE_SCALE plus FDE/FDE_SCALE",
+    "ade_scale": 0.2760537266731262,
+    "fde_scale": 0.4783363938331604,
+    "assignment_space": "all 5 factorial = 120 bijections",
+    "assignment_posterior": "softmax of negative mean normalized assignment cost with fixed unit inverse scale",
+    "transport": "exact marginalization of B0 probability mass over the 120 assignment posterior",
+    "proximal_objective": "C134 predicted Energy divided by ADE_SCALE plus KL(p || transported_prior)",
+    "kl_coefficient": 1.0,
+    "solver": "batched equality-constrained Newton with deterministic Armijo backtracking",
+    "solver_max_iterations": 16,
+    "solver_backtracking_steps": 12,
+    "solver_tolerance": 1e-9,
+    "probability_dtype": "float64",
+    "top1_decision": "unchanged frozen C161 C133 decision-regret argmin",
+    "trainable_parameters": 0,
+    "target_in_forward": false
+  },
+  "mechanism_controls": [
+    "identity_index_prior",
+    "hard_minimum_cost_assignment_prior",
+    "soft_assignment_transport_prior",
+    "TPMO_main"
+  ],
+  "evaluation": {
+    "kind": "retrospective_train_date_blocked_algorithm_screen",
+    "folds": [1, 2],
+    "seed": 162,
+    "batch_size": 2048,
+    "workers_per_fold": 12,
+    "prefetch_factor": 4,
+    "one_fold_per_visible_GPU": true,
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 162,
+    "main_candidate": "tpmo",
+    "arm_switching": false,
+    "checkpoint_selection": false
+  },
+  "gates": {
+    "tpmo_nll_relative_gain_vs_C161_at_least": 0.01,
+    "tpmo_brier_relative_gain_vs_C161_at_least": 0.01,
+    "tpmo_nll_improves_in_each_fold": true,
+    "tpmo_brier_improves_in_each_fold": true,
+    "tpmo_aggregate_nll_not_worse_than_native_B0": true,
+    "tpmo_aggregate_brier_not_worse_than_native_B0": true,
+    "tpmo_energy_not_worse_than_C161_factor": 1.01,
+    "date_bootstrap_ci_lower_positive_for_nll_and_brier": true,
+    "C161_top1_and_geometry_exactly_unchanged": true,
+    "probability_simplex_and_finite": true,
+    "target_absent_from_all_probability_operators": true,
+    "physical_violation_count": 0
+  },
+  "stopping_rule": "Evaluate the frozen TPMO main candidate once on folds 1 and 2. Any failed gate closes C162. Mechanism controls may diagnose failure but may not replace TPMO.",
+  "forbidden_mechanisms": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "temperature_or_assignment_scale_search",
+    "KL_or_energy_weight_search",
+    "probability_head_training_or_finetuning",
+    "candidate_expansion_selection_reranking_or_nms",
+    "future_target_in_forward",
+    "epoch_seed_checkpoint_or_arm_selection",
+    "development_split_access",
+    "C127_locked_test_reuse"
+  ],
+  "claim_boundary": "C162 is a retrospectively designed train-date screen on folds already used to establish C161. Passing would support a local mechanism result only; a new sealed event or compatible external dataset is required for a confirmatory generalization claim."
+}

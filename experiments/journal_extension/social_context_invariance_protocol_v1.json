@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "protocol_id": "journal_extension_social_context_invariance_v1",
+  "frozen_at": "2026-08-14",
+  "status": "frozen_before_dynamic_invariance_metrics",
+  "question": "Do the final ASCENT and MABPT model paths use scene adjacency or neighboring-aircraft membership?",
+  "hypothesis": "Because the registered model configuration disables social interaction, changing only adjacency membership will leave every model output exactly unchanged.",
+  "data": {
+    "parent_protocol": "mabpt/tartan_retrain_protocol_v1.json",
+    "parent_protocol_sha256": "b07287cc503d502bff7ade15d50e6e6cbfabfa0dd5999d658edb524bed1f16b4",
+    "airports": ["KAGC", "KBTP"],
+    "split": "development",
+    "seeds": [42, 7, 123, 2024, 2026],
+    "maximum_scenes_per_airport": 256
+  },
+  "conditions": {
+    "native": "Original scene membership from seq_collate.",
+    "isolated": "Every actor receives a unique scene identifier.",
+    "merged": "Every actor receives one shared scene identifier."
+  },
+  "outputs": [
+    "ASCENT support",
+    "ASCENT logits",
+    "MABPT target support",
+    "MABPT probabilities",
+    "MABPT decision index",
+    "predicted normalized risk"
+  ],
+  "decision_rule": "All maximum absolute differences must equal zero. Any nonzero value falsifies adjacency invariance and requires a social-context ablation.",
+  "claim_boundary": "Passing this audit establishes that the current model is actor-history based and does not support a social-interaction contribution claim."
+}

@@ -1,0 +1,63 @@
+{
+  "format_version": 1,
+  "model": "MABPT 1.0.0",
+  "experiments": ["E6", "E7", "E8"],
+  "frozen_at": "2026-08-10T16:20:00+08:00",
+  "status": "frozen_before_E6_E8_control_training_or_metrics",
+  "evidence_class": "retrospective_train_date_blocked_controls",
+  "dataset": {
+    "name": "trajair_111day_c12",
+    "folds": [1, 2],
+    "blocking_unit": "calendar_date",
+    "validation_target_used_for_training_or_selection": false,
+    "locked_test_used": false
+  },
+  "training": {
+    "seed_for_new_controls": 7,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batch_size": 256,
+    "epochs_standard": 20,
+    "epochs_extended_ensemble_member": 25,
+    "scheduler_milestones": [10, 15],
+    "scheduler_gamma": 0.5,
+    "gradient_clip_norm": 5.0,
+    "checkpoint": "fixed registered epoch",
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true
+  },
+  "E6": {
+    "member_one": "frozen B0 ASCENT seed42 epoch20",
+    "member_two": "new B0 ASCENT seed7 epoch20",
+    "union": "concatenate both K=5 supports with one-half of each native probability",
+    "compression": "exact target-blind probability-weighted K-medoids from 10 atoms to 5 atoms; lexicographic tie break; assign mass to nearest retained medoid",
+    "aligned_average": "ordinary minimum-cost bijection followed by equal support and probability averaging",
+    "target_in_ensemble_operator": false
+  },
+  "E7": {
+    "mabpt_effective_parameters": 2551427,
+    "widened_ascent_embed_dim": 192,
+    "widened_ascent_parameters": 2508801,
+    "widened_relative_parameter_difference": -0.016707,
+    "shared_encoder_dual_decoder": "one native ASCENT history encoder evaluated once and two independent K=5 physical decoder branches, trained jointly as a K=10 finite measure",
+    "standard_epochs": 20
+  },
+  "E8": {
+    "mabpt_update_accounting": "20 epochs source B0 at batch256 plus 20 epochs target geometry at batch256 plus 20 epochs Energy head at batch1024",
+    "mabpt_batch256_equivalent_epochs": 45,
+    "equal_update_control": "frozen seed42 B0 epoch20 plus seed7 B0 epoch25",
+    "equality": "for each fold, 40*ceil(N/256)+20*ceil(N/1024) equals 45*ceil(N/256) because each registered N gives ceil(N/1024)=ceil(N/256)/4",
+    "inference": "two ASCENT forwards and an equal-weight K=10 mixture",
+    "target_in_ensemble_operator": false
+  },
+  "forbidden": [
+    "trajectory_or_control_residual",
+    "learned_gate_router_or_mixture_of_experts",
+    "temperature_scaling_or_search",
+    "validation_target_in_compression_or_matching",
+    "checkpoint_or_seed_selection_by_validation_metrics",
+    "arm_switching_after_results"
+  ],
+  "reporting": "Report every registered arm on both folds, including negative results. E6-E8 are secondary mechanism controls and do not convert retrospective folds into confirmatory evidence."
+}

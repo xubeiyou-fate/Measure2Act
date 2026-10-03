@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "protocol_id": "eqmotion_partc_tartan_target_only_v1",
+  "frozen_at": "2026-08-13",
+  "status": "frozen_before_formal_eqmotion_target_training_or_development_metrics",
+  "research_question": "How well does the unchanged official EqMotion architecture learn each Tartan airport from that airport's registered training dates only?",
+  "official_source": {
+    "repository": "https://github.com/MediaBrain-SJTU/EqMotion.git",
+    "commit": "5aec2e0b61c511fa93a24138dd90da59a089084b",
+    "local_path": "third_party/eqmotion_official",
+    "model_file": "third_party/eqmotion_official/eth_ucy/model_t.py",
+    "model_file_sha256": "8e73e874a2cc722559eca1251deea8276d8867050ed8e97d3ebbf23ca670c00a",
+    "source_modified": false,
+    "license": "MIT"
+  },
+  "adapter": {
+    "path": "modern_baseline/eqmotion_aviation.py",
+    "sha256": "20271eb773f9cf470407efdca431b7aa0880b7c0056df2d6d3d7dedefa32a8f1"
+  },
+  "data": {
+    "root": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal",
+    "manifest": "artifacts/partc_two_dataset_20260812/target_domain_data_v4_formal/manifest.json",
+    "manifest_sha256": "90c64dc4e872c59047f90a87ff0c82c3f61a543a7d845a778c1e8a0b56b7d67e",
+    "frozen_receipt": "artifacts/partc_two_dataset_20260812/tartan_retrain_frozen_receipt_v1.json",
+    "frozen_receipt_sha256": "d51c56ea228679ec70c8e8d900493476e110011fee9607165c8736d71595707d",
+    "airports": [
+      "KAGC",
+      "KBTP"
+    ],
+    "allowed_splits": [
+      "train",
+      "development"
+    ],
+    "forbidden_splits": [
+      "test"
+    ],
+    "split_unit": "calendar date",
+    "split_rule": "chronological earliest/middle/latest 60/20/20 within airport",
+    "delimiter": " "
+  },
+  "grid": {
+    "coordinates": 3,
+    "coordinate_frame": "local east,north,up km; per-airport fixed reference",
+    "history_points": 16,
+    "history_interval_seconds": 1,
+    "future_points": 24,
+    "future_interval_seconds": 5,
+    "future_horizon_seconds": 120,
+    "modes": 5
+  },
+  "model": {
+    "hidden_nf": 32,
+    "channels": 16,
+    "layers": 2,
+    "official_candidate_heads": 20,
+    "registered_heads": "first five heads fixed before formal training",
+    "probabilities": "uniform 0.2 over the five registered candidates",
+    "top1_decision": "fixed candidate 0 solely to satisfy the shared evaluator interface"
+  },
+  "training": {
+    "regime": "target_only",
+    "registered_seeds": [
+      42
+    ],
+    "initial_formal_seed": 42,
+    "epochs": 20,
+    "batch_size": 512,
+    "evaluation_batch_size": 512,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "milestones": [
+      10,
+      15
+    ],
+    "gamma": 0.5,
+    "loss": "actor-mean best-of-5 ADE",
+    "gradient_clip_norm": 5.0,
+    "checkpoint_policy": "fixed final epoch 20; development metrics are diagnostic and never select a checkpoint",
+    "development_evaluation": "once after loading the fixed final checkpoint",
+    "deterministic_algorithms": true,
+    "tf32": false,
+    "automatic_mixed_precision": false,
+    "seed_expansion_gate": "This v1 protocol registers seed 42 only. Any multi-seed expansion requires a new result-free frozen protocol after both airport seed-42 runs complete."
+  },
+  "evaluation": {
+    "publication_metrics": [
+      "minade",
+      "minfde",
+      "energy_score"
+    ],
+    "efficiency_metrics": [
+      "parameter_count",
+      "trainable_parameter_count",
+      "training_elapsed_seconds",
+      "development_elapsed_seconds",
+      "development_scenes_per_second",
+      "development_actors_per_second",
+      "checkpoint_bytes",
+      "peak_gpu_memory_bytes"
+    ],
+    "metric_units": "km",
+    "probability_policy": "Uniform probabilities define an empirical finite measure, so Energy is comparable under the matched K=5 protocol.",
+    "top1_limitation": "EqMotion's registered diverse heads have no learned categorical ranking. Fixed candidate 0 is arbitrary; Top-1, NLL, Brier, ECE, and rank metrics are not publication-comparable and are omitted from results."
+  },
+  "test_lock": {
+    "runner_access": false,
+    "policy": "This runner has no test split argument and must not resolve, construct, cache, or evaluate either locked test dataset."
+  },
+  "execution": {
+    "prerequisite": "Run only after the current risk-head GPU wave has released cuda:0. Each command creates a new directory and refuses to overwrite it.",
+    "batch_size_evidence": "Matched EqMotion local throughput gate at batch 512 used 842604032 peak GPU bytes; target-domain ASCENT-family frozen batches are 256 train / 512 evaluation. EqMotion uses 512 for both to avoid changing optimizer-step count by airport-specific tuning.",
+    "formal_seed42_kagc": ".\\.venv-partc-win\\Scripts\\python.exe -m modern_baseline.run_eqmotion_tartan_target --airport KAGC --seed 42 --device cuda:0 --run-dir runs/partc_two_dataset_20260812/eqmotion_tartan_KAGC_target_only_seed42_formal --output artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KAGC_target_only_seed42_formal.json",
+    "formal_seed42_kbtp": ".\\.venv-partc-win\\Scripts\\python.exe -m modern_baseline.run_eqmotion_tartan_target --airport KBTP --seed 42 --device cuda:0 --run-dir runs/partc_two_dataset_20260812/eqmotion_tartan_KBTP_target_only_seed42_formal --output artifacts/partc_two_dataset_20260812/modern_baseline/eqmotion_tartan_KBTP_target_only_seed42_formal.json",
+    "formal_order": "KAGC seed42 then KBTP seed42 on the single GPU; do not run them concurrently."
+  },
+  "claim_boundary": "Target-only EqMotion development results are a modern strong-baseline check on the frozen retrospective Tartan date split. Only K=5 minADE, minFDE, Energy, and efficiency are comparable; no probability calibration or Top-1 claim is supported."
+}

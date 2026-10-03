@@ -1,0 +1,83 @@
+{
+  "format_version": 2,
+  "model": "MABPT 1.0.0",
+  "experiment": "E1 official runnable aviation baselines",
+  "frozen_at": "2026-08-10T19:35:00+08:00",
+  "status": "frozen_before_formal_official_baseline_training_or_metrics",
+  "supersedes": "mabpt/e1_official_baseline_protocol.json",
+  "reason_for_pre_result_revision": "Smoke-only timing showed that the broader 3-seed per-dataset retraining plan required about 500 GPU-hours. E1 requests runnable official baselines, not 24 independent baseline retrainings. No formal baseline metric had been computed when this cross-domain protocol was frozen.",
+  "source_receipt": "mabpt/e1_baseline_sources.json",
+  "training_source": "7days1",
+  "test_datasets": ["7days1", "7days2", "7days3", "7days4"],
+  "baselines": {
+    "trajairnet": {
+      "implementation": "official TCN-GAT-CVAE modules through a deterministic vectorized-call adapter",
+      "train_data": "dataset/7days1_trajair_reconstructed/processed_data/train",
+      "test_data": "dataset/{dataset}_trajair_reconstructed/processed_data/test",
+      "checkpoint": "fixed epoch 10",
+      "checkpoint_basis": "official README training duration",
+      "seed": 42,
+      "learning_rate": 0.0001,
+      "learning_rate_basis": "ICRA paper",
+      "history_steps": 11,
+      "forecast_points": 12,
+      "forecast_stride_seconds": 10,
+      "social_interactions": true
+    },
+    "actrajnet": {
+      "implementation": "official CAF-TCN modules",
+      "checkpoint": "external/actrajnet_official/saved_models/model_7days1_no_social_1_CAF_tcn.pt",
+      "checkpoint_sha256": "f0c0b989a24f5ecf23b9276fdc07a41939d3d3ac592db048d5ff65bbf5a9e1d6",
+      "checkpoint_epoch": 1,
+      "test_data": "external/actrajnet_official/dataset/{dataset}_no_social/test",
+      "history_steps": 11,
+      "forecast_points": 12,
+      "forecast_stride_seconds": 10,
+      "social_interactions": false,
+      "paper_results_policy": "ACTrajNet paper values may be shown only as author-reported and not locally reproduced"
+    }
+  },
+  "training_adapter": {
+    "gradient_accumulation_scenes": 9,
+    "optimizer": "Adam",
+    "equal_actor_count_vmap_within_accumulation_group": true,
+    "independent_randomness_per_scene": true,
+    "optimizer_update_count_changed": false,
+    "summed_per_actor_loss_changed": false,
+    "official_model_source_modified": false,
+    "automatic_mixed_precision": false,
+    "tf32": false,
+    "deterministic_algorithms": true
+  },
+  "evaluation": {
+    "evaluation_seed": 165,
+    "latent_samples": 5,
+    "probabilities": "uniform empirical measure",
+    "metrics": [
+      "sample1_ADE",
+      "sample1_FDE",
+      "expected_ADE",
+      "expected_FDE",
+      "actor_minADE",
+      "actor_minFDE",
+      "scene_oracle_ADE",
+      "scene_oracle_FDE",
+      "Energy"
+    ],
+    "test_selected_epoch_seed_or_sample": false
+  },
+  "comparison_tables": {
+    "social": ["CV", "TrajAirNet", "ASCENT", "MABPT"],
+    "no_social": ["CV", "ACTrajNet", "ASCENT", "MABPT"],
+    "mixing_social_and_no_social_as_one_matched_table": false
+  },
+  "forbidden": [
+    "test_selected_epoch",
+    "test_selected_seed",
+    "reporting_only_best_random_sample",
+    "temperature_or_probability_fitting",
+    "trajectory_or_control_residual",
+    "learned_gate"
+  ],
+  "evidence_class": "retrospective cross-dataset reuse; not a fresh sealed confirmation"
+}

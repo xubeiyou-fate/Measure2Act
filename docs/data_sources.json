@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "github_data_policy": {
+    "third_party_raw_data_hosted": false,
+    "third_party_derived_data_hosted": false,
+    "allowed_public_material": [
+      "official source links and persistent identifiers",
+      "version and license notes",
+      "download and preprocessing scripts",
+      "small synthetic examples",
+      "aggregate manuscript evidence"
+    ]
+  },
+  "datasets": [
+    {
+      "id": "trajair",
+      "name": "TrajAir: A General Aviation Trajectory Dataset",
+      "access_route": "reused public dataset",
+      "official_landing_page": "https://kilthub.cmu.edu/articles/dataset/TrajAir_A_General_Aviation_Trajectory_Dataset/14866251",
+      "doi": "10.1184/R1/14866251.v1",
+      "record_version": "1",
+      "official_download_url": "https://kilthub.cmu.edu/ndownloader/articles/14866251/versions/1",
+      "license": {
+        "name": "CC BY 4.0",
+        "uri": "https://creativecommons.org/licenses/by/4.0/",
+        "scope": "dataset record"
+      },
+      "official_code_repository": "https://github.com/castacks/trajairnet",
+      "redistribution_in_this_repository": false,
+      "official_files": [
+        {
+          "name": "111_days.zip",
+          "download_url": "https://ndownloader.figshare.com/files/28625106",
+          "official_md5": "50dc9f4d271da435b6f1be2d13e70202",
+          "sha256": "2887bb00c1af7a1ea7c4f9434709d7ae66c95eafaf5cbf41712deb03ec929877"
+        },
+        {
+          "name": "7days1.zip",
+          "download_url": "https://ndownloader.figshare.com/files/28625121",
+          "official_md5": "ea45667239cc503767dc4baa9d125066",
+          "sha256": "d058adbbc19393bdb08ace91e0505933c858b626e5098ed87dd7645ab045485c"
+        },
+        {
+          "name": "7days2.zip",
+          "download_url": "https://ndownloader.figshare.com/files/28625118",
+          "official_md5": "076085a72cba1b45ba90357fda666ed4",
+          "sha256": "913b5b9bd69eaa344fff309058b85671ce19e54ac53d8252d838988a67ca8fdf"
+        },
+        {
+          "name": "7days3.zip",
+          "download_url": "https://ndownloader.figshare.com/files/28625115",
+          "official_md5": "5fee0d141054e7783e74d9f506b6198e",
+          "sha256": "e83679a171cdb9e9753d6209555ba51404e8467210f4ef894b87146fc5afe080"
+        },
+        {
+          "name": "7days4.zip",
+          "download_url": "https://ndownloader.figshare.com/files/28625112",
+          "official_md5": "14028319829f45ae006f815076a00424",
+          "sha256": "93362e3b12898be9869de33601b4da5f4c86742360d53a0c2ff498949ae9eb66"
+        }
+      ],
+      "preprocessing": "Use the processed files supplied by the official record, or the upstream trajairnet/adsb_preprocess utilities when raw processing is required."
+    },
+    {
+      "id": "tartanaviation",
+      "name": "TartanAviation ADS-B trajectory data",
+      "access_route": "reused public source; upstream terms apply",
+      "official_project_page": "https://theairlab.org/tartanaviation/",
+      "official_source_repository": "https://github.com/castacks/TartanAviation.git",
+      "paper_pinned_commit": "4065f5bb11c3d8e557dcaf20a56469e6b0738714",
+      "official_download_script": "adsb/download.py",
+      "official_preprocessing_script": "adsb/process.py",
+      "software_release": {
+        "version": "1.0",
+        "doi": "10.5281/zenodo.14699102",
+        "resource_type": "Software",
+        "note": "This DOI archives the repository software; it is not a dataset DOI for the ADS-B payload."
+      },
+      "license": {
+        "source_code": "BSD-3-Clause",
+        "source_code_uri": "https://github.com/castacks/TartanAviation/blob/main/LICENSE",
+        "dataset_payload": "NOT_EXPLICITLY_STATED_ON_VERIFIED_OFFICIAL_PAGES",
+        "note": "Do not infer a data-payload license from the repository source-code license."
+      },
+      "redistribution_in_this_repository": false,
+      "study_asset_checksums": [
+        {
+          "name": "tartan_kagc_processed_official.zip",
+          "sha256": "bc0ce9796545c69239a3c1d1dc97a77bb65ad3e2ea6cb055d8c8ba57465d2700"
+        },
+        {
+          "name": "tartan_kagc_raw_2022.zip",
+          "sha256": "3e94a0e1f1ee7db7e0180fa01690f9e88340312a3e6cb2744844f975221a109b"
+        },
+        {
+          "name": "tartan_kbtp_processed_official.zip",
+          "sha256": "f131e41ddeb7dc2fcc8f28f654dcc33c9129a2ac44cb82475e1473fc1670891e"
+        },
+        {
+          "name": "tartan_kbtp_raw_2022.zip",
+          "sha256": "668d753a7f105f3026f07faef8ca5426a357256701b387fa970cd4ef6ca63354"
+        }
+      ],
+      "project_preprocessing": "After acquisition with the official scripts, scripts/build_tartan_target_domain.py builds the frozen chronological target-domain representation from explicitly supplied raw archives."
+    }
+  ]
+}

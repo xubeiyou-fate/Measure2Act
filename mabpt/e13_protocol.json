@@ -1,0 +1,28 @@
+{
+  "format_version": 1,
+  "experiment_id": "E13",
+  "model": "MABPT",
+  "frozen_at": "2026-08-10T15:01:00+08:00",
+  "status": "frozen_before_E13_results",
+  "evidence_class": "legacy_development_only",
+  "folds": [1, 2],
+  "strata": {
+    "permutation_entropy": "fold-evaluation target-free bottom and top quartiles",
+    "support_mismatch": "fold-evaluation target-free expected assignment cost bottom and top quartiles",
+    "rare_low_speed": "last observed horizontal speed at or below fold-training-only 10th percentile",
+    "rare_vertical_maneuver": "last observed absolute vertical speed at or above fold-training-only 90th percentile"
+  },
+  "case_selection": {
+    "count_per_type": 20,
+    "criteria": ["highest_permutation_entropy", "lowest_permutation_entropy", "highest_support_mismatch", "lowest_observed_speed", "highest_observed_vertical_speed"],
+    "future_or_metric_used_for_selection": false
+  },
+  "metrics": ["top1_ADE", "top1_FDE", "minADE", "minFDE", "Energy"],
+  "selection": false,
+  "forbidden": [
+    "future_based_case_selection",
+    "success_only_case_display",
+    "post_hoc_gate_or_residual",
+    "target_in_probability_forward"
+  ]
+}

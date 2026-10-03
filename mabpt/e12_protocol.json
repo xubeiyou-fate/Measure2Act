@@ -1,0 +1,42 @@
+{
+  "format_version": 1,
+  "experiment_id": "E12",
+  "model": "MABPT",
+  "frozen_at": "2026-08-10T14:39:00+08:00",
+  "status": "frozen_before_training_threshold_fit_and_E12_results",
+  "evidence_class": "legacy_development_only",
+  "folds": [1, 2],
+  "comparators": ["ASCENT", "MABPT"],
+  "event": {
+    "name": "airport_near_conflict_surrogate",
+    "truth": "synchronous future horizontal separation <= 1.0 km and vertical separation <= 0.3 km at any forecast step",
+    "regulatory_claim": false,
+    "predictive_measurement": "soft separation kernel marginalized over independent actor mode pairs",
+    "horizontal_threshold_km": 1.0,
+    "vertical_threshold_km": 0.3,
+    "horizontal_kernel_scale_km": 0.1,
+    "vertical_kernel_scale_km": 0.03
+  },
+  "alert": {
+    "target_false_positive_rate": 0.05,
+    "threshold_fit": "95th percentile of negative-pair probability on fold training scenes only",
+    "lead_time": "seconds from forecast origin to first true synchronous near-conflict"
+  },
+  "metrics": [
+    "Brier",
+    "NLL",
+    "AUPRC",
+    "ECE",
+    "recall_at_training_fixed_FPR",
+    "observed_FPR",
+    "true_positive_warning_lead_time"
+  ],
+  "selection": false,
+  "forbidden": [
+    "threshold_fit_on_validation",
+    "regulatory_separation_claim",
+    "post_hoc_temperature",
+    "gate_or_residual",
+    "target_in_probability_forward"
+  ]
+}

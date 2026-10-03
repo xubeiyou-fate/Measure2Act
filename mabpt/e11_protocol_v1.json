@@ -1,0 +1,34 @@
+{
+  "format_version": 1,
+  "experiment_id": "E11",
+  "model": "MABPT",
+  "frozen_at": "2026-08-10T14:03:00+08:00",
+  "status": "frozen_before_event_definition_fit_and_E11_results",
+  "evidence_class": "legacy_development_only",
+  "folds": [1, 2],
+  "comparators": ["ASCENT", "MABPT"],
+  "event_space": {
+    "horizontal": ["right", "straight", "left"],
+    "vertical": ["descend", "level", "climb"],
+    "classes": 9,
+    "feature": "endpoint bearing change and endpoint altitude change relative to last observation",
+    "threshold_fit": "median absolute feature on fold training actors only"
+  },
+  "continuous_nll": {
+    "distribution": "five-component trajectory Gaussian mixture",
+    "covariance": "shared diagonal by horizon and coordinate",
+    "covariance_fit": "fold-training-only constant-velocity residual second moment",
+    "minimum_variance_km2": 1e-6
+  },
+  "calibration_bins": 15,
+  "reliability_bins": 10,
+  "duplicate_threshold_mean_distance_km": 0.05,
+  "selection": false,
+  "forbidden": [
+    "post_hoc_temperature",
+    "event_threshold_fit_on_validation",
+    "covariance_fit_on_validation",
+    "gate_or_residual",
+    "target_in_probability_forward"
+  ]
+}

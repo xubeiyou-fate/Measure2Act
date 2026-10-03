@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "amendment_id": "mabpt_partc_tartan_data_efficiency_nested_v2",
+  "frozen_at": "2026-08-13",
+  "trigger": "The v1 aggregation gate found that independently uniform p10 and p25 calendar-date samples were not nested.",
+  "status": "frozen_after_v1_development_runs_but_before_any_locked_test_access",
+  "scope": "Data-efficiency training only; the completed p100 five-seed main matrix and all locked-test policies remain unchanged.",
+  "superseded_results": {
+    "fractions": [0.1],
+    "run_root": "runs/partc_tartan_retrain_20260812",
+    "reason": "The independently sampled p10 dates are not a subset of p25. The p25 uniform selection is unchanged and remains eligible.",
+    "deletion_policy": "Retain all v1 runs and logs as an audit trail; do not cite them as data-efficiency results."
+  },
+  "selection_rule": {
+    "p25": "Uniformly spaced fixed positions over sorted p100 training dates, count round(0.25*N).",
+    "p10": "Uniformly spaced fixed positions over the frozen p25 dates, count round(0.10*N_total).",
+    "p100": "All registered training dates from tartan_retrain_protocol_v1.",
+    "nested": "p10 is a subset of p25, and p25 is a subset of p100.",
+    "outcome_independent": true
+  },
+  "dates": {
+    "KAGC": {
+      "p010": ["2022-01-02", "2022-01-16", "2022-01-25", "2022-02-11", "2022-02-26", "2022-03-08", "2022-03-23", "2022-04-04", "2022-04-20", "2022-05-03", "2022-05-13", "2022-05-27"],
+      "p025": ["2022-01-02", "2022-01-06", "2022-01-12", "2022-01-16", "2022-01-21", "2022-01-25", "2022-01-30", "2022-02-05", "2022-02-11", "2022-02-15", "2022-02-20", "2022-02-26", "2022-03-03", "2022-03-08", "2022-03-13", "2022-03-18", "2022-03-23", "2022-03-29", "2022-04-04", "2022-04-08", "2022-04-13", "2022-04-20", "2022-04-25", "2022-04-29", "2022-05-03", "2022-05-09", "2022-05-13", "2022-05-18", "2022-05-22", "2022-05-27"]
+    },
+    "KBTP": {
+      "p010": ["2022-01-03", "2022-01-12", "2022-01-27", "2022-02-28", "2022-03-10", "2022-03-19", "2022-04-25", "2022-05-14", "2022-06-07", "2022-06-16", "2022-06-30"],
+      "p025": ["2022-01-03", "2022-01-07", "2022-01-12", "2022-01-18", "2022-01-22", "2022-01-27", "2022-01-31", "2022-02-06", "2022-02-28", "2022-03-05", "2022-03-10", "2022-03-15", "2022-03-19", "2022-03-24", "2022-04-14", "2022-04-25", "2022-05-04", "2022-05-09", "2022-05-14", "2022-05-18", "2022-06-07", "2022-06-12", "2022-06-16", "2022-06-21", "2022-06-25", "2022-06-30"]
+    }
+  },
+  "training": {
+    "seed": 42,
+    "regimes": ["target_only", "full_finetune"],
+    "stages": ["ascent", "decision_support", "predicted_risk"],
+    "epochs": 20,
+    "all_other_settings": "Inherited unchanged from mabpt/tartan_retrain_protocol_v1.json",
+    "output_run_root": "runs/partc_tartan_data_efficiency_nested_v2",
+    "reuse_p25_and_p100": "Existing runs are reused only after exact selected-date identity checks against this amendment."
+  },
+  "frozen_inputs": {
+    "tartan_retrain_protocol_v1_sha256": "b07287cc503d502bff7ade15d50e6e6cbfabfa0dd5999d658edb524bed1f16b4",
+    "tartan_retrain_frozen_receipt_v1_sha256": "d51c56ea228679ec70c8e8d900493476e110011fee9607165c8736d71595707d",
+    "original_train_runner_sha256": "387c9faa03c6c23de3b8fff80a88076c7eadbaeae0f338af6f21d1ec940c0a99"
+  },
+  "integrity": {
+    "development_used_to_change_dates": false,
+    "failure_was_detected_by_set_identity_before_metric_aggregation": true,
+    "locked_test_accessed": false,
+    "outcome_based_date_selection": false
+  },
+  "claim_boundary": "Exploratory seed-42 development-only learning curves; the v2 amendment repairs nesting and is not confirmatory evidence."
+}
