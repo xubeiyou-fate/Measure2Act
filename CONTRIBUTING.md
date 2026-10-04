@@ -33,7 +33,8 @@ behind the stable `Measure2Act_*` packages where practical.
 
 Do not commit datasets, derived cases, per-flight outputs, model checkpoints,
 run directories, credentials, private links, or developer-local absolute
-paths. Data and weights are versioned as separate DOI records. Do not copy
+paths. Raw data remain at official upstream records; weights are versioned as
+a GitHub Release asset and may receive a DOI later. Do not copy
 third-party source into this repository without recording its exact origin,
 commit, licence, and notice requirements.
 

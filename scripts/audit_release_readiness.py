@@ -215,7 +215,7 @@ def strict_metadata_failures() -> list[str]:
                 )
 
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
-    for field in ("repository-code:", "doi:", "date-released:"):
+    for field in ("repository-code:", "date-released:"):
         if not re.search(rf"(?m)^{re.escape(field)}\s*\S+", citation):
             failures.append(f"CITATION.cff missing finalized field: {field[:-1]}")
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")

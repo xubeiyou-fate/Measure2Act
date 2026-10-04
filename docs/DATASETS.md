@@ -1,7 +1,8 @@
 # Dataset access matrix
 
-The public GitHub repository is source-only with small aggregate manuscript
-evidence. It does not redistribute a third-party raw or derived dataset.
+The Git-tracked repository contains source and small aggregate manuscript
+evidence. Model weights are a separate GitHub Release asset. The project does
+not redistribute a third-party raw or derived dataset.
 
 | Dataset | Role in this study | Official access | Frozen version | License status | Hosted here |
 |---|---|---|---|---|---:|
@@ -59,6 +60,6 @@ The aggregate outputs under `results/paper_tables/` are numerical paper
 evidence, not a trajectory dataset. The internal `deposits/data` archive is a
 private preservation mother copy and is not part of the GitHub upload.
 
-No separate Measure2Act data DOI is needed under this policy. A software DOI
-must archive the tagged GitHub release. Create a data DOI only if a separately
-curated author-generated evidence dataset is actually released later.
+No separate Measure2Act data DOI is claimed under this policy. A software DOI
+may archive the tagged GitHub release later. Create a data DOI only if a
+separately curated author-generated evidence dataset is actually released.

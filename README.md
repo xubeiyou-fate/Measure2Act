@@ -14,13 +14,14 @@ Canonical repository: <https://github.com/xubeiyou-fate/Measure2Act>
 [Publication audit](docs/PUBLICATION_AUDIT.md) |
 [Citation](#citation)
 
-> **Upload status (2026-10-04):** the source code, tests, documentation, SBOM,
-> and small aggregate manuscript tables are public on `main` at
-> `https://github.com/xubeiyou-fate/Measure2Act`. Raw/processed third-party
-> datasets are not hosted here; official access links are listed below. The 70
-> model checkpoints remain in the local release package and are **not yet
-> attached to a public GitHub Release**. No `v1.0.0` tag or model DOI has been
-> published.
+> **Release status (2026-10-04):** this repository is the public v1.0.0
+> reproducibility release for a manuscript prepared for submission to
+> *Aerospace Science and Technology* (AST). Source code is Apache-2.0 and all
+> 70 author-created model weights, including 10 EqMotion adaptations, are
+> CC BY 4.0. The weight archive is attached to the GitHub Release; raw and
+> processed third-party datasets remain at their official download routes.
+> Publication in AST has not yet occurred and this repository does not claim
+> journal acceptance or endorsement.
 
 ## Overview
 
@@ -36,7 +37,7 @@ an official ASCENT checkpoint release.
 
 ![Measure2Act candidate-generation and probability-transfer workflow](docs/assets/measure2act_workflow.png)
 
-_Method workflow from the submitted manuscript. The target support remains
+_Method workflow from the manuscript prepared for submission. The target support remains
 fixed throughout the probability stage; the optional point output is not a
 flight-control command._
 
@@ -147,9 +148,9 @@ official pages, so it must not be redistributed without custodian permission.
 
 The GitHub repository provides the source code, tests, documentation, SBOM,
 and small aggregate manuscript evidence. Raw third-party datasets remain at
-their official sources. A versioned model-weight asset and persistent archive
-record are planned, but are not yet public; large binaries are deliberately
-excluded from Git history.
+their official sources. The 70-weight asset is distributed from the
+versioned GitHub Release, while large binaries remain excluded from Git
+history.
 
 | Level | Required objects | Verification entry point |
 |---|---|---|
@@ -157,16 +158,16 @@ excluded from Git history.
 | Tables 3-7 aggregate values | GitHub repository | `python scripts/verify_paper_summaries.py` |
 | Evaluation/retraining | Official upstream datasets and model record | Frozen protocols and paths in [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) |
 
-The final release must replace these explicit gates with resolving records:
+The release records are:
 
-- Software archive: created from the tagged GitHub release; DOI is added to
-  this file after the archive provider returns the persistent identifier.
+- Software archive: the tagged GitHub release and source archive are the
+  public software record; a DOI may be added later if a repository provider
+  returns one.
 - Derived evidence: only if the rights/privacy review authorizes a distinct
   deposit; otherwise the official upstream data records remain the only data
   access route.
-- Model weights: distributed from the separate model archive; its DOI and
-  landing page are recorded in [model_release.json](model_release.json) after
-  publication.
+- Model weights: distributed from the separate GitHub Release asset; its
+  checksum and model card are recorded in [model_release.json](model_release.json).
 
 Reused datasets are cited at their official sources. The internal derived-case
 pool is not included in GitHub and is not automatically eligible for a data
@@ -234,23 +235,20 @@ weights. The full provenance and naming audit is in
 
 ## Release status
 
-This tree is a `v1.0.0` release candidate. Before the final tag:
+This tree is the `v1.0.0` public release. The release includes:
 
-1. retain the root `LICENSE` for original Measure2Act material and the ASCENT
-   attribution in `docs/ASCENT_NOTICE.md`; verify that the workflow figure is
-   author-created before creating the version tag;
-2. approve the model terms, verify all official dataset citations and access
-   conditions, and keep the internal data mother archive out of GitHub;
-3. reserve resolving software and model identifiers;
-4. update `README.md`, `CITATION.cff`, repository metadata, and the manuscript
-   availability statements with the same identifiers;
-5. run `python scripts/audit_release_readiness.py --strict` and the complete
-   clean-clone verification before creating the version tag.
+1. the root Apache-2.0 license for original Measure2Act material and the
+   ASCENT attribution in `docs/ASCENT_NOTICE.md`;
+2. CC BY 4.0 terms for all 70 author-created weights, including EqMotion
+   adaptations, with upstream data/source boundaries retained;
+3. official dataset access routes only, with no third-party raw payloads in
+   GitHub;
+4. a reproducible v1.0.0 tag, release asset, checksums, and validation report.
 
 The canonical GitHub repository is
-<https://github.com/xubeiyou-fate/Measure2Act>. The software DOI, model DOI,
-and publication date are added only after the corresponding archive records
-resolve.
+<https://github.com/xubeiyou-fate/Measure2Act>. The release date is recorded in
+`CITATION.cff`. Software and model DOIs are optional additions after an archive
+provider returns real identifiers; none is fabricated in this release.
 
 ## Third-party boundary
 
@@ -271,9 +269,9 @@ safety-critical use.
 ## Citation
 
 The verified author and software metadata are in [CITATION.cff](CITATION.cff).
-The repository URL, release date, article identifier, and archive DOI must be
-added only after the corresponding records exist. GitHub will expose the
-finalized file through its **Cite this repository** interface.
+The repository URL and release date are finalized in `CITATION.cff`. A DOI is
+not fabricated; if a DOI archive is created later, add its returned identifier
+to the citation and model metadata.
 
 ## Contributing and security
 

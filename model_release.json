@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "release_name": "Measure2Act Model Weights",
   "release_version": "1.0.0",
-  "status": "technical_ready_pending_external_archive_publication",
+  "status": "github_release_public_doi_pending",
   "doi": null,
   "record_url": null,
-  "doi_provider": "Zenodo or another DOI-minting repository selected by the authors",
-  "doi_action": "Create a public versioned model record, then replace null values with the returned DOI and landing-page URL.",
+  "doi_provider": null,
+  "doi_action": "The GitHub Release is the public distribution route. Add a DOI only when a DOI provider returns a real identifier; null is intentional until then.",
   "weight_license": "CC-BY-4.0",
   "payload_in_this_repository": false,
   "verified_checkpoint_count": 70,
@@ -36,5 +36,6 @@
     "MODEL_CARD.md",
     "VERIFICATION_REPORT.json"
   ],
-  "notes": "The local deposit contains the complete 60-row Measure2Act source-forecaster/replacement-forecaster/target-risk-head matrix and 10-row EqMotion fixed-support control matrix. The weights are author-trained and released under CC BY 4.0; the license does not grant rights to third-party data or upstream source. Add the real model DOI and landing-page URL after the external archive record is created."
+  "github_release_url": "https://github.com/xubeiyou-fate/Measure2Act/releases/tag/v1.0.0",
+  "notes": "The public v1.0.0 GitHub Release contains the complete 60-row Measure2Act source-forecaster/replacement-forecaster/target-risk-head matrix and 10-row EqMotion fixed-support control matrix. The weights are author-trained and released under CC BY 4.0; the license does not grant rights to third-party data or upstream source. A persistent model DOI is optional and is intentionally null until a provider returns one."
 }

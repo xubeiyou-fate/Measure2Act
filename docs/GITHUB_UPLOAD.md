@@ -1,10 +1,10 @@
 # GitHub upload checklist
 
-This directory is a source-only release candidate. It does not contain raw
-trajectory data or model checkpoints. The canonical GitHub repository is
-`https://github.com/xubeiyou-fate/Measure2Act`. Software, derived-evidence,
-and model records are separate archival objects; their identifiers must be
-copied here only after the external providers return real DOI landing pages.
+This directory documents the public release. The GitHub tree does not contain
+raw trajectory data or model checkpoints; the 70-weight archive is attached to
+the `v1.0.0` GitHub Release. The canonical GitHub repository is
+`https://github.com/xubeiyou-fate/Measure2Act`. Software and model DOI records
+are optional follow-up archival objects; no DOI is fabricated locally.
 
 ```bash
 cd /path/to/Measure2Act
@@ -30,7 +30,6 @@ implementation; its provenance boundary is documented in
 The root `LICENSE` applies only to original Measure2Act material. Datasets and
 checkpoints are acquired from their official or separately archived records.
 
-After the repository and DOI records exist, update `README.md`,
-`CITATION.cff`, `model_release.json`, and `docs/DATA_AVAILABILITY.md` together,
-run `python scripts/audit_release_readiness.py --strict`, and only then create
-the `v1.0.0` tag and GitHub release.
+After changing the release asset, update its SHA256 and rerun the model and
+source audits. The `v1.0.0` tag and GitHub release are the public records for
+this submission package.

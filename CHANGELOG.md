@@ -2,17 +2,21 @@
 
 All notable public-release changes are documented here.
 
-## 1.0.0 - release candidate (2026-10-03)
+## 1.0.0 - public release (2026-10-04)
 
 - Added the stable probability-transfer and ASCENT command-line facades.
 - Preserved the frozen study implementations and protocol files required to
   interpret the manuscript evidence.
 - Added data-free CPU tests, exact environment definitions, a CycloneDX SBOM,
   source-boundary checks, and a strict tag-time release audit.
-- Separated GitHub source, paper data/evidence, and model weights into three
-  independently citable release objects.
+- Separated GitHub source, official dataset access routes, and model weights;
+  no third-party trajectory payload is redistributed.
 - Added the manuscript workflow figure, code map, reproducibility contract,
   third-party notices, and GitHub contribution templates.
+- Published the 70 author-created checkpoints as a GitHub Release asset under
+  CC BY 4.0, including the 10 EqMotion adaptations.
+- Recorded that the accompanying manuscript is prepared for submission to
+  *Aerospace Science and Technology*; no acceptance or endorsement is claimed.
 
-The public release date and identifiers will be recorded only after the legal
-and repository gates are closed.
+The release date and canonical repository are recorded in `CITATION.cff`.
+Software and model DOIs may be added later only after a provider mints them.

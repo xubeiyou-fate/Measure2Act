@@ -13,12 +13,12 @@ rights, or make the raw third-party data public.
 
 | Item | Finding | Status |
 |---|---|---|
-| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; at the audit date the public `main` branch matched audited source commit `0e2bb3cbc579f6d5e50f042220ca7b7e07547088`; no version tag or Release existed | **SOURCE PASS / RELEASE PENDING** |
+| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; v1.0.0 release built from the audited source branch | **PASS** |
 | Source tree | Source/document paths only; no raw archive or checkpoint payload; boundary, CPU smoke, tests, and table-summary checks pass | **PASS** |
 | Derived-data deposit | 4,323 files, approximately 188 MiB; 2,000 JSON/NPZ cases from 1,000 selected scenes; local archive verifier 8/8 and Tables 3–7 numeric checks 38/38 pass | **TECHNICAL PASS / NOT PUBLIC** |
-| Model deposit | 222 files, approximately 575 MiB; 70 checkpoints (60 core + 10 EqMotion); all 70 load and manifest/index checks pass | **TECHNICAL PASS / NOT PUBLIC** |
-| Persistent records | No software/model/evidence DOI is fabricated locally; external archive publication is the only remaining identifier gate | **EXTERNAL GATE** |
-| Manuscript availability text | The manuscript currently says processed outputs and code/checkpoints are not publicly deposited, which conflicts with the intended release plan | **MUST UPDATE** |
+| Model deposit | 223 files (221 manifest-covered plus manifest and report), approximately 497 MiB compressed; 70 checkpoints (60 core + 10 EqMotion); all 70 load and manifest/index checks pass | **PUBLIC RELEASE ASSET** |
+| Persistent records | GitHub tag/release is public; no DOI is fabricated locally and a DOI archive remains optional | **PASS / DOI OPTIONAL** |
+| Manuscript availability text | `01_Manuscript.docx` now names the official dataset routes, public repository, `v1.0.0` Release, Apache-2.0 code, and CC BY 4.0 weights | **PASS** |
 
 ## Paper-to-repository consistency
 
@@ -37,13 +37,12 @@ rights, or make the raw third-party data public.
   two airports, two regimes, and five seeds agree with the model card and the
   manuscript protocol table.
 
-### Required corrections
+### Resolved checks and retained caveats
 
-1. **Availability contradiction.** The manuscript paragraph headed “Data
-   availability” still says that processed outputs and reconstruction scripts
-   are not in a public repository and that code/checkpoint tensors are not
-   shareable. Replace it only after the GitHub commit and the separate data and
-   model records are public and reviewer-accessible.
+1. **Availability consistency.** The manuscript paragraph headed “Data
+   availability” now points to the official upstream datasets, public source
+   repository, and versioned 70-weight Release asset. The pre-edit manuscript
+   is preserved locally as `01_Manuscript_before_GitHub_release.docx`.
 2. **Model provenance wording.** The source, model index, model card, and
    notices now use the single canonical statement **ASCENT-inspired /
    architecture-informed independently authored implementation**. ASCENT is
@@ -74,10 +73,7 @@ rights, or make the raw third-party data public.
    privacy/sensitivity review is complete. The pool is a derived inspection
    sample, not the raw TartanAviation dataset.
 
-## Ready-to-paste availability text after records resolve
-
-Replace each bracketed field with the real landing page/DOI; do not submit the
-brackets literally.
+## Availability text matched to v1.0.0
 
 ### Data Availability
 
@@ -87,48 +83,44 @@ brackets literally.
 > https://theairlab.org/tartanaviation/ and
 > https://github.com/castacks/TartanAviation, using commit
 > `4065f5bb11c3d8e557dcaf20a56469e6b0738714`. The raw third-party archives are
-> not redistributed in this project. The derived Measure2Act evidence deposit
-> (selected trajectory-derived cases, frozen evaluation outputs, split
-> manifests, and deterministic table-rebuild inputs) is available at
-> `[DATA_DOI_OR_LANDING_PAGE]`. The fitted model weights and their checksums,
-> configuration records, and model card are available at
-> `[MODEL_DOI_OR_LANDING_PAGE]`. Source code and data/model access instructions
-> are available at `https://github.com/xubeiyou-fate/Measure2Act`.
+> not redistributed in this project. Source versions, official access routes,
+> preprocessing entry points, and the aggregate values underlying Tables 3-7
+> are available in the Measure2Act v1.0.0 Release at
+> `https://github.com/xubeiyou-fate/Measure2Act/releases/tag/v1.0.0`. All 70
+> author-created model checkpoints, their configuration bindings, and SHA-256
+> checksums are attached to that Release under CC BY 4.0. The release contains
+> no third-party raw or derived trajectory dataset.
 
 ### Code Availability
 
 > The independently authored Measure2Act implementation, tests, protocols,
-> aggregate manuscript tables, and environment specifications are available at
-> `https://github.com/xubeiyou-fate/Measure2Act`, archived as
-> `[SOFTWARE_DOI_OR_LANDING_PAGE]`. The GitHub repository does not contain raw
-> third-party trajectory archives or model checkpoint payloads; those assets
-> are linked through the Data Availability statement above.
+> aggregate manuscript tables, and environment specifications are available
+> under Apache-2.0 at `https://github.com/xubeiyou-fate/Measure2Act`, release
+> `v1.0.0`. The Git repository does not contain raw third-party trajectory
+> archives or checkpoint binaries; the weight archive is a Release asset.
 
 ## AST/Elsevier submission interpretation
 
-Elsevier's research-data policy encourages deposit, citation and persistent
-linking of data; its journal-specific data option must be selected in the AST
-submission system. The GitHub URL alone is not a substitute for a persistent
-data/model record when the submission form asks for research-data access. Use
+Elsevier journals apply journal-specific research-data options; the live AST
+submission-system selection must be checked when submitting. The public GitHub
+Release supplies a resolving access route, while a later DOI remains useful
+for long-term archival persistence. Use
 the official [Elsevier research-data guidelines](https://www.elsevier.com/researcher/author/tools-and-resources/research-data/data-guidelines)
 and the [AST journal page](https://www.sciencedirect.com/journal/aerospace-science-and-technology)
 when completing the submission fields.
 
 ## Release gates
 
-Before calling this project “complete” or tagging `v1.0.0`:
+The release procedure is complete when all of these checks pass:
 
 1. push the audited source commit and verify the remote `main` ref;
-2. create the software archive record and replace `CITATION.cff`/availability
-   gates with its returned DOI;
-3. keep the derived case pool excluded unless upstream-rights and privacy review
+2. keep the derived case pool excluded unless upstream-rights and privacy review
    authorizes a separate evidence record;
-4. publish the 70-weight model deposit under the prepared CC BY 4.0 terms and
-   replace the null model identifier with the returned DOI and landing page;
-5. run source, data, model, clean-clone, and table-rebuild checks against the
+3. publish the 70-weight model deposit under the prepared CC BY 4.0 terms;
+4. run source, model, clean-clone, and table-rebuild checks against the
    exact release commit.
 
-Until the external archive records resolve, the correct description is
-**audited source-only GitHub release candidate with technically verified local
-data/model deposits**, not a DOI-complete archive. No placeholder DOI is
+The correct description is **public v1.0.0 GitHub release with technically
+verified model weights and official-link-only dataset access**. It is prepared
+for AST submission and does not claim AST acceptance. No placeholder DOI is
 presented as a citation.

@@ -1,10 +1,11 @@
 cff-version: 1.2.0
-message: "Please cite the Measure2Act article and the archived software release."
+message: "Please cite the Measure2Act manuscript and the v1.0.0 software/model release."
 title: "Measure2Act: Modular probability transfer for multimodal aircraft trajectory prediction"
 type: software
 version: 1.0.0
 license: Apache-2.0
 repository-code: "https://github.com/xubeiyou-fate/Measure2Act"
+date-released: 2026-10-04
 authors:
   - family-names: Xu
     given-names: Hang

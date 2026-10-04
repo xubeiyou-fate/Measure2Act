@@ -8,7 +8,7 @@ the experiment semantics and frozen data boundaries remain unchanged.
 Measure2Act/
 ├── README.md                         # project overview and quick start
 ├── LICENSE                            # original Measure2Act source terms
-├── CITATION.cff                       # citation metadata; final DOI fields are added later
+├── CITATION.cff                       # citation metadata; DOI added only if later minted
 ├── pyproject.toml                     # package metadata and CLI entry points
 ├── requirements.txt                   # broad runtime dependencies
 ├── requirements-lock.txt              # validated environment lock

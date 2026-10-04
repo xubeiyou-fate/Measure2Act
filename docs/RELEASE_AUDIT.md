@@ -1,8 +1,7 @@
 # Release audit snapshot
 
-Audit date: 2026-10-04 (Asia/Shanghai). This snapshot records the pushed
-source-only GitHub candidate. It does not create a DOI or external archive
-record that has not been supplied by the authors.
+Audit date: 2026-10-04 (Asia/Shanghai). This snapshot records the public
+v1.0.0 GitHub release. It does not fabricate a DOI or external archive record.
 
 ## Passed checks
 
@@ -17,21 +16,13 @@ record that has not been supplied by the authors.
 | Forbidden payload scan | PASS; no raw datasets, checkpoints, archives, or local absolute paths in the candidate |
 | Manifest | PASS; `MANIFEST.sha256` covers 405 source-only files and excludes caches/build output |
 
-## Deliberate release gates
+## Optional persistent identifiers
 
-`python scripts/audit_release_readiness.py --strict` remains FAIL until the
-authors provide the following real values or approvals:
+The strict metadata audit requires a release date and repository identity. A
+software or model DOI is optional until an external archive returns a real
+identifier. If created later, add it consistently to the manuscript and
+repository metadata.
 
-1. The software archive DOI.
-2. A public model record URL and DOI for the 70 checkpoint rows. The external
-   model deposit is technically complete; its separate publication-readiness
-   report still contains author-managed release fields.
-3. The release date and matching software/model identifiers in the manuscript
-   and Data/Code Availability statements.
-
-These are metadata gates, not failing code tests. The ASCENT implementation
-provenance is now recorded in the model index and model card. The separate
-license matrix remains available for the authors' publication review but is
-outside this technical-only audit. The source tree is uploaded and CI-verified;
-until the metadata gates are closed, it must not be presented as a finalized
-DOI-tagged `v1.0.0` release.
+The ASCENT implementation provenance is recorded in the model index and model
+card. The source tree and model asset are uploaded and CI-verified; the release
+must be described as a GitHub release, not as a DOI-tagged archive.

@@ -1,11 +1,11 @@
 # Code availability
 
-The source-only Measure2Act implementation, tests, paper-table summaries,
-build metadata, and reproducibility scripts are intended to be released in a
-public GitHub repository at
-<https://github.com/xubeiyou-fate/Measure2Act>. This is the source-only code
-record for the AST submission; it does not contain raw trajectory data or
-model checkpoints.
+The Measure2Act implementation, tests, paper-table summaries, build metadata,
+and reproducibility scripts are publicly released in the GitHub repository at
+<https://github.com/xubeiyou-fate/Measure2Act>. This is the Git-tracked code
+record for a manuscript prepared for submission to AST; it does not contain
+raw trajectory data or checkpoint binaries in Git history. The source code is
+released under Apache-2.0.
 
 The source tree intentionally excludes third-party raw trajectory files,
 derived trajectory files, checkpoints, and local caches. Those assets are
@@ -13,7 +13,7 @@ obtained from the official dataset records and the separate model record as
 described in [DATA_AVAILABILITY.md](DATA_AVAILABILITY.md) and
 [MODEL_RELEASE.md](MODEL_RELEASE.md).
 
-For a source-only upload, run:
+To verify the Git-tracked release, run:
 
 ```bash
 python scripts/audit_code_release.py
@@ -22,6 +22,6 @@ python -m pytest -q
 python scripts/verify_paper_summaries.py
 ```
 
-The final paper statement must replace the explicit external-record gate with
-the resolving software and model identifiers after the archive DOI and model
-DOI are minted. A null or placeholder value is never a citable identifier.
+The 70 author-created checkpoints are attached to the v1.0.0 GitHub Release
+under CC BY 4.0, including the EqMotion adaptations. A DOI may be added after
+an external archive returns a real identifier; no placeholder DOI is used.

@@ -1,7 +1,7 @@
 # Documentation assets
 
 `measure2act_workflow.png` is the author-provided method workflow used in the
-submitted manuscript. It was extracted without modification from
+manuscript prepared for submission. It was extracted without modification from
 `word/media/image2.png` in the frozen manuscript source.
 
 - SHA256: `b4a1c22ddb4964f30f56a8db9873da89c98e3989a46b4c5a06192675b070f020`

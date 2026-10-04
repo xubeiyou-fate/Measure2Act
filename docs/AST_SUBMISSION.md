@@ -16,10 +16,12 @@ that editors and reviewers can inspect the computational workflow.
 - Source code and data-free tests are included in GitHub.
 - Raw trajectory data remain at their official upstream records and are not
   redistributed here.
-- Paper checkpoints remain in the separate model release record; the GitHub
-  tree contains their index, checksums, and retrieval instructions only.
-- The manuscript's Data/Code Availability statement must use the final GitHub
-  URL and archived software/model identifiers after those records are created.
+- All 70 author-created checkpoints remain outside Git history and are attached
+  to the versioned GitHub Release under CC BY 4.0. The Git tree contains their
+  index, checksums, and retrieval instructions.
+- The manuscript's Data/Code Availability statement uses the public GitHub
+  repository and versioned Release URLs. A DOI may be added later if a
+  repository provider mints one; no placeholder DOI is used.
 
 ## Pre-submission consistency check
 
@@ -28,9 +30,9 @@ manuscript, this repository, `CITATION.cff`, and the archived release:
 
 1. manuscript title and author order;
 2. canonical GitHub URL and tagged release;
-3. software archive DOI and model-record DOI;
+3. canonical GitHub repository, tag, and model-asset URL;
 4. dataset citations and versioned access routes; and
 5. release version and date.
 
-The repository deliberately avoids claiming a DOI or a repository owner until
-those external records exist.
+The repository owner is `xubeiyou-fate`. This release deliberately avoids
+claiming a software or model DOI until an external provider returns one.

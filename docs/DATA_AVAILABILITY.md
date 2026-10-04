@@ -14,17 +14,16 @@ repository is BSD-3-Clause licensed; no separate license for the downloaded
 data payload was identified on the verified official pages, so the payload is
 not redistributed here. Download and preprocessing entry points, source
 versions and checksums, and the aggregate values underlying manuscript Tables
-3-7 are available in the versioned Measure2Act software archive. The exact
-derived-evidence deposit (if released after rights and privacy review) and the
-70 fitted model checkpoints are separate archival objects. Their DOI landing
-pages must be inserted here after the providers mint them; this repository
-does not invent or reserve identifiers locally. The GitHub/software archive
-contains no third-party raw or derived trajectory dataset.
+3-7 are available in the versioned Measure2Act GitHub release. The 70 fitted
+model checkpoints are attached to the same release as a separate binary asset
+under CC BY 4.0. A persistent DOI may be added later if an archive provider
+returns one; no placeholder DOI is used. The GitHub release contains no
+third-party raw or derived trajectory dataset.
 
 ## Repository and citation actions
 
-- Replace the external-record gate with the real software, evidence-data, and
-  model DOI landing pages only after all three records resolve.
+- If a software or model DOI is later minted, add its resolving landing page
+  to this statement and the repository metadata.
 - Cite the TrajAir dataset DOI in the reference list, not only in this statement.
 - Cite the TartanAviation paper/project and record the exact repository commit.
 - Test all official download routes outside the author's authenticated session.
@@ -41,8 +40,8 @@ Recommended dataset reference:
 ## Missing information / risk flags
 
 - TartanAviation data-payload licensing remains an upstream-rights uncertainty.
-- Software, evidence-data, and model DOI values are external release gates;
-  none may be represented by a placeholder in the manuscript.
+- No Measure2Act data DOI is claimed: reused datasets retain their official
+  identifiers and the internal derived-case pool remains excluded.
 - The aggregate CSV files support numerical inspection but are not substitutes
   for the third-party datasets and model weights needed for full reruns.
 
