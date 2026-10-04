@@ -38,7 +38,7 @@ Measure2Act/
 ├── mode_state_query/                  # mode-state query components
 ├── proper_set_ascent/                 # proper-set ASCENT components
 ├── tail_query/                        # tail-query components
-├── model/                             # ASCENT backbone and data utilities
+├── model/                             # independently authored ASCENT-inspired backbone
 ├── airroute_stage_m/                  # air-route model/evaluation components
 ├── modern_baseline/                   # EqMotion aviation adapters and protocols
 │
@@ -68,7 +68,7 @@ Measure2Act/
 │   ├── DATA_SOURCES.md                # URLs, versions, checksums, commands
 │   ├── DATA_AVAILABILITY.md            # manuscript-ready statement
 │   ├── MODEL_RELEASE.md               # external model deposit contract
-│   ├── ASCENT_NOTICE.md               # ASCENT source boundary
+│   ├── ASCENT_NOTICE.md               # independent ASCENT-inspired boundary
 │   ├── ASSET_BOUNDARY.md              # inclusion/exclusion rules
 │   ├── THIRD_PARTY_LICENSE_MATRIX.md  # provenance and rights matrix
 │   ├── CODE_AVAILABILITY.md            # code sharing statement

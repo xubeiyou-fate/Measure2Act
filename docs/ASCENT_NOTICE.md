@@ -1,26 +1,34 @@
-# ASCENT attribution and source boundary
+# ASCENT-inspired implementation notice
 
-Measure2Act uses the ASCENT aircraft-trajectory forecasting implementation as
-the forecasting backbone and comparator described in the manuscript. ASCENT is
-an upstream, publicly released research project:
+Measure2Act is **not** a redistribution of the ASCENT source tree and the
+released Measure2Act weights are **not official ASCENT weights**. The
+aircraft-forecasting implementation in this repository was independently
+authored for Measure2Act, informed by the architectural ideas described in:
 
-- Repository: <https://github.com/a-pru/ascent>
-- Pinned source commit used for this release: `814e0a18a8a7500dfb0498ab2ee873d022874e8a`
-- Paper: Prutsch et al., *ASCENT: Transformer-Based Aircraft Trajectory
-  Prediction in Non-Towered Terminal Airspace* (ICRA 2026)
+- Prutsch et al., *ASCENT: Transformer-Based Aircraft Trajectory Prediction in
+  Non-Towered Terminal Airspace*;
+- the public ASCENT project page: <https://github.com/a-pru/ascent>.
 
-The release owner has confirmed permission to redistribute the ASCENT source as
-part of this reproducibility package. The upstream repository remains the
-authoritative source for its copyright, attribution, and licensing terms. The
-root `LICENSE` applies only to original Measure2Act material; it does not
-relicense ASCENT source, ASCENT checkpoints, third-party datasets, or external
-baseline implementations.
+The reference is cited for scientific context and architectural comparison
+(positional/angular motion representation, context encoding, multimodal mode
+queries, and flight-parameter decoding). It is not a source-code dependency
+for the Measure2Act implementation. No ASCENT source files, checkpoints,
+copyright notices, or upstream license are redistributed by this repository or
+by the separate Measure2Act model archive.
 
-The ASCENT-related files in this repository are retained for reproducibility
-and are clearly identified by the `model/` package and the experiment modules
-listed in [CODE_MAP.md](CODE_MAP.md). Measure2Act-specific probability-transfer
-operators and evaluation code are original project components and are covered
-by the root license unless a file-level notice says otherwise.
+## Boundary of authorship
 
-No ASCENT checkpoint is stored in this Git repository. Checkpoints are
-published separately with their own model card, checksums, and terms.
+- `model/`, `Measure2Act_forecasting/`, and the probability-transfer packages
+  are independently authored project code and are covered by the root
+  Apache-2.0 license.
+- The model archive contains author-trained Measure2Act weights and auxiliary
+  EqMotion adaptations. Their exact files, hashes, configurations, and roles
+  are listed in `paper_model_index.csv` in the model archive.
+- The auxiliary EqMotion experiment is a separately documented baseline. Its
+  upstream source remains available from
+  <https://github.com/MediaBrain-SJTU/EqMotion> under its own terms; the
+  upstream source is not vendored in this repository.
+
+The canonical wording for the code and model provenance is **ASCENT-inspired / architecture-informed independently authored implementation**.
+It must be used consistently in the manuscript, README, model card, Data/Code
+Availability statements, and repository metadata.

@@ -15,14 +15,16 @@ def test_public_forecasting_facade_is_data_free() -> None:
 def test_ascent_boundary_is_explicit() -> None:
     notice = __import__("pathlib").Path("docs/ASCENT_NOTICE.md").read_text()
     assert "https://github.com/a-pru/ascent" in notice
-    assert "814e0a18a8a7500dfb0498ab2ee873d022874e8a" in notice
+    assert "ASCENT-inspired / architecture-informed independently authored implementation" in notice
+    assert "not official ASCENT weights" in notice
 
 
-def test_model_release_binds_official_ascent_source() -> None:
+def test_model_release_records_architecture_reference_boundary() -> None:
     record = json.loads(__import__("pathlib").Path("model_release.json").read_text())
     upstream = record["upstream_implementation"]
     assert upstream["repository"] == "https://github.com/a-pru/ascent"
-    assert upstream["commit"] == "814e0a18a8a7500dfb0498ab2ee873d022874e8"
+    assert upstream["commit"] is None
+    assert "Architectural reference only" in upstream["scope"]
 
 
 def test_public_probability_transfer_facade() -> None:

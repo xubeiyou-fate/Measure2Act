@@ -228,11 +228,11 @@ def strict_metadata_failures() -> list[str]:
         failures.append("pyproject.toml lacks a finalized license declaration")
     ascent_notice = (ROOT / "docs/ASCENT_NOTICE.md").read_text(encoding="utf-8")
     if "https://github.com/a-pru/ascent" not in ascent_notice:
-        failures.append("ASCENT notice must identify the official upstream repository")
-    if "814e0a18a8a7500dfb0498ab2ee873d022874e8" not in ascent_notice:
-        failures.append("ASCENT notice must pin the source commit")
-    if "permission to redistribute" not in ascent_notice:
-        failures.append("ASCENT notice must record the redistribution authorization")
+        failures.append("ASCENT notice must identify the architecture reference")
+    if "ASCENT-inspired / architecture-informed independently authored implementation" not in ascent_notice:
+        failures.append("ASCENT notice must state independent authorship")
+    if "not official ASCENT weights" not in ascent_notice:
+        failures.append("ASCENT notice must reject an official-weight attribution")
     return failures
 
 

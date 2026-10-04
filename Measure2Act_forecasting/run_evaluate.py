@@ -1,4 +1,4 @@
-"""Launch the packaged ASCENT evaluation entrypoint."""
+"""Launch the packaged Measure2Act forecasting evaluation entrypoint."""
 
 from .evaluate import main as evaluate
 

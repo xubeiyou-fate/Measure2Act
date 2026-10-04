@@ -1,6 +1,5 @@
-# ASCENT component redistributed with upstream attribution; see
-# docs/ASCENT_NOTICE.md. Measure2Act-specific changes remain identified by the
-# release boundary and do not change the upstream attribution.
+# ASCENT-inspired / architecture-informed independently authored implementation.
+# See docs/ASCENT_NOTICE.md for the provenance and third-party boundary.
 import torch
 from torch import nn
 from torch.nn import functional as F

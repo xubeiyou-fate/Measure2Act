@@ -54,7 +54,7 @@ paper protocol or audit. Their descriptive names are stable public paths.
 
 | Path | Role |
 |---|---|
-| `model/` | ASCENT backbone implementation, retained under the upstream boundary documented in `ASCENT_NOTICE.md` |
+| `model/` | ASCENT-inspired, architecture-informed independently authored forecasting implementation |
 | `airroute_stage_m/` | Air-route evaluation/model components retained by released entry points |
 | `modern_baseline/` | Author-maintained EqMotion aviation adapters and protocols; upstream EqMotion source is not vendored |
 

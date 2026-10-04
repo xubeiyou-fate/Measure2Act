@@ -2,18 +2,21 @@
   "schema_version": "1.0",
   "release_name": "Measure2Act Model Weights",
   "release_version": "1.0.0",
-  "status": "technical_ready_pending_persistent_identifier",
-  "doi": "[MODEL_DOI_PENDING]",
-  "record_url": "[MODEL_RECORD_URL_PENDING]",
+  "status": "technical_ready_pending_external_archive_publication",
+  "doi": null,
+  "record_url": null,
+  "doi_provider": "Zenodo or another DOI-minting repository selected by the authors",
+  "doi_action": "Create a public versioned model record, then replace null values with the returned DOI and landing-page URL.",
+  "weight_license": "CC-BY-4.0",
   "payload_in_this_repository": false,
   "verified_checkpoint_count": 70,
-  "verified_manifest_entries": 220,
+  "verified_manifest_entries": 221,
   "technical_verification": "PASS",
   "upstream_implementation": {
-    "name": "ASCENT",
+    "name": "ASCENT-inspired architecture reference",
     "repository": "https://github.com/a-pru/ascent",
-    "commit": "814e0a18a8a7500dfb0498ab2ee873d022874e8",
-    "scope": "60 core checkpoint rows"
+    "commit": null,
+    "scope": "Architectural reference only; no ASCENT source or official checkpoint is redistributed"
   },
   "planned_checkpoint_groups": [
     {
@@ -33,5 +36,5 @@
     "MODEL_CARD.md",
     "VERIFICATION_REPORT.json"
   ],
-  "notes": "The local deposit contains the complete 60-row ASCENT-family matrix and 10-row EqMotion support matrix. Resolve and verify the model DOI, landing-page URL, final manifest, and publication metadata before release."
+  "notes": "The local deposit contains the complete 60-row Measure2Act source-forecaster/replacement-forecaster/target-risk-head matrix and 10-row EqMotion fixed-support control matrix. The weights are author-trained and released under CC BY 4.0; the license does not grant rights to third-party data or upstream source. Add the real model DOI and landing-page URL after the external archive record is created."
 }

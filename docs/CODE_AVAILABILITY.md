@@ -22,5 +22,6 @@ python -m pytest -q
 python scripts/verify_paper_summaries.py
 ```
 
-The final paper statement must replace the pending software and model
-identifiers after the archive DOI and model DOI are known.
+The final paper statement must replace the explicit external-record gate with
+the resolving software and model identifiers after the archive DOI and model
+DOI are minted. A null or placeholder value is never a citable identifier.

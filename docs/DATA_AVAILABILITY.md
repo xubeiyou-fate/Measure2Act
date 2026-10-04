@@ -14,20 +14,23 @@ repository is BSD-3-Clause licensed; no separate license for the downloaded
 data payload was identified on the verified official pages, so the payload is
 not redistributed here. Download and preprocessing entry points, source
 versions and checksums, and the aggregate values underlying manuscript Tables
-3-7 are available in the Measure2Act software archive at
-`[SOFTWARE_DOI_PENDING]`. Model weights are available at
-`[MODEL_DOI_PENDING]`. The GitHub/software archive contains no third-party raw
-or derived trajectory dataset.
+3-7 are available in the versioned Measure2Act software archive. The exact
+derived-evidence deposit (if released after rights and privacy review) and the
+70 fitted model checkpoints are separate archival objects. Their DOI landing
+pages must be inserted here after the providers mint them; this repository
+does not invent or reserve identifiers locally. The GitHub/software archive
+contains no third-party raw or derived trajectory dataset.
 
 ## Repository and citation actions
 
-- Replace the software and model placeholders only after both records resolve.
+- Replace the external-record gate with the real software, evidence-data, and
+  model DOI landing pages only after all three records resolve.
 - Cite the TrajAir dataset DOI in the reference list, not only in this statement.
 - Cite the TartanAviation paper/project and record the exact repository commit.
 - Test all official download routes outside the author's authenticated session.
-- If the full internal evidence archive is later deposited, create and cite a
-  distinct data DOI and update this statement; otherwise no Measure2Act data
-  DOI should be claimed.
+- The internal derived-case pool is excluded by policy. If a rights-cleared,
+  privacy-reviewed evidence deposit is published, cite its distinct data DOI;
+  otherwise do not claim that a Measure2Act data DOI exists.
 
 Recommended dataset reference:
 
@@ -38,7 +41,8 @@ Recommended dataset reference:
 ## Missing information / risk flags
 
 - TartanAviation data-payload licensing remains an upstream-rights uncertainty.
-- The software release DOI and model DOI are pending.
+- Software, evidence-data, and model DOI values are external release gates;
+  none may be represented by a placeholder in the manuscript.
 - The aggregate CSV files support numerical inspection but are not substitutes
   for the third-party datasets and model weights needed for full reruns.
 

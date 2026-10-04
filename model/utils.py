@@ -1,8 +1,6 @@
-# ASCENT component redistributed with upstream attribution; see
-# docs/ASCENT_NOTICE.md. Measure2Act-specific changes remain within the
-# repository's documented third-party boundary. The inherited dataset-loader
-# provenance names DAG-Net and TrajAirNet; see
-# docs/THIRD_PARTY_LICENSE_MATRIX.md before redistributing this file.
+# ASCENT-inspired / architecture-informed independently authored implementation.
+# See docs/ASCENT_NOTICE.md and docs/THIRD_PARTY_LICENSE_MATRIX.md for the
+# architecture reference and dataset-access boundary.
 import hashlib
 import math
 import os

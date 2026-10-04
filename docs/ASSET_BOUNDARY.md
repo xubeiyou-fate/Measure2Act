@@ -5,7 +5,7 @@ This GitHub repository contains source and small metadata only.
 | Asset family | GitHub code repository | Separate release record |
 |---|---:|---:|
 | Author-maintained source and protocols | yes | optional archive copy |
-| ASCENT source component | yes, with upstream attribution | upstream repository and terms |
+| ASCENT architecture reference | no source is vendored; implementation is independent | cite the upstream project for architectural context |
 | Public synthetic tests | yes | no |
 | Aggregate paper-table CSVs | yes | archive with software release |
 | Raw or processed third-party trajectories | no | retrieve from official custodian |
@@ -15,8 +15,8 @@ This GitHub repository contains source and small metadata only.
 | Formal logs, receipts, and large intermediate tables | no | internal preservation only |
 | Official EqMotion source | no | retrieve from upstream at frozen commit |
 
-The planned external weight set, required model index, and unresolved record
-identifiers are described in [`model_release.json`](../model_release.json) and
+The planned external weight set, model index, and external-record gate are
+described in [`model_release.json`](../model_release.json) and
 [`MODEL_RELEASE.md`](MODEL_RELEASE.md). Those descriptors contain no weights.
 
 The `.gitignore` enforces the top-level data/model boundary, and

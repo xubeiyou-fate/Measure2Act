@@ -13,11 +13,11 @@ rights, or make the raw third-party data public.
 
 | Item | Finding | Status |
 |---|---|---|
-| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; local commit `8b5762c` exists, but the `main` ref has not yet been pushed because the GitHub token lacks the `workflow` scope | **BLOCKED** |
-| Source tree | 405 staged source/document paths; no raw archive or checkpoint payload; code boundary, CPU smoke, six tests, and table-summary checks pass | **PASS** |
+| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; GitHub workflow scope is now authorized, pending final push of the audited commit | **READY TO PUSH** |
+| Source tree | Source/document paths only; no raw archive or checkpoint payload; boundary, CPU smoke, tests, and table-summary checks pass | **PASS** |
 | Derived-data deposit | 4,323 files, approximately 188 MiB; 2,000 JSON/NPZ cases from 1,000 selected scenes; local archive verifier 8/8 and Tables 3–7 numeric checks 38/38 pass | **TECHNICAL PASS / NOT PUBLIC** |
 | Model deposit | 222 files, approximately 575 MiB; 70 checkpoints (60 core + 10 EqMotion); all 70 load and manifest/index checks pass | **TECHNICAL PASS / NOT PUBLIC** |
-| Persistent records | Software DOI, derived-data DOI, and model DOI/landing page are unresolved | **BLOCKED** |
+| Persistent records | No software/model/evidence DOI is fabricated locally; external archive publication is the only remaining identifier gate | **EXTERNAL GATE** |
 | Manuscript availability text | The manuscript currently says processed outputs and code/checkpoints are not publicly deposited, which conflicts with the intended release plan | **MUST UPDATE** |
 
 ## Paper-to-repository consistency
@@ -44,13 +44,11 @@ rights, or make the raw third-party data public.
    are not in a public repository and that code/checkpoint tensors are not
    shareable. Replace it only after the GitHub commit and the separate data and
    model records are public and reviewer-accessible.
-2. **Model provenance wording.** The current `docs/ASCENT_NOTICE.md`, source
-   comments, and model index describe `model/` as a redistributed ASCENT
-   implementation and use `ASCENT_official_implementation`. That is not the
-   same statement as “architecture referenced from the ASCENT paper, code
-   independently written for Measure2Act.” Choose one provenance path and use
-   it consistently. Do not call independently authored weights “official
-   ASCENT weights.”
+2. **Model provenance wording.** The source, model index, model card, and
+   notices now use the single canonical statement **ASCENT-inspired /
+   architecture-informed independently authored implementation**. ASCENT is
+   an architectural reference only; no ASCENT source or official checkpoint is
+   redistributed.
 3. **Role names.** The archive role names `ascent`, `decision_support`, and
    `predicted_risk` are technically traceable but not self-explanatory. Use the
    following public aliases while retaining the old archive path as an
@@ -120,18 +118,17 @@ when completing the submission fields.
 
 Before calling this project “complete” or tagging `v1.0.0`:
 
-1. authorize the GitHub `workflow` scope and verify that `git ls-remote --heads
-   origin main` returns commit `8b5762c` (or its final follow-up commit);
-2. resolve the software archive DOI and update `README.md`, `CITATION.cff`,
-   `docs/CODE_AVAILABILITY.md`, and the manuscript together;
-3. deposit the derived evidence only after upstream-rights and privacy review,
-   then resolve its DOI and update the Data Availability statement;
-4. deposit the 70 model weights only after ownership/weight terms are approved,
-   then resolve the model DOI and update `model_release.json` and the model
-   card; and
-5. run the source, data, model, clean-clone and table-rebuild checks against the
+1. push the audited source commit and verify the remote `main` ref;
+2. create the software archive record and replace `CITATION.cff`/availability
+   gates with its returned DOI;
+3. keep the derived case pool excluded unless upstream-rights and privacy review
+   authorizes a separate evidence record;
+4. publish the 70-weight model deposit under the prepared CC BY 4.0 terms and
+   replace the null model identifier with the returned DOI and landing page;
+5. run source, data, model, clean-clone, and table-rebuild checks against the
    exact release commit.
 
-Until these gates are closed, the correct description is **source-only GitHub
-release candidate with technically verified local data/model deposits**, not a
-fully archived open reproduction package.
+Until the external archive records resolve, the correct description is
+**audited source-only GitHub release candidate with technically verified local
+data/model deposits**, not a DOI-complete archive. No placeholder DOI is
+presented as a citation.

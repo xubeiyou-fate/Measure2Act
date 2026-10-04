@@ -28,7 +28,10 @@ trajectory forecasting. It transfers probability mass from a source support to
 an independently generated replacement support, then refines the transported
 prior while leaving the replacement trajectories unchanged. The released code
 separates candidate generation, correspondence, probability assignment, and
-evaluation so that probability gains can be tested on a fixed support.
+evaluation so that probability gains can be tested on a fixed support. The
+forecasting implementation is an **ASCENT-inspired / architecture-informed
+independently authored implementation**; it is not the ASCENT source tree or
+an official ASCENT checkpoint release.
 
 ![Measure2Act candidate-generation and probability-transfer workflow](docs/assets/measure2act_workflow.png)
 
@@ -152,23 +155,27 @@ deliberately excluded from Git history.
 
 The final release must replace these explicit gates with resolving records:
 
-- Software archive: `[SOFTWARE_DOI_PENDING]`
-- Model weights: `[MODEL_DOI_PENDING]`; see the machine-readable
-  [external model release contract](model_release.json)
+- Software archive: created from the tagged GitHub release; DOI is added to
+  this file after the archive provider returns the persistent identifier.
+- Derived evidence: only if the rights/privacy review authorizes a distinct
+  deposit; otherwise the official upstream data records remain the only data
+  access route.
+- Model weights: distributed from the separate model archive; its DOI and
+  landing page are recorded in [model_release.json](model_release.json) after
+  publication.
 
-A separate Measure2Act data DOI is not required for this GitHub strategy:
-reused datasets are cited at their official sources, and the repository's
-aggregate evidence is archived with the software release. A data DOI should
-be created only if the authors later publish a distinct, rights-cleared
-author-generated evidence dataset. The model record contains the exact paper
-checkpoints, per-weight SHA256 values, configuration bindings, seeds, and
-protocol mappings.
+Reused datasets are cited at their official sources. The internal derived-case
+pool is not included in GitHub and is not automatically eligible for a data
+DOI; a distinct evidence DOI requires upstream-rights and privacy approval.
+The model record contains the exact paper checkpoints, per-weight SHA256
+values, configuration bindings, seeds, and protocol mappings.
 
 The source and dependency boundary is summarized in
 [THIRD_PARTY_LICENSE_MATRIX.md](docs/THIRD_PARTY_LICENSE_MATRIX.md). The 60
-core model rows are bound to the official ASCENT repository and pinned commit
-in [model_release.json](model_release.json); the separate matrix records
-additional upstream provenance for the model utility code.
+core model rows are author-trained Measure2Act weights using the
+ASCENT-inspired implementation; the ASCENT paper and public project are
+architectural references only. The separate matrix records all upstream
+dataset and baseline provenance.
 
 For a new ASCENT run after the approved assets are materialized:
 
@@ -243,9 +250,10 @@ resolve.
 
 ## Third-party boundary
 
-ASCENT, TartanAviation, TrajAir, EqMotion, and Python dependencies remain under
-their respective terms. ASCENT attribution and the pinned source commit are in
-`docs/ASCENT_NOTICE.md`; official EqMotion source is not vendored. The complete
+The ASCENT paper/project, TartanAviation, TrajAir, EqMotion, and Python
+dependencies remain under their respective terms. ASCENT is an architectural
+reference only; the independent implementation boundary is in
+`docs/ASCENT_NOTICE.md`. Official EqMotion source is not vendored. The complete
 code/data/model boundary is in [docs/ASSET_BOUNDARY.md](docs/ASSET_BOUNDARY.md),
 and dependency versions are recorded in the [SBOM](sbom/README.md).
 

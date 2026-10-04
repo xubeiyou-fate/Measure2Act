@@ -2,8 +2,9 @@
 
 This directory is a source-only release candidate. It does not contain raw
 trajectory data or model checkpoints. The canonical GitHub repository is
-`https://github.com/xubeiyou-fate/Measure2Act`; software and model DOI fields
-remain pending until their archive records resolve.
+`https://github.com/xubeiyou-fate/Measure2Act`. Software, derived-evidence,
+and model records are separate archival objects; their identifiers must be
+copied here only after the external providers return real DOI landing pages.
 
 ```bash
 cd /path/to/Measure2Act

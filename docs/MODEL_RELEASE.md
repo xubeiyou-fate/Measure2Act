@@ -1,9 +1,9 @@
 # External model release contract
 
 Model binaries are not stored in Git history. The machine-readable
-[`model_release.json`](../model_release.json) records the external model object.
-In the release candidate, its unresolved fields remain explicit and do not
-assert that a DOI or public URL already exists.
+[`model_release.json`](../model_release.json) records the external model object
+and deliberately uses `null` for identifiers that have not yet been minted.
+Those nulls are a release gate, not a DOI and must not be copied into a paper.
 
 The model deposit contains 60 core formal role checkpoints
 (two airports, two regimes, five seeds, and three roles) and 10 EqMotion
@@ -13,15 +13,19 @@ configuration, protocol, byte size, and SHA256. `MANIFEST.sha256` covers the
 entire deposit, and `MODEL_CARD.md` records intended use, training-data
 provenance, limitations, and model-specific terms.
 
-The 60 core rows are bound to the official ASCENT reproduction source at
-`https://github.com/a-pru/ascent`, commit
-`814e0a18a8a7500dfb0498ab2ee873d022874e8`. Measure2Act-specific
-probability-transfer operators, experiment adapters, and evaluation protocols
-remain in this source repository; the binding is provenance metadata, not a
-claim that every local file is byte-identical to upstream.
+The 60 core rows are bound to the independently authored Measure2Act source
+repository and release commit recorded in `paper_model_index.csv`. ASCENT is
+an architecture reference only (`https://github.com/a-pru/ascent`); no ASCENT
+source or official ASCENT checkpoint is redistributed. The canonical
+description is **ASCENT-inspired / architecture-informed independently
+authored implementation**. Measure2Act-specific probability-transfer
+operators, experiment adapters, and evaluation protocols remain in this source
+repository.
 
-Before release, replace both model-record placeholders, verify the published
-manifest against the staged deposit, approve model and upstream-weight terms,
-and update the README, `CITATION.cff`, and manuscript availability statement
-consistently. The code repository must continue to contain no checkpoint
-payloads.
+Before release, create the public model record, replace `doi` and `record_url`
+with the returned values, verify the published manifest against the staged
+deposit, and update the README, `CITATION.cff`, and manuscript availability
+statement consistently. The code repository must continue to contain no
+checkpoint payloads. The archive-side weight terms are CC BY 4.0 as stated in
+`deposits/models/MODEL_WEIGHTS_LICENSE.md`; this does not grant rights to
+upstream data, source code, or official baseline weights.
