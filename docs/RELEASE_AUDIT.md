@@ -1,8 +1,8 @@
 # Release audit snapshot
 
-Audit date: 2026-10-04 (Asia/Shanghai). This snapshot records the state of
-the source-only GitHub candidate. It does not create a repository owner, DOI,
-or licence approval that has not been supplied by the authors.
+Audit date: 2026-10-04 (Asia/Shanghai). This snapshot records the pushed
+source-only GitHub candidate. It does not create a DOI or external archive
+record that has not been supplied by the authors.
 
 ## Passed checks
 
@@ -15,7 +15,7 @@ or licence approval that has not been supplied by the authors.
 | Clean-clone audit and tests | PASS |
 | Wheel build | PASS; root Apache-2.0 license included in `.dist-info` |
 | Forbidden payload scan | PASS; no raw datasets, checkpoints, archives, or local absolute paths in the candidate |
-| Manifest | PASS; `MANIFEST.sha256` covers 404 source-only files and excludes caches/build output |
+| Manifest | PASS; `MANIFEST.sha256` covers 405 source-only files and excludes caches/build output |
 
 ## Deliberate release gates
 
@@ -32,6 +32,6 @@ authors provide the following real values or approvals:
 These are metadata gates, not failing code tests. The ASCENT implementation
 provenance is now recorded in the model index and model card. The separate
 license matrix remains available for the authors' publication review but is
-outside this technical-only audit. Until the metadata gates are closed, the
-repository may be uploaded as an initial source-only GitHub candidate, but it
-must not be presented as a finalized DOI-tagged `v1.0.0` release.
+outside this technical-only audit. The source tree is uploaded and CI-verified;
+until the metadata gates are closed, it must not be presented as a finalized
+DOI-tagged `v1.0.0` release.

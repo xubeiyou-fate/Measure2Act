@@ -14,12 +14,11 @@ Canonical repository: <https://github.com/xubeiyou-fate/Measure2Act>
 [Publication audit](docs/PUBLICATION_AUDIT.md) |
 [Citation](#citation)
 
-> **Upload status:** the source-only tree is ready to upload to a public GitHub
-> repository. The repository has been created at
-> `https://github.com/xubeiyou-fate/Measure2Act`, but the `main` ref still
-> requires a GitHub token with the `workflow` scope. Large data and model
-> assets remain in their separate official or DOI records; the final version
-> tag still requires the resolving repository, DOI, and release metadata.
+> **Upload status:** the audited source-only tree is published at
+> `https://github.com/xubeiyou-fate/Measure2Act` on `main` (commit
+> `b31effb7e2c4f913f8e27de6b2f95969fcf27001`). Large data and model assets
+> remain in their separate official or DOI records; the final version tag still
+> requires real archive identifiers and release metadata.
 
 ## Overview
 
@@ -230,7 +229,7 @@ weights. The full provenance and naming audit is in
 
 ## Release status
 
-This tree is a `v1.0.0` release candidate. Before a public push or tag:
+This tree is a `v1.0.0` release candidate. Before the final tag:
 
 1. retain the root `LICENSE` for original Measure2Act material and the ASCENT
    attribution in `docs/ASCENT_NOTICE.md`; verify that the workflow figure is
