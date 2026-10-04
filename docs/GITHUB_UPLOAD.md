@@ -2,7 +2,7 @@
 
 This directory documents the public release. The GitHub tree does not contain
 raw trajectory data or model checkpoints; the 70-weight archive is attached to
-the `v1.0.0` GitHub Release. The canonical GitHub repository is
+the `v1.0.1` GitHub Release. The canonical GitHub repository is
 `https://github.com/xubeiyou-fate/Measure2Act`. Software and model DOI records
 are optional follow-up archival objects; no DOI is fabricated locally.
 
@@ -24,12 +24,12 @@ git branch -M main
 git push -u origin main
 ```
 
-The `model/` package is an ASCENT-inspired, independently authored
+The `model/` package is an independently authored aircraft-forecasting
 implementation; its provenance boundary is documented in
-[ASCENT_NOTICE.md](ASCENT_NOTICE.md).
+[ARCHITECTURE_REFERENCE_NOTICE.md](ARCHITECTURE_REFERENCE_NOTICE.md).
 The root `LICENSE` applies only to original Measure2Act material. Datasets and
 checkpoints are acquired from their official or separately archived records.
 
 After changing the release asset, update its SHA256 and rerun the model and
-source audits. The `v1.0.0` tag and GitHub release are the public records for
+source audits. The `v1.0.1` tag and GitHub release are the public records for
 this submission package.

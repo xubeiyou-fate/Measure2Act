@@ -30,7 +30,8 @@ REQUIRED_PATHS = (
     "docs/assets/README.md",
     "constraints/requirements-cpu.txt",
     "docs/ASSET_BOUNDARY.md",
-    "docs/ASCENT_NOTICE.md",
+    "docs/ARCHITECTURE_REFERENCE_NOTICE.md",
+    "docs/CONTACT.md",
     "docs/GITHUB_UPLOAD.md",
     "docs/CODE_AVAILABILITY.md",
     "docs/PROJECT_STRUCTURE.md",
@@ -226,13 +227,11 @@ def strict_metadata_failures() -> list[str]:
         or re.search(r'(?m)^license\s*=\s*\{\s*file\s*=\s*"LICENSE"\s*\}\s*$', pyproject)
     ):
         failures.append("pyproject.toml lacks a finalized license declaration")
-    ascent_notice = (ROOT / "docs/ASCENT_NOTICE.md").read_text(encoding="utf-8")
-    if "https://github.com/a-pru/ascent" not in ascent_notice:
-        failures.append("ASCENT notice must identify the architecture reference")
-    if "ASCENT-inspired / architecture-informed independently authored implementation" not in ascent_notice:
-        failures.append("ASCENT notice must state independent authorship")
-    if "not official ASCENT weights" not in ascent_notice:
-        failures.append("ASCENT notice must reject an official-weight attribution")
+    architecture_notice = (ROOT / "docs/ARCHITECTURE_REFERENCE_NOTICE.md").read_text(encoding="utf-8")
+    if "independently authored aircraft-forecasting implementation" not in architecture_notice:
+        failures.append("architecture notice must state independent authorship")
+    if "No upstream source files" not in architecture_notice:
+        failures.append("architecture notice must reject source redistribution")
     return failures
 
 

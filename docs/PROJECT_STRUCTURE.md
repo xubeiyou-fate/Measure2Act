@@ -36,9 +36,9 @@ Measure2Act/
 ├── continuous_geometry/               # support geometry and retrieval
 ├── causal_mode_generation/            # candidate-mode diagnostics
 ├── mode_state_query/                  # mode-state query components
-├── proper_set_ascent/                 # proper-set ASCENT components
+├── proper_set_ascent/                 # legacy proper-set components
 ├── tail_query/                        # tail-query components
-├── model/                             # independently authored ASCENT-inspired backbone
+├── model/                             # independently authored forecasting backbone
 ├── airroute_stage_m/                  # air-route model/evaluation components
 ├── modern_baseline/                   # EqMotion aviation adapters and protocols
 │
@@ -50,7 +50,7 @@ Measure2Act/
 │   ├── dual_expected_risk/              # dual-risk prediction
 │   ├── decision_regret/                 # decision-regret objective
 │   ├── energy_predict_optimize/         # Energy probability inference
-│   ├── ascent_recomparison/             # matched ASCENT comparison
+│   ├── ascent_recomparison/             # matched reference comparison
 │   ├── tpmo_ascent/                     # TPMO operator
 │   ├── mabpt_ascent/                    # MABPT operator
 │   └── journal_extension/               # registered extensions
@@ -68,7 +68,7 @@ Measure2Act/
 │   ├── DATA_SOURCES.md                # URLs, versions, checksums, commands
 │   ├── DATA_AVAILABILITY.md            # manuscript-ready statement
 │   ├── MODEL_RELEASE.md               # external model deposit contract
-│   ├── ASCENT_NOTICE.md               # independent ASCENT-inspired boundary
+│   ├── ARCHITECTURE_REFERENCE_NOTICE.md # independent implementation boundary
 │   ├── ASSET_BOUNDARY.md              # inclusion/exclusion rules
 │   ├── THIRD_PARTY_LICENSE_MATRIX.md  # provenance and rights matrix
 │   ├── CODE_AVAILABILITY.md            # code sharing statement

@@ -65,7 +65,7 @@ def train():
     g = seed()
 
     # CLI parameter configuration
-    parser=argparse.ArgumentParser(description='Train Ascent model')
+    parser=argparse.ArgumentParser(description='Train aircraft-forecasting model')
     parser.add_argument('--dataset_folder', type=Path, default=Path('dataset'), help="Root containing processed dataset directories")
     parser.add_argument('--dataset_name', type=str, default='7days1', help="Dataset split name (default: 7days1)")
     parser.add_argument('--obs', type=int, default=11, help="Observation length in seconds (default: 11)")

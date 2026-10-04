@@ -29,7 +29,7 @@ The corresponding study aggregation implementations are:
 |---|---|
 | Main/extended suite | `measure2act_ast_tools/aggregate_ast_extended_suite.py` |
 | Fixed-support controls | `measure2act_ast_tools/aggregate_fixed_t_negative_controls.py` |
-| Two-ASCENT capacity control | `measure2act_ast_tools/aggregate_two_ascent_budget.py` |
+| Two-predictor capacity control | `measure2act_ast_tools/aggregate_two_ascent_budget.py` |
 | EqMotion support transfer | `measure2act_ast_tools/aggregate_eqmotion_support_transfer.py` |
 | AWTA and probability controls | `experiments/journal_extension/aggregate_*.py` |
 
@@ -48,7 +48,7 @@ materialize the acquired data and published weights under a single read-only
 asset root and set:
 
 ```bash
-export ASCENT_FULL_ROOT=/path/to/materialized/assets
+export MEASURE2ACT_ASSET_ROOT=/path/to/materialized/assets
 ```
 
 The asset root must provide the relative paths declared by the frozen JSON

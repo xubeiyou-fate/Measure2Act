@@ -7,7 +7,7 @@ minted. `null` is not a DOI and must not be copied into a paper.
 
 The public route is the versioned GitHub Release attachment for direct
 download. A separate DOI-backed model archive is optional for persistent
-citation and can be added later. The v1.0.0 asset is released under CC BY 4.0.
+citation and can be added later. The v1.0.1 asset is released under CC BY 4.0.
 
 The model deposit contains 60 core formal role checkpoints
 (two airports, two regimes, five seeds, and three roles) and 10 EqMotion
@@ -18,11 +18,11 @@ entire deposit, and `MODEL_CARD.md` records intended use, training-data
 provenance, limitations, and model-specific terms.
 
 The 60 core rows are bound to the independently authored Measure2Act source
-repository and release commit recorded in `paper_model_index.csv`. ASCENT is
-an architecture reference only (`https://github.com/a-pru/ascent`); no ASCENT
-source or official ASCENT checkpoint is redistributed. The canonical
-description is **ASCENT-inspired / architecture-informed independently
-authored implementation**. Measure2Act-specific probability-transfer
+repository and release commit recorded in `paper_model_index.csv`. No
+upstream aircraft-forecasting source or official baseline checkpoint is
+redistributed. A single upstream architecture citation is retained in
+`ARCHITECTURE_REFERENCE_NOTICE.md` for scientific attribution.
+Measure2Act-specific probability-transfer
 operators, experiment adapters, and evaluation protocols remain in this source
 repository.
 

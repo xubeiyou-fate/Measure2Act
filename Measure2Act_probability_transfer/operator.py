@@ -1,8 +1,7 @@
 """Stable public imports for the paper's probability-transfer operators.
 
-The implementation remains in the provenance-preserving `mabpt/`,
-`experiments/tpmo_ascent/` and `experiments/mabpt_ascent/` modules. This facade
-is the recommended import surface for new code.
+The implementation remains in provenance-preserving compatibility modules.
+This facade is the recommended import surface for new code.
 """
 
 from experiments.tpmo_ascent.operator import (

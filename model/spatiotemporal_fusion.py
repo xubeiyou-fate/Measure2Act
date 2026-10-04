@@ -1,4 +1,4 @@
-"""Time-resolved continuous scene encoding for ASCENT."""
+"""Time-resolved continuous scene encoding for the forecasting model."""
 
 from __future__ import annotations
 

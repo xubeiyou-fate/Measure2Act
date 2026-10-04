@@ -1,18 +1,15 @@
 # Third-party notices and dependency boundary
 
 This repository contains independently authored Measure2Act code informed by
-published aircraft-trajectory architectures. It does not redistribute the
-ASCENT source tree or official ASCENT checkpoint files. The root Apache-2.0
+published aircraft-trajectory architectures. It does not redistribute any
+upstream source tree or official baseline checkpoint. The root Apache-2.0
 license applies to original Measure2Act source, tests, documentation, and
 project-authored figures only.
 
 ## Architecture reference
 
-ASCENT is cited as scientific and architectural context:
-<https://github.com/a-pru/ascent>. The Measure2Act implementation is
-**ASCENT-inspired / architecture-informed independently authored
-implementation**. This wording does not imply code reuse, endorsement, or
-official ASCENT weights.
+The single attribution and authorship boundary is documented in
+[`docs/ARCHITECTURE_REFERENCE_NOTICE.md`](docs/ARCHITECTURE_REFERENCE_NOTICE.md).
 
 ## EqMotion baseline
 

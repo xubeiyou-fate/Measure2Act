@@ -1,4 +1,4 @@
-"""Mode-state factorized decoding for ASCENT."""
+"""Mode-state factorized decoding for aircraft trajectories."""
 
 from .model import ModeStateQueryDecoder
 

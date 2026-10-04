@@ -24,4 +24,4 @@ __all__ = [
     "top_m_gibbs_transport",
 ]
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"

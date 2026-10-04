@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "measure2act"
-version = "1.0.0"
+version = "1.0.1"
 description = "Modular probability transfer for multimodal aircraft trajectory prediction"
 readme = "README.md"
 license = {file = "LICENSE"}

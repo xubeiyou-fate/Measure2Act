@@ -13,12 +13,12 @@ rights, or make the raw third-party data public.
 
 | Item | Finding | Status |
 |---|---|---|
-| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; v1.0.0 release built from the audited source branch | **PASS** |
+| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; v1.0.1 release built from the audited source branch | **PASS** |
 | Source tree | Source/document paths only; no raw archive or checkpoint payload; boundary, CPU smoke, tests, and table-summary checks pass | **PASS** |
 | Derived-data deposit | 4,323 files, approximately 188 MiB; 2,000 JSON/NPZ cases from 1,000 selected scenes; local archive verifier 8/8 and Tables 3–7 numeric checks 38/38 pass | **TECHNICAL PASS / NOT PUBLIC** |
 | Model deposit | 223 files (221 manifest-covered plus manifest and report), approximately 497 MiB compressed; 70 checkpoints (60 core + 10 EqMotion); all 70 load and manifest/index checks pass | **PUBLIC RELEASE ASSET** |
 | Persistent records | GitHub tag/release is public; no DOI is fabricated locally and a DOI archive remains optional | **PASS / DOI OPTIONAL** |
-| Manuscript availability text | `01_Manuscript.docx` now names the official dataset routes, public repository, `v1.0.0` Release, Apache-2.0 code, and CC BY 4.0 weights | **PASS** |
+| Manuscript availability text | `01_Manuscript.docx` now names the official dataset routes, public repository, `v1.0.1` Release, Apache-2.0 code, and CC BY 4.0 weights | **PASS** |
 
 ## Paper-to-repository consistency
 
@@ -44,13 +44,13 @@ rights, or make the raw third-party data public.
    repository, and versioned 70-weight Release asset. The pre-edit manuscript
    is preserved locally as `01_Manuscript_before_GitHub_release.docx`.
 2. **Model provenance wording.** The source, model index, model card, and
-   notices now use the single canonical statement **ASCENT-inspired /
-   architecture-informed independently authored implementation**. ASCENT is
-   an architectural reference only; no ASCENT source or official checkpoint is
-   redistributed.
-3. **Role names.** The archive role names `ascent`, `decision_support`, and
-   `predicted_risk` are technically traceable but not self-explanatory. Use the
-   following public aliases while retaining the old archive path as an
+   notices describe an independently authored aircraft-forecasting
+   implementation. A single upstream-reference notice records scientific
+   attribution; no upstream source or official checkpoint is redistributed.
+3. **Legacy role names.** The archive role names `ascent`, `decision_support`,
+   and `predicted_risk` are retained only in the manifest and data card because
+   they are part of the released artifact schema; they are not project branding.
+   Use the following public aliases while retaining the old archive path as an
    `archive_role` for checksum compatibility:
 
    | Archive role | Public role name | Meaning |
@@ -73,7 +73,7 @@ rights, or make the raw third-party data public.
    privacy/sensitivity review is complete. The pool is a derived inspection
    sample, not the raw TartanAviation dataset.
 
-## Availability text matched to v1.0.0
+## Availability text matched to v1.0.1
 
 ### Data Availability
 
@@ -85,8 +85,8 @@ rights, or make the raw third-party data public.
 > `4065f5bb11c3d8e557dcaf20a56469e6b0738714`. The raw third-party archives are
 > not redistributed in this project. Source versions, official access routes,
 > preprocessing entry points, and the aggregate values underlying Tables 3-7
-> are available in the Measure2Act v1.0.0 Release at
-> `https://github.com/xubeiyou-fate/Measure2Act/releases/tag/v1.0.0`. All 70
+> are available in the Measure2Act v1.0.1 Release at
+> `https://github.com/xubeiyou-fate/Measure2Act/releases/tag/v1.0.1`. All 70
 > author-created model checkpoints, their configuration bindings, and SHA-256
 > checksums are attached to that Release under CC BY 4.0. The release contains
 > no third-party raw or derived trajectory dataset.
@@ -96,7 +96,7 @@ rights, or make the raw third-party data public.
 > The independently authored Measure2Act implementation, tests, protocols,
 > aggregate manuscript tables, and environment specifications are available
 > under Apache-2.0 at `https://github.com/xubeiyou-fate/Measure2Act`, release
-> `v1.0.0`. The Git repository does not contain raw third-party trajectory
+> `v1.0.1`. The Git repository does not contain raw third-party trajectory
 > archives or checkpoint binaries; the weight archive is a Release asset.
 
 ## AST/Elsevier submission interpretation
@@ -120,7 +120,7 @@ The release procedure is complete when all of these checks pass:
 4. run source, model, clean-clone, and table-rebuild checks against the
    exact release commit.
 
-The correct description is **public v1.0.0 GitHub release with technically
+The correct description is **public v1.0.1 GitHub release with technically
 verified model weights and official-link-only dataset access**. It is prepared
 for AST submission and does not claim AST acceptance. No placeholder DOI is
 presented as a citation.

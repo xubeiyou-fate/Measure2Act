@@ -22,6 +22,6 @@ python -m pytest -q
 python scripts/verify_paper_summaries.py
 ```
 
-The 70 author-created checkpoints are attached to the v1.0.0 GitHub Release
+The 70 author-created checkpoints are attached to the v1.0.1 GitHub Release
 under CC BY 4.0, including the EqMotion adaptations. A DOI may be added after
 an external archive returns a real identifier; no placeholder DOI is used.

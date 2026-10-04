@@ -1,4 +1,4 @@
-"""Continuous trajectory representations for direct ASCENT decoding."""
+"""Continuous trajectory representations for direct trajectory decoding."""
 
 from .basis import (
     bezier_basis,

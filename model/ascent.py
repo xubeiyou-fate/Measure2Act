@@ -1,5 +1,5 @@
-# ASCENT-inspired / architecture-informed independently authored implementation.
-# See docs/ASCENT_NOTICE.md for the provenance and third-party boundary.
+# Independently authored Measure2Act aircraft-forecasting implementation.
+# See docs/ARCHITECTURE_REFERENCE_NOTICE.md for the provenance boundary.
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -50,7 +50,7 @@ class Projector(nn.Module):
 
 
 class Ascent(nn.Module):
-    """ASCENT Trajectory Prediction network module designed to model agent dynamics
+    """Measure2Act trajectory-prediction network module designed to model agent dynamics
     and context configurations using Transformer blocks, outputting multi-modal
     future trajectories and flight parameters.
 
@@ -178,7 +178,7 @@ class Ascent(nn.Module):
         if self.wind_relative_motion and (
             self.scene_interaction or self.causal_mode_generation or self.continuous_geometry
         ):
-            raise ValueError("C3 wind-relative motion must remain an isolated ASCENT variant")
+            raise ValueError("C3 wind-relative motion must remain an isolated forecasting variant")
         if self.wind_relative_motion and not self.normalize_coords:
             raise ValueError("wind-relative motion requires normalized local coordinates")
         if self.mode_state_query and (
@@ -195,7 +195,7 @@ class Ascent(nn.Module):
             or self.wind_relative_motion
             or self.mode_state_query
         ):
-            raise ValueError("C15 proper-set mode must remain an isolated ASCENT variant")
+            raise ValueError("C15 proper-set mode must remain an isolated forecasting variant")
 
         # Encode agent dynamics
         dpr = [x.item() for x in torch.linspace(0, 0.2, self.attn_depth)]
@@ -431,7 +431,7 @@ class Ascent(nn.Module):
         self.init_weights()
         # Construct C52 modules only after every baseline parameter has been
         # initialized. Resetting the same seed therefore gives identical
-        # shared ASCENT parameters across all history-readout ablations.
+        # shared forecasting parameters across all history-readout ablations.
         if self.history_encoder_variant == "stable_ssm":
             self.history_sequence_encoder = StableDiagonalHistorySSM(
                 dim=self.embed_dim,
@@ -516,7 +516,7 @@ class Ascent(nn.Module):
 
     def _wind_vector(self, data: dict, batch: int, dtype: torch.dtype) -> torch.Tensor:
         if "context" not in data:
-            raise KeyError("wind-relative ASCENT requires data['context']")
+                raise KeyError("wind-relative forecasting requires data['context']")
         context = data["context"]
         if context.ndim != 3 or context.shape[1] != batch or context.shape[2] != 2:
             raise ValueError("context must have shape [observation_steps, batch, 2]")
@@ -795,7 +795,7 @@ class Ascent(nn.Module):
         spatiotemporal_aux = None
         if self.spatiotemporal_history_variant is not None:
             if "adj" not in data:
-                raise KeyError("spatiotemporal ASCENT requires data['adj']")
+                raise KeyError("spatiotemporal forecasting requires data['adj']")
             actor_feat, spatiotemporal_aux = self.spatiotemporal_history_encoder(
                 history_tokens, global_history, data["adj"]
             )
@@ -821,7 +821,7 @@ class Ascent(nn.Module):
         broadcast_audio = None
         if self.broadcast_audio_dim:
             if "broadcast_audio" not in data:
-                raise KeyError("audio-conditioned ASCENT requires data['broadcast_audio']")
+                raise KeyError("audio-conditioned forecasting requires data['broadcast_audio']")
             broadcast_audio = data["broadcast_audio"]
             if broadcast_audio.ndim != 2 or broadcast_audio.shape != (
                 B,
@@ -838,7 +838,7 @@ class Ascent(nn.Module):
         aligned_weather = None
         if self.aligned_weather_dim:
             if "aligned_weather" not in data:
-                raise KeyError("aligned-weather ASCENT requires data['aligned_weather']")
+                raise KeyError("aligned-weather forecasting requires data['aligned_weather']")
             aligned_weather = data["aligned_weather"]
             if aligned_weather.ndim != 3:
                 raise ValueError("aligned_weather must have shape [T,B,C] or [B,T,C]")
@@ -861,7 +861,7 @@ class Ascent(nn.Module):
         scene_aux = None
         if self.scene_interaction and self.scene_interaction_stage == "actor":
             if "adj" not in data:
-                raise KeyError("scene-conditioned ASCENT requires data['adj']")
+                raise KeyError("scene-conditioned forecasting requires data['adj']")
             actor_feat, scene_aux = self.scene_encoder(
                 actor_feat,
                 actor_centers,
@@ -910,7 +910,7 @@ class Ascent(nn.Module):
 
         if self.scene_interaction and self.scene_interaction_stage == "mode":
             if "adj" not in data:
-                raise KeyError("joint mode-query ASCENT requires data['adj']")
+                raise KeyError("joint mode-query forecasting requires data['adj']")
             conditioned_modes = []
             mode_auxiliary = []
             for mode_index in range(self.k):

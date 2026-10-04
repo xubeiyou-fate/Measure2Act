@@ -271,7 +271,7 @@ def write_markdown(path: Path, summary: dict[str, Any]) -> None:
     lines = [
         "# Total-Budget Two-ASCENT Capacity Control",
         "",
-        "This audit compares selected MABPT with a fixed two-ASCENT K=10 union control. The control has two ASCENT source models, fixed next-seed pairing, and 0.5/0.5 model mass.",
+        "This audit compares selected MABPT with a fixed two-source K=10 union control. The control has two source models, fixed next-seed pairing, and 0.5/0.5 model mass.",
         "",
         "## Primary Test Results",
     ]

@@ -1,6 +1,6 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
 
-# Validated Python 3.11 CPU stack for the v1.0.0 release candidate.
+# Validated Python 3.11 CPU stack for the v1.0.1 release candidate.
 torch==2.8.0+cpu
 torchvision==0.23.0+cpu
 numpy==2.4.6

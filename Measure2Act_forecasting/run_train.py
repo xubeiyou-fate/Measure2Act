@@ -1,4 +1,4 @@
-"""Launch the packaged ASCENT training entrypoint."""
+"""Launch the packaged aircraft-forecasting training entrypoint."""
 
 from .train import train
 

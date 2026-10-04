@@ -1,4 +1,4 @@
-"""Ordered history readouts for ASCENT ablations.
+"""Ordered history readouts for forecasting ablations.
 
 These modules operate only on observed history tokens. They do not alter the
 trajectory candidates after generation and do not route samples or modes.

@@ -1,4 +1,4 @@
-"""Measure2Act forecasting components (ASCENT-inspired, independently authored)."""
+"""Measure2Act independently authored forecasting components."""
 
 from .ascent import Ascent
 from .cv import ConstantVelocityModel

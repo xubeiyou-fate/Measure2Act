@@ -1,4 +1,4 @@
-"""Equal-weight finite-ensemble components for C15 Proper-Set ASCENT."""
+"""Equal-weight finite-ensemble components for the C15 control."""
 
 from .loss import proper_set_loss, temporal_variogram_score, trajectory_energy_score
 from .seeds import regular_simplex

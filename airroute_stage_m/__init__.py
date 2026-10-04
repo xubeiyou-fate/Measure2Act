@@ -1,4 +1,4 @@
-"""AirRoute-StageM extensions for ASCENT."""
+"""AirRoute-StageM extensions for the aircraft-forecasting stack."""
 
 from .evaluation import RankingMetricAccumulator, compute_batch_metrics
 

@@ -12,9 +12,10 @@ Canonical repository: <https://github.com/xubeiyou-fate/Measure2Act>
 [Project structure](docs/PROJECT_STRUCTURE.md) |
 [AST submission context](docs/AST_SUBMISSION.md) |
 [Publication audit](docs/PUBLICATION_AUDIT.md) |
+[Contact](docs/CONTACT.md) |
 [Citation](#citation)
 
-> **Release status (2026-10-04):** this repository is the public v1.0.0
+> **Release status (2026-10-04):** this repository is the public v1.0.1
 > reproducibility release for a manuscript prepared for submission to
 > *Aerospace Science and Technology* (AST). Source code is Apache-2.0 and all
 > 70 author-created model weights, including 10 EqMotion adaptations, are
@@ -31,9 +32,9 @@ an independently generated replacement support, then refines the transported
 prior while leaving the replacement trajectories unchanged. The released code
 separates candidate generation, correspondence, probability assignment, and
 evaluation so that probability gains can be tested on a fixed support. The
-forecasting implementation is an **ASCENT-inspired / architecture-informed
-independently authored implementation**; it is not the ASCENT source tree or
-an official ASCENT checkpoint release.
+aircraft-forecasting backbone is independently authored for this project and
+informed by prior aircraft-trajectory literature; no upstream source or
+checkpoint is redistributed.
 
 ![Measure2Act candidate-generation and probability-transfer workflow](docs/assets/measure2act_workflow.png)
 
@@ -177,12 +178,12 @@ values, configuration bindings, seeds, and protocol mappings.
 
 The source and dependency boundary is summarized in
 [THIRD_PARTY_LICENSE_MATRIX.md](docs/THIRD_PARTY_LICENSE_MATRIX.md). The 60
-core model rows are author-trained Measure2Act weights using the
-ASCENT-inspired implementation; the ASCENT paper and public project are
-architectural references only. The separate matrix records all upstream
-dataset and baseline provenance.
+core model rows are author-trained Measure2Act weights using the independently
+authored forecasting implementation. The separate matrix records all upstream
+dataset and baseline provenance; no upstream aircraft-forecasting source or
+checkpoint is redistributed.
 
-For a new ASCENT run after the approved assets are materialized:
+For a new aircraft-forecasting run after the approved assets are materialized:
 
 ```bash
 measure2act-train \
@@ -205,11 +206,11 @@ the archived evidence.
 
 ```text
 Measure2Act_probability_transfer/  Stable finite-measure operator interface
-Measure2Act_forecasting/           ASCENT training and evaluation entry points
+Measure2Act_forecasting/           Forecasting training and evaluation entry points
 mabpt/                             Core Gibbs and Energy-KL implementation
 measure2act_ast_tools/             Final AST evaluation and aggregation tools
 experiments/                        Frozen paper experiment implementations
-model/                             Independently authored ASCENT-inspired model
+model/                             Independently authored forecasting model
 modern_baseline/                   Local adapters; no upstream EqMotion source
 results/                           Small aggregate manuscript evidence
 docs/                              Scope, structure, data, model, and release docs
@@ -226,24 +227,25 @@ Frozen protocol metadata remains inside each package, and the packages are
 indexed by role in [docs/CODE_MAP.md](docs/CODE_MAP.md).
 
 The external model archive keeps checksum-compatible role identifiers
-(`ascent`, `decision_support`, and `predicted_risk`). Their public meanings are
+(`ascent`, `decision_support`, and `predicted_risk`). These legacy archive
+identifiers are retained only for replay compatibility; their public meanings are
 `source_forecaster`, `replacement_forecaster`, and `target_risk_head`,
 respectively. These identifiers describe roles in the Measure2Act pipeline;
-they must not be read as a claim that the released weights are official ASCENT
-weights. The full provenance and naming audit is in
+they must not be read as official upstream weights. The full provenance and
+naming audit is in
 [docs/PUBLICATION_AUDIT.md](docs/PUBLICATION_AUDIT.md).
 
 ## Release status
 
-This tree is the `v1.0.0` public release. The release includes:
+This tree is the `v1.0.1` public release. The release includes:
 
 1. the root Apache-2.0 license for original Measure2Act material and the
-   ASCENT attribution in `docs/ASCENT_NOTICE.md`;
+   upstream-reference notice in `docs/ARCHITECTURE_REFERENCE_NOTICE.md`;
 2. CC BY 4.0 terms for all 70 author-created weights, including EqMotion
    adaptations, with upstream data/source boundaries retained;
 3. official dataset access routes only, with no third-party raw payloads in
    GitHub;
-4. a reproducible v1.0.0 tag, release asset, checksums, and validation report.
+4. a reproducible v1.0.1 tag, release asset, checksums, and validation report.
 
 The canonical GitHub repository is
 <https://github.com/xubeiyou-fate/Measure2Act>. The release date is recorded in
@@ -252,10 +254,10 @@ provider returns real identifiers; none is fabricated in this release.
 
 ## Third-party boundary
 
-The ASCENT paper/project, TartanAviation, TrajAir, EqMotion, and Python
-dependencies remain under their respective terms. ASCENT is an architectural
-reference only; the independent implementation boundary is in
-`docs/ASCENT_NOTICE.md`. Official EqMotion source is not vendored. The complete
+Prior aircraft-forecasting references, TartanAviation, TrajAir, EqMotion, and
+Python dependencies remain under their respective terms. The independent
+implementation boundary is in `docs/ARCHITECTURE_REFERENCE_NOTICE.md`.
+Official EqMotion source is not vendored. The complete
 code/data/model boundary is in [docs/ASSET_BOUNDARY.md](docs/ASSET_BOUNDARY.md),
 and dependency versions are recorded in the [SBOM](sbom/README.md).
 
@@ -272,6 +274,11 @@ The verified author and software metadata are in [CITATION.cff](CITATION.cff).
 The repository URL and release date are finalized in `CITATION.cff`. A DOI is
 not fabricated; if a DOI archive is created later, add its returned identifier
 to the citation and model metadata.
+
+## Contact
+
+If you have any questions, please feel free to contact beiyou1234@mail.dlut.edu.cn
+(H. Xu); Domex3066@outlook.com (D. Xu); zhaotianyi@dlut.edu.cn (T. Zhao).
 
 ## Contributing and security
 

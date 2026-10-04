@@ -1,8 +1,8 @@
 """Audit ASCENT probability transfer onto frozen EqMotion K=5 supports.
 
-This sidecar leaves the original ASCENT workspace read-only.  It answers a
+This sidecar leaves the original forecasting workspace read-only.  It answers a
 narrow E2-style question: if an external generator supplies only K=5
-trajectories, can the ASCENT source measure be transported onto that support
+trajectories, can the source measure be transported onto that support
 without future-target leakage?
 
 Important boundary: EqMotion does not expose MABPT's learned risk features, so

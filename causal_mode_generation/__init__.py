@@ -1,4 +1,4 @@
-"""Causal multimodal generation and coverage diagnostics for ASCENT."""
+"""Causal multimodal generation and coverage diagnostics."""
 
 from .diagnostics import CoverageAccumulator, batch_coverage_statistics
 from .model import CausalModeMemory

@@ -213,7 +213,7 @@ def write_markdown(path: Path, summary: dict[str, Any]) -> None:
     lines = [
         "# EqMotion Support Transfer Audit",
         "",
-        "This audit evaluates ASCENT source-probability transport onto frozen EqMotion K=5 supports. It is not a full learned MABPT Energy-KL run on EqMotion because EqMotion does not provide MABPT mode features or a support-conditional learned risk head.",
+        "This audit evaluates source-probability transport onto frozen EqMotion K=5 supports. It is not a full learned MABPT Energy-KL run on EqMotion because EqMotion does not provide MABPT mode features or a support-conditional learned risk head.",
         "",
         "## Primary Test Results",
     ]

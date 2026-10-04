@@ -11,7 +11,7 @@ python -m Measure2Act_probability_transfer.run --smoke
 ```
 
 The canonical operators are in `mabpt/operator.py`; frozen historical/control
-implementations remain under `experiments/tpmo_ascent/` and
-`experiments/mabpt_ascent/` so the released protocol hashes can be interpreted.
+implementations remain under compatibility paths so the released protocol
+hashes can be interpreted.
 Formal evaluation additionally requires the external data/evidence and model
 records listed in the top-level README.

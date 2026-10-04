@@ -12,19 +12,18 @@ def test_public_forecasting_facade_is_data_free() -> None:
     assert ConstantVelocityModel is not None
 
 
-def test_ascent_boundary_is_explicit() -> None:
-    notice = __import__("pathlib").Path("docs/ASCENT_NOTICE.md").read_text()
-    assert "https://github.com/a-pru/ascent" in notice
-    assert "ASCENT-inspired / architecture-informed independently authored implementation" in notice
-    assert "not official ASCENT weights" in notice
+def test_architecture_reference_boundary_is_explicit() -> None:
+    notice = __import__("pathlib").Path("docs/ARCHITECTURE_REFERENCE_NOTICE.md").read_text()
+    assert "independently authored aircraft-forecasting implementation" in notice
+    assert "No upstream source files" in notice
 
 
 def test_model_release_records_architecture_reference_boundary() -> None:
     record = json.loads(__import__("pathlib").Path("model_release.json").read_text())
     upstream = record["upstream_implementation"]
-    assert upstream["repository"] == "https://github.com/a-pru/ascent"
+    assert upstream["repository"] is None
     assert upstream["commit"] is None
-    assert "Architectural reference only" in upstream["scope"]
+    assert "reference only" in upstream["scope"].lower()
 
 
 def test_public_probability_transfer_facade() -> None:

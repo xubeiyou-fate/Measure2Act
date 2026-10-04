@@ -20,7 +20,7 @@ def main():
     np.set_printoptions(suppress=True, precision=4)
 
     # CLI parameter configuration
-    parser=argparse.ArgumentParser(description='Test Ascent model')
+    parser=argparse.ArgumentParser(description='Test aircraft-forecasting model')
     parser.add_argument('--dataset_folder', type=Path, default=Path('dataset'))
     parser.add_argument('--dataset_name', type=str, default='')
     parser.add_argument('--exp_folder', type=Path, required=True)

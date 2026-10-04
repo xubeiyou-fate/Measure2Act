@@ -1,7 +1,7 @@
 # Release audit snapshot
 
 Audit date: 2026-10-04 (Asia/Shanghai). This snapshot records the public
-v1.0.0 GitHub release. It does not fabricate a DOI or external archive record.
+v1.0.1 GitHub release. It does not fabricate a DOI or external archive record.
 
 ## Passed checks
 
@@ -23,6 +23,7 @@ software or model DOI is optional until an external archive returns a real
 identifier. If created later, add it consistently to the manuscript and
 repository metadata.
 
-The ASCENT implementation provenance is recorded in the model index and model
-card. The source tree and model asset are uploaded and CI-verified; the release
-must be described as a GitHub release, not as a DOI-tagged archive.
+The model-index provenance and source/model boundary are recorded in the model
+card and the single upstream-reference notice. The source tree and model asset
+are uploaded and CI-verified; the release must be described as a GitHub
+release, not as a DOI-tagged archive.

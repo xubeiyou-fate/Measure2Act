@@ -201,4 +201,6 @@ Apache License
    limitations under the License.
 Copyright 2026 Measure2Act authors
 
-Scope: Apache-2.0 applies to original Measure2Act material only. Third-party files and assets retain their upstream terms as documented in THIRD_PARTY_NOTICES.md and docs/ASCENT_NOTICE.md.
+Scope: Apache-2.0 applies to original Measure2Act material only. Third-party files
+and assets retain their upstream terms as documented in THIRD_PARTY_NOTICES.md and
+docs/ARCHITECTURE_REFERENCE_NOTICE.md.

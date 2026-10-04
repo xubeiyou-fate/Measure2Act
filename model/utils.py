@@ -1,6 +1,6 @@
-# ASCENT-inspired / architecture-informed independently authored implementation.
-# See docs/ASCENT_NOTICE.md and docs/THIRD_PARTY_LICENSE_MATRIX.md for the
-# architecture reference and dataset-access boundary.
+# Independently authored Measure2Act forecasting utilities.
+# See docs/ARCHITECTURE_REFERENCE_NOTICE.md and
+# docs/THIRD_PARTY_LICENSE_MATRIX.md for the implementation boundary.
 import hashlib
 import math
 import os

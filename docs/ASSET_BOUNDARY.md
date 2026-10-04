@@ -5,7 +5,7 @@ This GitHub repository contains source and small metadata only.
 | Asset family | GitHub code repository | Separate release record |
 |---|---:|---:|
 | Author-maintained source and protocols | yes | optional archive copy |
-| ASCENT architecture reference | no source is vendored; implementation is independent | cite the upstream project for architectural context |
+| Prior aircraft-forecasting architecture | no source is vendored; implementation is independent | see the single upstream-reference notice for attribution |
 | Public synthetic tests | yes | no |
 | Aggregate paper-table CSVs | yes | archive with software release |
 | Raw or processed third-party trajectories | no | retrieve from official custodian |

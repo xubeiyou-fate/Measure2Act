@@ -1,5 +1,5 @@
-# Independently authored transformer blocks for the ASCENT-inspired
-# Measure2Act forecasting implementation; see docs/ASCENT_NOTICE.md.
+# Independently authored transformer blocks for the Measure2Act forecasting
+# implementation; see docs/ARCHITECTURE_REFERENCE_NOTICE.md.
 from typing import Optional
 
 import torch

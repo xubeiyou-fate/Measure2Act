@@ -17,12 +17,12 @@ names or GitHub labels.
 |---|---|
 | `experiments/edfa_ascent/` | Encounter-relation graphs and factorized scene prediction. |
 | `experiments/dive_ascent/` | Isolated mode geometry, gradient shielding, and deterministic expert birth. |
-| `experiments/metric_exact/` | Exact metric optimization and score-isolated ASCENT controls. |
+| `experiments/metric_exact/` | Exact metric optimization and score-isolated controls. |
 | `experiments/joint_coupled/` | Joint-coupled dual-oracle geometry control. |
 | `experiments/dual_expected_risk/` | Full-candidate dual expected-risk prediction. |
 | `experiments/decision_regret/` | Native-K decision-regret objective. |
 | `experiments/energy_predict_optimize/` | Target-free Energy predict-and-optimize probability inference. |
-| `experiments/ascent_recomparison/` | Matched re-comparison against the original ASCENT baseline. |
+| `experiments/ascent_recomparison/` | Matched re-comparison against the archived reference baseline. |
 | `experiments/tpmo_ascent/` | Transported-prior measure optimization (TPMO). |
 | `experiments/mabpt_ascent/` | Mass-aware Bayesian permutation transport (MABPT). |
 | `experiments/journal_extension/` | Registered controls and extensions. |
@@ -36,7 +36,7 @@ paper protocol or audit. Their descriptive names are stable public paths.
 | Path | Role |
 |---|---|
 | `Measure2Act_probability_transfer/` | Stable finite-measure probability-transfer API and CPU smoke command |
-| `Measure2Act_forecasting/` | ASCENT training and evaluation command-line facades |
+| `Measure2Act_forecasting/` | Forecasting training and evaluation command-line facades |
 | `measure2act_ast_tools/` | Final paper evaluation, aggregation, capacity, and runtime audits |
 
 ## Core method
@@ -47,14 +47,14 @@ paper protocol or audit. Their descriptive names are stable public paths.
 | `continuous_geometry/` | Geometry and retrieval primitives used by support matching |
 | `causal_mode_generation/` | Candidate-mode diagnostics and winner alignment |
 | `mode_state_query/` | Mode-state query components |
-| `proper_set_ascent/` | Proper-set ASCENT components |
+| `proper_set_ascent/` | Proper-set components retained for compatibility |
 | `tail_query/` | Tail-query components |
 
 ## Forecast backbone and adapters
 
 | Path | Role |
 |---|---|
-| `model/` | ASCENT-inspired, architecture-informed independently authored forecasting implementation |
+| `model/` | Independently authored aircraft-forecasting implementation |
 | `airroute_stage_m/` | Air-route evaluation/model components retained by released entry points |
 | `modern_baseline/` | Author-maintained EqMotion aviation adapters and protocols; upstream EqMotion source is not vendored |
 
@@ -62,14 +62,14 @@ paper protocol or audit. Their descriptive names are stable public paths.
 
 | Path | Paper-facing role |
 |---|---|
-| `experiments/edfa_ascent/` | Historical EDFA-ASCENT experiment implementation |
-| `experiments/dive_ascent/` | Historical DIVE-ASCENT experiment and locked-test implementation |
+| `experiments/edfa_ascent/` | Historical encounter-relation experiment implementation |
+| `experiments/dive_ascent/` | Historical mode-isolation experiment and locked-test implementation |
 | `experiments/metric_exact/` | Exact metric and locked-analysis controls |
 | `experiments/joint_coupled/` | Joint-coupled control |
 | `experiments/dual_expected_risk/` | Dual expected-risk control |
 | `experiments/decision_regret/` | Decision-regret control |
 | `experiments/energy_predict_optimize/` | Energy prediction/optimization and probability solver |
-| `experiments/ascent_recomparison/` | ASCENT recomparison protocols |
+| `experiments/ascent_recomparison/` | Archived reference re-comparison protocols |
 | `experiments/tpmo_ascent/` | Frozen TPMO operator and aggregation protocol |
 | `experiments/mabpt_ascent/` | Frozen mass-aware operator and aggregation protocol |
 | `experiments/journal_extension/` | Final registered controls, fixed-support evaluations, and experiment orchestration |

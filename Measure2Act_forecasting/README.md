@@ -1,8 +1,8 @@
 # Measure2Act forecasting workflow
 
 This package is the training and evaluation entrypoint for the
-ASCENT-inspired / architecture-informed independently authored forecasting
-implementation used to generate fixed multimodal trajectory supports.
+Independently authored aircraft-forecasting implementation used to generate
+fixed multimodal trajectory supports.
 
 Data and checkpoints are not stored in the GitHub repository. Point the CLI to
 the separately archived assets:
