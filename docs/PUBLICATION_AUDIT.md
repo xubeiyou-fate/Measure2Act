@@ -13,7 +13,7 @@ rights, or make the raw third-party data public.
 
 | Item | Finding | Status |
 |---|---|---|
-| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; `main` points to audited commit `b31effb7e2c4f913f8e27de6b2f95969fcf27001` and remote CI passes | **PASS** |
+| Public repository | `https://github.com/xubeiyou-fate/Measure2Act`; at the audit date the public `main` branch matched audited source commit `0e2bb3cbc579f6d5e50f042220ca7b7e07547088`; no version tag or Release existed | **SOURCE PASS / RELEASE PENDING** |
 | Source tree | Source/document paths only; no raw archive or checkpoint payload; boundary, CPU smoke, tests, and table-summary checks pass | **PASS** |
 | Derived-data deposit | 4,323 files, approximately 188 MiB; 2,000 JSON/NPZ cases from 1,000 selected scenes; local archive verifier 8/8 and Tables 3–7 numeric checks 38/38 pass | **TECHNICAL PASS / NOT PUBLIC** |
 | Model deposit | 222 files, approximately 575 MiB; 70 checkpoints (60 core + 10 EqMotion); all 70 load and manifest/index checks pass | **TECHNICAL PASS / NOT PUBLIC** |

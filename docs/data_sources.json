@@ -68,6 +68,7 @@
       "official_project_page": "https://theairlab.org/tartanaviation/",
       "official_source_repository": "https://github.com/castacks/TartanAviation.git",
       "paper_pinned_commit": "4065f5bb11c3d8e557dcaf20a56469e6b0738714",
+      "published_dataset_article_doi": "10.1038/s41597-025-04775-6",
       "official_download_script": "adsb/download.py",
       "official_preprocessing_script": "adsb/process.py",
       "software_release": {
@@ -86,18 +87,22 @@
       "study_asset_checksums": [
         {
           "name": "tartan_kagc_processed_official.zip",
+          "official_download_url": "https://airlab-cloud.andrew.cmu.edu:8080/swift/v1/AUTH_ac8533a83cff4d48bc8c608ad222d330/tartanaviation-adsb/kagc/processed.zip",
           "sha256": "bc0ce9796545c69239a3c1d1dc97a77bb65ad3e2ea6cb055d8c8ba57465d2700"
         },
         {
           "name": "tartan_kagc_raw_2022.zip",
+          "official_download_url": "https://airlab-cloud.andrew.cmu.edu:8080/swift/v1/AUTH_ac8533a83cff4d48bc8c608ad222d330/tartanaviation-adsb/kagc/raw/2022.zip",
           "sha256": "3e94a0e1f1ee7db7e0180fa01690f9e88340312a3e6cb2744844f975221a109b"
         },
         {
           "name": "tartan_kbtp_processed_official.zip",
+          "official_download_url": "https://airlab-cloud.andrew.cmu.edu:8080/swift/v1/AUTH_ac8533a83cff4d48bc8c608ad222d330/tartanaviation-adsb/kbtp/processed.zip",
           "sha256": "f131e41ddeb7dc2fcc8f28f654dcc33c9129a2ac44cb82475e1473fc1670891e"
         },
         {
           "name": "tartan_kbtp_raw_2022.zip",
+          "official_download_url": "https://airlab-cloud.andrew.cmu.edu:8080/swift/v1/AUTH_ac8533a83cff4d48bc8c608ad222d330/tartanaviation-adsb/kbtp/raw/2022.zip",
           "sha256": "668d753a7f105f3026f07faef8ca5426a357256701b387fa970cd4ef6ca63354"
         }
       ],

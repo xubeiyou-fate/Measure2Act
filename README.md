@@ -14,11 +14,13 @@ Canonical repository: <https://github.com/xubeiyou-fate/Measure2Act>
 [Publication audit](docs/PUBLICATION_AUDIT.md) |
 [Citation](#citation)
 
-> **Upload status:** the audited source-only tree is published at
-> `https://github.com/xubeiyou-fate/Measure2Act` on `main` (commit
-> `b31effb7e2c4f913f8e27de6b2f95969fcf27001`). Large data and model assets
-> remain in their separate official or DOI records; the final version tag still
-> requires real archive identifiers and release metadata.
+> **Upload status (2026-10-04):** the source code, tests, documentation, SBOM,
+> and small aggregate manuscript tables are public on `main` at
+> `https://github.com/xubeiyou-fate/Measure2Act`. Raw/processed third-party
+> datasets are not hosted here; official access links are listed below. The 70
+> model checkpoints remain in the local release package and are **not yet
+> attached to a public GitHub Release**. No `v1.0.0` tag or model DOI has been
+> published.
 
 ## Overview
 
@@ -117,7 +119,8 @@ python -m pip install --no-deps .
 ## Data access
 
 No third-party raw or derived trajectory dataset is hosted in this repository.
-TrajAir version 1 is obtained from its official
+TrajAir version 1 and TartanAviation ADS-B data are obtained from their official
+[dataset access matrix](docs/DATASETS.md). TrajAir's versioned record is
 [KiltHub DOI](https://doi.org/10.1184/R1/14866251.v1). TartanAviation is
 obtained through its official `adsb/download.py` at the frozen study commit
 `4065f5bb11c3d8e557dcaf20a56469e6b0738714`. Exact file URLs, upstream MD5
@@ -142,9 +145,11 @@ official pages, so it must not be redistributed without custodian permission.
 
 ## Paper reproduction
 
-The release uses a citable software archive, a separate model-weight record,
-and the official upstream dataset records. Large research assets are
-deliberately excluded from Git history.
+The GitHub repository provides the source code, tests, documentation, SBOM,
+and small aggregate manuscript evidence. Raw third-party datasets remain at
+their official sources. A versioned model-weight asset and persistent archive
+record are planned, but are not yet public; large binaries are deliberately
+excluded from Git history.
 
 | Level | Required objects | Verification entry point |
 |---|---|---|

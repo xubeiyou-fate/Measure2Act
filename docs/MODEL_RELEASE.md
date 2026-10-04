@@ -5,6 +5,12 @@ Model binaries are not stored in Git history. The machine-readable
 and deliberately uses `null` for identifiers that have not yet been minted.
 Those nulls are a release gate, not a DOI and must not be copied into a paper.
 
+The intended public route is a versioned GitHub Release attachment for direct
+download, with a separate DOI-backed model archive for persistent citation.
+As of 2026-10-04 neither the GitHub asset nor the model DOI has been published;
+the verified archive remains local until its public metadata and rights
+decisions are consistent.
+
 The model deposit contains 60 core formal role checkpoints
 (two airports, two regimes, five seeds, and three roles) and 10 EqMotion
 support-control checkpoints (two airports and five seeds). Its authoritative
