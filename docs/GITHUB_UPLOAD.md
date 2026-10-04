@@ -24,8 +24,9 @@ git branch -M main
 git push -u origin main
 ```
 
-The `model/` package contains the ASCENT component and is covered by the
-attribution and source boundary in [ASCENT_NOTICE.md](ASCENT_NOTICE.md).
+The `model/` package is an ASCENT-inspired, independently authored
+implementation; its provenance boundary is documented in
+[ASCENT_NOTICE.md](ASCENT_NOTICE.md).
 The root `LICENSE` applies only to original Measure2Act material. Datasets and
 checkpoints are acquired from their official or separately archived records.
 

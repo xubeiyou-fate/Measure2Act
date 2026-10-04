@@ -203,7 +203,7 @@ Measure2Act_forecasting/           ASCENT training and evaluation entry points
 mabpt/                             Core Gibbs and Energy-KL implementation
 measure2act_ast_tools/             Final AST evaluation and aggregation tools
 experiments/                        Frozen paper experiment implementations
-model/                             ASCENT model implementation
+model/                             Independently authored ASCENT-inspired model
 modern_baseline/                   Local adapters; no upstream EqMotion source
 results/                           Small aggregate manuscript evidence
 docs/                              Scope, structure, data, model, and release docs
